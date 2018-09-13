@@ -9,10 +9,24 @@
   <ItemGroup>
     <ClCompile Include="NDevLIB.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="NDevResource.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NDevLIB.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="NDev.h" />
+    <ClInclude Include="NDevData.h" />
+    <ClInclude Include="NDevDefinitions.h" />
+    <ClInclude Include="NDevMath.h" />
+    <ClInclude Include="NDevMathAliases.h" />
+    <ClInclude Include="NDevMathDistributions.h" />
+    <ClInclude Include="NDevMathExtend.h" />
+    <ClInclude Include="NDevMathPoint.h" />
+    <ClInclude Include="NDevModel.h" />
+    <ClInclude Include="NDevPoint.h" />
+    <ClInclude Include="NDevSequence.h" />
+    <ClInclude Include="NDevTypes.h" />
+    <ClInclude Include="NDevResource.h" />
   </ItemGroup>
 </Project>
