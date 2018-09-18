@@ -32,11 +32,24 @@ namespace NDev
 			FDuration Time;
 		};
 
+		using FOnVisualizeSample = TFunction<void(TData<FSample> &)>;
+
+		using FOnVisualizeFeature = TFunction<void(TData<FFeature> &)>;
+
+		using FOnVisualizeLabel = TFunction<void(TData<FLabel> &)>;
+
+		using FOnVisualizeError = TFunction<void(TData<FError> &)>;
+
+		FOnVisualizeSample OnVisualizeSample;
+		FOnVisualizeFeature OnVisualizeFeature;
+		FOnVisualizeLabel OnVisualizeLabel;
+		FOnVisualizeError OnVisualizeError;
+
 		FBoolean _bInitialized;
 
 		TModel()
 		{
-			_bInitialized = false;
+			_bInitialized = False;
 		}
 
 		~TModel() { }
@@ -58,9 +71,9 @@ namespace NDev
 
 		FVoid Initialize()
 		{
-			_bInitialized = false;
+			_bInitialized = False;
 			_Initialize();
-			_bInitialized = true;
+			_bInitialized = True;
 		}
 
 		FVoid Train(const TData<FSample> &Samples)
@@ -71,7 +84,7 @@ namespace NDev
 			
 			for (const auto &Sample : Samples)
 			{
-				_Use(Sample.Feature, Label, true);
+				_Use(Sample.Feature, Label, True);
 				_Train(Label, Sample);
 			}
 		}
@@ -83,7 +96,7 @@ namespace NDev
 			if (!_bInitialized) { return; }
 
 			End = Features.Size();
-			Labels.Reserve(End, true);
+			Labels.Reserve(End, True);
 			for (Index = 0; Index < End; ++Index)
 			{
 				_Use(Features[Index], Labels[Index]);
@@ -98,7 +111,7 @@ namespace NDev
 			if (!_bInitialized) { return; }
 
 			End = Samples.Size();
-			Errors.Reserve(End, true);
+			Errors.Reserve(End, True);
 			for (Index = 0; Index < End; ++Index)
 			{
 				const auto &Sample = Samples[Index];
@@ -131,7 +144,7 @@ namespace NDev
 	protected:
 		virtual FVoid _Initialize() = 0;
 
-		virtual FVoid _Use(const FFeature &, FLabel &, FBoolean = false) = 0;
+		virtual FVoid _Use(const FFeature &, FLabel &, FBoolean = False) = 0;
 
 		virtual FVoid _Train(const FLabel &, const FSample &) = 0;
 

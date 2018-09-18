@@ -20,7 +20,7 @@ namespace NDev
 
 		using FCharacter = char;
 
-		using FString = char *;
+		using FString = FCharacter *;
 
 		using FPointer = void *;
 
@@ -46,17 +46,17 @@ namespace NDev
 
 		using FReturn = decltype(EXIT_SUCCESS);
 
-		const size_t ByteSize = 8;
-		const decltype("") NullStr = "";
-		const decltype('\0') NullChr = '\0';
-		const decltype(nullptr) NullPtr = nullptr;
-		const decltype(nullptr) Null = nullptr;
-		const decltype(0) None = 0;
-		const decltype(0) Unknown = 0;
-		const decltype(EXIT_SUCCESS) Success = EXIT_SUCCESS;
-		const decltype(EXIT_FAILURE) Failure = EXIT_FAILURE;
-		const decltype(false) False = false;
-		const decltype(true) True = true;
+		static const size_t ByteSize = 8;
+		static const decltype("") NullStr = "";
+		static const decltype('\0') NullChr = '\0';
+		static const decltype(nullptr) NullPtr = nullptr;
+		static const decltype(nullptr) Null = nullptr;
+		static const decltype(0) None = 0;
+		static const decltype(0) Unknown = 0;
+		static const decltype(EXIT_SUCCESS) Success = EXIT_SUCCESS;
+		static const decltype(EXIT_FAILURE) Failure = EXIT_FAILURE;
+		static const decltype(false) False = false;
+		static const decltype(true) True = true;
 
 
 		

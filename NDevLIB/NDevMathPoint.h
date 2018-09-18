@@ -68,6 +68,20 @@ namespace NDev
 		return Result;
 	}
 
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> operator^(const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs)
+	{
+		FSize Index, End;
+		TPoint<Size, Type> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result[Index] = pow(Lhs[Index], Rhs[Index]);
+		}
+		return Result;
+	}
+
 
 	/* Vector @= Vector */
 
@@ -119,6 +133,19 @@ namespace NDev
 		for (Index = 0; Index < End; ++Index)
 		{
 			Lhs[Index] /= Rhs[Index];
+		}
+		return Lhs;
+	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> &operator^=(TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Lhs[Index] = pow(Lhs[Index], Rhs[Index]);
 		}
 		return Lhs;
 	}
@@ -182,6 +209,20 @@ namespace NDev
 		return Result;
 	}
 
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> operator^(const Type &Lhs, const TPoint<Size, Type> &Rhs)
+	{
+		FSize Index, End;
+		TPoint<Size, Type> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result[Index] = pow(Lhs, Rhs[Index]);
+		}
+		return Result;
+	}
+
 
 	/* Vector @ Alpha */
 
@@ -241,6 +282,20 @@ namespace NDev
 		return Result;
 	}
 
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> operator^(const TPoint<Size, Type> &Lhs, const Type &Rhs)
+	{
+		FSize Index, End;
+		TPoint<Size, Type> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result[Index] = pow(Lhs[Index], Rhs);
+		}
+		return Result;
+	}
+
 	/* Vector @= Alpha */
 
 	template<FSize Size, typename Type>
@@ -295,6 +350,19 @@ namespace NDev
 		return Lhs;
 	}
 
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> &operator^=(TPoint<Size, Type> &Lhs, const Type &Rhs)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Lhs[Index] = pow(Lhs[Index], Rhs);
+		}
+		return Lhs;
+	}
+
 	/* Function(Vector...) */
 
 	template<FSize Size, typename Type>
@@ -307,6 +375,20 @@ namespace NDev
 		for (Index = 0; Index < End; ++Index)
 		{
 			Result += Rhs[Index];
+		}
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
+	Type Norm2(const TPoint<Size, Type> &Rhs, const Type &N)
+	{
+		FSize Index, End;
+		Type Result = Type();
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result += pow(Rhs[Index], N);
 		}
 		return Result;
 	}
@@ -326,9 +408,26 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
+	Type Norm(const TPoint<Size, Type> &Rhs, const Type &N)
+	{
+		const Type ByN = 1 / N;
+
+		return pow(Norm2(Rhs, N), ByN);
+	}
+
+	template<FSize Size, typename Type>
 	Type Norm(const TPoint<Size, Type> &Rhs)
 	{
 		return sqrt(Norm2(Rhs));
+	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> &Normalize2(TPoint<Size, Type> &Rhs, const Type &N)
+	{
+		const FReal One = 1;
+		FReal Alpha = One / Norm2(Rhs, N);
+		Rhs *= Alpha;
+		return Rhs;
 	}
 
 	template<FSize Size, typename Type>
@@ -341,7 +440,16 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	TPoint<Size, Type> & Normalize(TPoint<Size, Type> &Rhs)
+	TPoint<Size, Type> &Normalize(TPoint<Size, Type> &Rhs, const Type &N)
+	{
+		const FReal One = 1;
+		FReal Alpha = One / Norm(Rhs, N);
+		Rhs *= Alpha;
+		return  Rhs;
+	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> &Normalize(TPoint<Size, Type> &Rhs)
 	{
 		const FReal One = 1;
 		FReal Alpha = One / Norm(Rhs);

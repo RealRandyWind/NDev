@@ -62,6 +62,26 @@ namespace NDev
 			_bClearDataOnReplace = IsTrue;
 		}
 
+		FSize Stride()
+		{
+			return 0;
+		}
+
+		const FSize Stride() const
+		{
+			return 0;
+		}
+
+		FSize Offset()
+		{
+			return 0;
+		}
+
+		const FSize Offset() const
+		{
+			return 0;
+		}
+
 		FSize Size()
 		{
 			return _Size;
@@ -117,7 +137,12 @@ namespace NDev
 			return &_Data[0];
 		}
 
-		TypeData *Data(TypeData *Pointer, FSize SizeData, FSize SizeBuffer = 0, FBoolean bHeap = True)
+		TypeData *Data(const FDescriptor Descriptor, FBoolean bNoFree = True)
+		{
+			return Data((TypeData *)Descriptor.Pointer, Descriptor.Size, Descriptor._Size, Descriptor.bHeap, bNoFree);
+		}
+
+		TypeData *Data(TypeData *Pointer, FSize SizeData, FSize SizeBuffer = 0, FBoolean bHeap = True, Boolean bNoFree = True)
 		{
 			FBoolean bFree = _bHeap && _bClearDataOnReplace && _Data;
 
@@ -127,6 +152,7 @@ namespace NDev
 			_BufferSize = SizeBuffer;
 			_Data = Pointer;
 			_bHeap = bHeap;
+			if (bNoFree) { _bClearDataOnReplace = _bClearDataOnDestroy = !bNoFree; }
 			return &_Data[0];
 		}
 
@@ -134,13 +160,15 @@ namespace NDev
 		{
 			FDescriptor _Descriptor;
 
-			_Descriptor.Type = none;
+			_Descriptor.Type = None;
 			_Descriptor.SizeOf = sizeof(TypeData);
 			_Descriptor.Size = _Size;
 			_Descriptor._Size = _BufferSize;
 			_Descriptor.N = 0;
 			_Descriptor.bHeap = _bHeap;
 			_Descriptor.Pointer = (FPointer) &_Data[0];
+			_Descriptor.Offset = 0;
+			_Descriptor.Stride = 0;
 			return _Descriptor;
 		}
 
@@ -161,7 +189,7 @@ namespace NDev
 
 			Pointer = realloc(_Data, ReserveSize * sizeof(TypeData));
 			bFaildResize = _Data && !Pointer && ReserveSize;
-			if (bFaildResize) { exit(failure); }
+			if (bFaildResize) { exit(Failure); }
 			if (_bHeap)
 			{
 				_bHeap = True;
