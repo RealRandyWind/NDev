@@ -21,49 +21,49 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NDev.h">
+    <ClInclude Include="..\lib\NDev.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NDevData.h">
+    <ClInclude Include="..\lib\NDevData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NDevDefinitions.h">
+    <ClInclude Include="..\lib\NDevDefinitions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NDevLIB.h">
+    <ClInclude Include="..\lib\NDevLIB.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NDevMath.h">
+    <ClInclude Include="..\lib\NDevMath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NDevMathAliases.h">
+    <ClInclude Include="..\lib\NDevMathAliases.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NDevMathDistributions.h">
+    <ClInclude Include="..\lib\NDevMathDistributions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NDevMathExtend.h">
+    <ClInclude Include="..\lib\NDevMathExtend.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NDevMathPoint.h">
+    <ClInclude Include="..\lib\NDevMathPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NDevModel.h">
+    <ClInclude Include="..\lib\NDevModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NDevPoint.h">
+    <ClInclude Include="..\lib\NDevPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NDevResource.h">
+    <ClInclude Include="..\lib\NDevResource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NDevSequence.h">
+    <ClInclude Include="..\lib\NDevSequence.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NDevSimulation.h">
+    <ClInclude Include="..\lib\NDevSimulation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NDevTypes.h">
+    <ClInclude Include="..\lib\NDevTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

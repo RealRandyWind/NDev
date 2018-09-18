@@ -102,11 +102,21 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(SolutionName).lib $(SolutionDir)lib\$(Platform)\ -Force</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copies project lib to librairy directory</Message>
+    </PostBuildEvent>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -116,11 +126,21 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(SolutionName).lib $(SolutionDir)lib\$(Platform)\ -Force</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copies project lib to librairy directory</Message>
+    </PostBuildEvent>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -132,6 +152,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -139,6 +160,15 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(SolutionName).lib $(SolutionDir)lib\$(Platform)\ -Force</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copies project lib to librairy directory</Message>
+    </PostBuildEvent>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -150,6 +180,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -157,23 +188,32 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(SolutionName).lib $(SolutionDir)lib\$(Platform)\ -Force</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copies project lib to librairy directory</Message>
+    </PostBuildEvent>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="NDev.h" />
-    <ClInclude Include="NDevData.h" />
-    <ClInclude Include="NDevDefinitions.h" />
-    <ClInclude Include="NDevLIB.h" />
-    <ClInclude Include="NDevMath.h" />
-    <ClInclude Include="NDevMathAliases.h" />
-    <ClInclude Include="NDevMathDistributions.h" />
-    <ClInclude Include="NDevMathExtend.h" />
-    <ClInclude Include="NDevMathPoint.h" />
-    <ClInclude Include="NDevModel.h" />
-    <ClInclude Include="NDevPoint.h" />
-    <ClInclude Include="NDevResource.h" />
-    <ClInclude Include="NDevSequence.h" />
-    <ClInclude Include="NDevSimulation.h" />
-    <ClInclude Include="NDevTypes.h" />
+    <ClInclude Include="..\lib\NDev.h" />
+    <ClInclude Include="..\lib\NDevData.h" />
+    <ClInclude Include="..\lib\NDevDefinitions.h" />
+    <ClInclude Include="..\lib\NDevLIB.h" />
+    <ClInclude Include="..\lib\NDevMath.h" />
+    <ClInclude Include="..\lib\NDevMathAliases.h" />
+    <ClInclude Include="..\lib\NDevMathDistributions.h" />
+    <ClInclude Include="..\lib\NDevMathExtend.h" />
+    <ClInclude Include="..\lib\NDevMathPoint.h" />
+    <ClInclude Include="..\lib\NDevModel.h" />
+    <ClInclude Include="..\lib\NDevPoint.h" />
+    <ClInclude Include="..\lib\NDevResource.h" />
+    <ClInclude Include="..\lib\NDevSequence.h" />
+    <ClInclude Include="..\lib\NDevSimulation.h" />
+    <ClInclude Include="..\lib\NDevTypes.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>

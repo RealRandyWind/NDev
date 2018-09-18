@@ -74,7 +74,7 @@ namespace NDev
 
 		FVoid ResizeOnAccess(FBoolean bTrue = True)
 		{
-			_bResizeOnAccess = IsTrue;
+			_bResizeOnAccess = bTrue;
 		}
 
 		FVoid SizeOnAccess(FBoolean bTrue = True)
