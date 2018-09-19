@@ -26,6 +26,7 @@ namespace NDev
 			_bInitialized = False;
 			_bContinue = False;
 			_NSteps = 0;
+			UseDefaultParameters();
 		}
 
 		~TSimulation() { }
@@ -81,6 +82,7 @@ namespace NDev
 			_bContinue = False;
 		}
 		
+		virtual FVoid UseDefaultParameters() { }
 
 	protected:
 		virtual FVoid _Initialize() = 0;

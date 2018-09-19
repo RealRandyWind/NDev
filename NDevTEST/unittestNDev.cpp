@@ -320,7 +320,11 @@ namespace NDevTest
 
 			/* 2D Feature 1D Label, 2 Data tests */
 			RU = F1 * One; RT = Half - RU; RO = RT + F1 * Half * (F1 * One + L1 * Half), RO1 = Half * RO;
-			TModelStub<F1, L1> M1;
+			auto M1 = TModelStub<F1, L1>();
+			Assert::AreEqual(Zero, M1.Parameters.Alpha, NullPtr, LINE_INFO());
+			Assert::AreEqual(Zero, M1.Parameters.Weight, NullPtr, LINE_INFO());
+			Assert::AreEqual(Zero, M1.Parameters.Difference, NullPtr, LINE_INFO());
+			Assert::AreEqual(N0, M1.Parameters.Size, NullPtr, LINE_INFO());
 			TData<TModelStub<F1, L1>::FError> Errors1;
 			TData<TModelStub<F1, L1>::FFeature> Features1(F1, True);
 			TData<TModelStub<F1, L1>::FLabel> Labels1;
@@ -387,7 +391,11 @@ namespace NDevTest
 
 			/* 4D Feature 2D Label, 4 Data tests */
 			RU = F2 * One; RT = Half - RU; RO = RT + F2 * Half * (F2 * One + L2 * Half), RO1 = Half * RO;
-			TModelStub<F2, L2> M2;
+			auto M2 = TModelStub<F2, L2>();
+			Assert::AreEqual(Zero, M2.Parameters.Alpha, NullPtr, LINE_INFO());
+			Assert::AreEqual(Zero, M2.Parameters.Weight, NullPtr, LINE_INFO());
+			Assert::AreEqual(Zero, M2.Parameters.Difference, NullPtr, LINE_INFO());
+			Assert::AreEqual(N0, M2.Parameters.Size, NullPtr, LINE_INFO());
 			TData<TModelStub<F2, L2>::FError> Errors2;
 			TData<TModelStub<F2, L2>::FFeature> Features2(F2, True);
 			TData<TModelStub<F2, L2>::FLabel> Labels2;
@@ -454,7 +462,11 @@ namespace NDevTest
 
 			/* 6D Feature 3D Label, 6 Data tests */
 			RU = F3 * One; RT = Half - RU; RO = RT + F3 * Half * (F3 * One + L3 * Half), RO1 = Half * RO;
-			TModelStub<F3, L3> M3;
+			auto M3 = TModelStub<F3, L3>();
+			Assert::AreEqual(Zero, M3.Parameters.Alpha, NullPtr, LINE_INFO());
+			Assert::AreEqual(Zero, M3.Parameters.Weight, NullPtr, LINE_INFO());
+			Assert::AreEqual(Zero, M3.Parameters.Difference, NullPtr, LINE_INFO());
+			Assert::AreEqual(N0, M3.Parameters.Size, NullPtr, LINE_INFO());
 			TData<TModelStub<F3, L3>::FError> Errors3;
 			TData<TModelStub<F3, L3>::FFeature> Features3(F3, True);
 			TData<TModelStub<F3, L3>::FLabel> Labels3;
@@ -521,7 +533,11 @@ namespace NDevTest
 
 			/* 2ND Feature ND Label, 2N Data tests */
 			RU = FN * One; RT = Half - RU; RO = RT + FN * Half * (FN * One + LN * Half), RO1 = Half * RO;
-			TModelStub<FN, LN> MN;
+			auto MN = TModelStub<FN, LN>();
+			Assert::AreEqual(Zero, MN.Parameters.Alpha, NullPtr, LINE_INFO());
+			Assert::AreEqual(Zero, MN.Parameters.Weight, NullPtr, LINE_INFO());
+			Assert::AreEqual(Zero, MN.Parameters.Difference, NullPtr, LINE_INFO());
+			Assert::AreEqual(N0, MN.Parameters.Size, NullPtr, LINE_INFO());
 			TData<TModelStub<FN, LN>::FError> ErrorsN;
 			TData<TModelStub<FN, LN>::FFeature> FeaturesN(FN, True);
 			TData<TModelStub<FN, LN>::FLabel> LabelsN;
@@ -596,7 +612,10 @@ namespace NDevTest
 
 			/* N1D Point N1 data tests*/
 			RS = Half + (Two * P1);
-			TSimulationStub<P1> S1;
+			auto S1 = TSimulationStub<P1>();
+			Assert::AreEqual(Zero, S1.Parameters.Alpha, NullPtr, LINE_INFO());
+			Assert::AreEqual(Zero, S1.Parameters.Weight, NullPtr, LINE_INFO());
+			Assert::AreEqual(N0, S1.Parameters.Size, NullPtr, LINE_INFO());
 			TData<TSimulationStub<P1>::FPoint> R1;
 			S1.Parameters.Alpha = Half;
 			S1.Parameters.Size = P1;
@@ -624,7 +643,10 @@ namespace NDevTest
 
 			/* N2D Point 1 data tests*/
 			RS = Half + (Two * P2);
-			TSimulationStub<P2> S2;
+			auto S2 = TSimulationStub<P2>();
+			Assert::AreEqual(Zero, S2.Parameters.Alpha, NullPtr, LINE_INFO());
+			Assert::AreEqual(Zero, S2.Parameters.Weight, NullPtr, LINE_INFO());
+			Assert::AreEqual(N0, S2.Parameters.Size, NullPtr, LINE_INFO());
 			TData<TSimulationStub<P2>::FPoint> R2;
 			S2.Parameters.Alpha = Half;
 			S2.Parameters.Size = P2;
@@ -651,7 +673,10 @@ namespace NDevTest
 
 			/* N3D Point 1 data tests*/
 			RS = Half + (Two * P3);
-			TSimulationStub<P3> S3;
+			auto S3 = TSimulationStub<P3>();
+			Assert::AreEqual(Zero, S3.Parameters.Alpha, NullPtr, LINE_INFO());
+			Assert::AreEqual(Zero, S3.Parameters.Weight, NullPtr, LINE_INFO());
+			Assert::AreEqual(N0, S3.Parameters.Size, NullPtr, LINE_INFO());
 			TData<TSimulationStub<P3>::FPoint> R3;
 			S3.Parameters.Alpha = Half;
 			S3.Parameters.Size = P3;
@@ -678,7 +703,10 @@ namespace NDevTest
 
 			/* NND Point 1 data tests*/
 			RS = Half + (Two * PN);
-			TSimulationStub<PN> SN;
+			auto SN = TSimulationStub<PN>();
+			Assert::AreEqual(Zero, SN.Parameters.Alpha, NullPtr, LINE_INFO());
+			Assert::AreEqual(Zero, SN.Parameters.Weight, NullPtr, LINE_INFO());
+			Assert::AreEqual(N0, SN.Parameters.Size, NullPtr, LINE_INFO());
 			TData<TSimulationStub<PN>::FPoint> RN;
 			SN.Parameters.Alpha = Half;
 			SN.Parameters.Size = PN;

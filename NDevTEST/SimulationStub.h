@@ -26,6 +26,11 @@ namespace NDevTest
 		FParameters Parameters;
 		FState State;
 
+		virtual FVoid UseDefaultParameters() override
+		{
+			Parameters.Alpha = Parameters.Weight = 0;
+			Parameters.Size = 0;
+		}
 
 	protected:
 		virtual FVoid _Initialize() override

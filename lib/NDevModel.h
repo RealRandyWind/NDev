@@ -50,6 +50,7 @@ namespace NDev
 		TModel()
 		{
 			_bInitialized = False;
+			UseDefaultParameters();
 		}
 
 		~TModel() { }
@@ -140,6 +141,7 @@ namespace NDev
 			_Optimize();
 		}
 
+		virtual FVoid UseDefaultParameters() { }
 
 	protected:
 		virtual FVoid _Initialize() = 0;
