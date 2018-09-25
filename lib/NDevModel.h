@@ -32,19 +32,18 @@ namespace NDev
 			FDuration Time;
 		};
 
-		using FOnVisualizeSample = TFunction<void(TData<FSample> &)>;
+		using FOnUse = TFunction<FVoid(const FFeature &, const FLabel &)>;
 
-		using FOnVisualizeFeature = TFunction<void(TData<FFeature> &)>;
+		using FOnTrain = TFunction<FVoid(const FLabel &, const FSample &)>;
 
-		using FOnVisualizeLabel = TFunction<void(TData<FLabel> &)>;
+		using FOnOptimize = TFunction<FVoid(const FSample &)>;
 
-		using FOnVisualizeError = TFunction<void(TData<FError> &)>;
+		using FOnValidate = TFunction<FVoid(const FSample &, const FError &)>;
 
-		FOnVisualizeSample OnVisualizeSample;
-		FOnVisualizeFeature OnVisualizeFeature;
-		FOnVisualizeLabel OnVisualizeLabel;
-		FOnVisualizeError OnVisualizeError;
-
+		FOnUse OnUse;
+		FOnTrain OnTrain;
+		FOnOptimize OnOptimize;
+		FOnValidate OnValidate;
 		FBoolean _bInitialized;
 
 		TModel()
@@ -102,6 +101,7 @@ namespace NDev
 			{
 				_Use(Features[Index], Labels[Index]);
 			}
+			
 		}
 
 		FVoid Validate(const TData<FSample> &Samples, TData<FError> &Errors)
@@ -161,6 +161,7 @@ namespace NDev
 			Error.WorkerID = 0; 
 			Error.Epsilon = TLimit<FReal>::Epsilon();
 			Error.Significance = TLimit<FSize>::Infinity();
+			if (OnValidate) { OnValidate(Sample, Error); }
 		}
 
 

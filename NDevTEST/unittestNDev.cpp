@@ -732,5 +732,14 @@ namespace NDevTest
 			}
 		}
 
+		TEST_METHOD(TestIterator)
+		{
+			const FReal Zero = 0, One = 1, Two = 2, Three = 3, Four = 4;
+			const FSize HS0 = 0, HS1 = 1, HS2 = 2, HS3 = 3, HSN = 4096, HSK = 8192;
+			TSequence<FReal> S0, S1, S2, S3, SN;
+			FSize Index, End, Center, Size = 0;
+			FReal Number;
+		}
+
 	};
 }

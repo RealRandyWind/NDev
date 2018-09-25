@@ -3,6 +3,7 @@
 #include "NDevTypes.h"
 #include "NDevResource.h"
 #include "NDevDefinitions.h"
+#include "NDevIterator.h"
 #include "NDevData.h"
 #include "NDevPoint.h"
 #include "NDevSequence.h"

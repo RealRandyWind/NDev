@@ -38,7 +38,7 @@ namespace NDev
 		{
 			FBoolean bFree = _bHeap && _bClearDataOnDestroy && _Data;
 
-			if (bFree) { free(_Data); }
+			if (bFree) { _Remove(_Data); }
 			_Data = NullPtr;
 		}
 
@@ -221,7 +221,7 @@ namespace NDev
 		{
 			FBoolean bFree = _bHeap && _bClearDataOnReplace && _Data;
 
-			if (bFree) { free(_Data); }
+			if (bFree) { _Remove(_Data); }
 			if (SizeBuffer < SizeData) { SizeBuffer = SizeData; }
 			_Size = SizeData;
 			_BufferSize = SizeBuffer;
@@ -240,7 +240,7 @@ namespace NDev
 			_Descriptor.Size = _Size;
 			_Descriptor._Size = _BufferSize;
 			_Descriptor.bHeap = _bHeap;
-			_Descriptor.Pointer = (FPointer)&_Data[0];
+			_Descriptor.Pointer = (FPointer) _Data;
 			_Descriptor.Offset = 0;
 			_Descriptor.Stride = 0;
 			return _Descriptor;

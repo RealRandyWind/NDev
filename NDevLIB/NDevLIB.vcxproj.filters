@@ -69,9 +69,6 @@
     <ClInclude Include="..\lib\NDevRecord.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NDevLIB.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

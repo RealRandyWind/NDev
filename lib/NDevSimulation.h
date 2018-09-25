@@ -15,9 +15,9 @@ namespace NDev
 	{
 		using FPoint = TPoint<SizePoint, FReal>;
 
-        using FOnVisualizeResult = TFunction<void(TData<FPoint> &)>;
+        using FOnStep = TFunction<void(const TData<FPoint> &)>;
 		
-		FOnVisualizeResult OnVisualizeResult;
+		FOnStep OnStep;
 		FSize _NSteps;
 		FBoolean _bInitialized, _bContinue;
 

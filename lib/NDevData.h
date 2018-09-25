@@ -166,7 +166,7 @@ namespace NDev
 			_Descriptor._Size = _BufferSize;
 			_Descriptor.N = 0;
 			_Descriptor.bHeap = _bHeap;
-			_Descriptor.Pointer = (FPointer) &_Data[0];
+			_Descriptor.Pointer = (FPointer) _Data;
 			_Descriptor.Offset = 0;
 			_Descriptor.Stride = 0;
 			return _Descriptor;
