@@ -77,9 +77,14 @@ namespace NDev
 			_Result(Result);
 		}
 
-		FVoid Stop()
+		FVoid Stop(FBoolean bTrue = True)
 		{
-			_bContinue = False;
+			_bContinue = !bTrue;
+		}
+
+		FVoid Continue(FBoolean bTrue = True)
+		{
+			_bContinue = bTrue;
 		}
 		
 		virtual FVoid UseDefaultParameters() { }

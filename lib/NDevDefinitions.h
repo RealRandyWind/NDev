@@ -106,6 +106,31 @@ namespace NDev
 		return NullPtr;
 	}
 
+	static void * _Set(void *Pointer, const void *Value, FSize Bytes, FSize SizeOf = sizeof(FRaw))
+	{
+		FSize Index, End, IndexValue, EndValue;
+
+		if (!Pointer || !Value) { exit(Failure); }
+		auto _Pointer = (FRaw *) Pointer;
+		auto _Value = (const FRaw *) Value;
+		if (SizeOf == sizeof(FRaw))
+		{
+			End = Bytes;
+			for (Index = 0; Index < End; ++Index) { _Pointer[Index] = _Value[0]; }
+			return _Pointer;
+		}
+		End = Bytes;
+		EndValue = SizeOf;
+		for (Index = 0; Index < End; ++Index)
+		{
+			for (IndexValue = 0; Index < End && IndexValue < EndValue; ++Index, ++IndexValue)
+			{
+				_Pointer[Index] = _Value[IndexValue];
+			}
+		}
+		return _Pointer;
+	}
+
 	static void * _Text(const void *String)
 	{
 		FSize Size;
@@ -164,6 +189,12 @@ namespace NDev
 	Type * Remove(Type *Pointer)
 	{
 		return (Type *) _Remove(Pointer);
+	}
+
+	template<typename Type>
+	Type * Set(Type *Pointer, const Type Value, FSize Size = 1)
+	{
+		return (Type *) _Set(Pointer, &Value, sizeof(Type) * Size, sizeof(Type));
 	}
 
 	static FString Text(const char *String)

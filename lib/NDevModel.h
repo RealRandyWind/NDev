@@ -49,6 +49,10 @@ namespace NDev
 		TModel()
 		{
 			_bInitialized = False;
+			OnUse = NullPtr;
+			OnTrain = NullPtr;
+			OnOptimize = NullPtr;
+			OnValidate = NullPtr;
 			UseDefaultParameters();
 		}
 
@@ -57,6 +61,21 @@ namespace NDev
 		FBoolean Initialized()
 		{
 			return _bInitialized;
+		}
+
+		const FBoolean Initialized() const
+		{
+			return _bInitialized;
+		}
+
+		const FSize FeatureSize() const
+		{
+			return SizeFeature;
+		}
+
+		const FSize LabelSize() const
+		{
+			return SizeLabel;
 		}
 
 		FSize FeatureSize()
@@ -101,7 +120,6 @@ namespace NDev
 			{
 				_Use(Features[Index], Labels[Index]);
 			}
-			
 		}
 
 		FVoid Validate(const TData<FSample> &Samples, TData<FError> &Errors)

@@ -734,12 +734,137 @@ namespace NDevTest
 
 		TEST_METHOD(TestIterator)
 		{
-			const FReal Zero = 0, One = 1, Two = 2, Three = 3, Four = 4;
-			const FSize HS0 = 0, HS1 = 1, HS2 = 2, HS3 = 3, HSN = 4096, HSK = 8192;
-			TSequence<FReal> S0, S1, S2, S3, SN;
-			FSize Index, End, Center, Size = 0;
-			FReal Number;
+			const FReal Zero = 0, One = 1, Two = 2, Three = 3, Four = 4, Five = 5;
+			const FSize HI0 = 0, HI1 = 1, HI2 = 2, HI3 = 3, HIN = 4096, HIK = 8192, HINBy2 = HIN / 2;
+			const FSize Offset = 8, Stride = 16, StopAt = HIN + HINBy2;
+
+			FSize Size = 0;
+			FDescriptor Select;
+
+			Select.bHeap = False;
+			Select.N = 0;
+			Select.Offset = Offset;
+			Select.Pointer = _Make((sizeof(FReal) + Stride) * HIK + Offset);
+			Select.Size = Select._Size = HIK;
+			Select.Type = None;
+			Select.Stride = Stride;
+			Select.SizeOf = sizeof(FReal);
+			_Set(Select.Pointer, &NullPtr, (sizeof(FReal) + Stride) * HIK + Offset);
+
+			/* N0 Ierator tests */
+			Select.Size = HI0;
+			TIterator<FReal> I0(Select);
+			for (auto &Value : I0)
+			{
+				Assert::Fail(NullPtr, LINE_INFO());
+			}
+			Assert::AreEqual(HI0, Size, NullPtr, LINE_INFO());
+			for (const auto &Value : I0)
+			{
+				Assert::Fail(NullPtr, LINE_INFO());
+			}
+
+			/* N1 Ierator tests */
+			Select.Size = HI1;
+			TIterator<FReal> I1(Select);
+			Size = 0;
+			for (auto &Value : I1)
+			{
+				Value = One;
+				++Size;
+			}
+			Assert::AreEqual(HI1, Size, NullPtr, LINE_INFO());
+			for (const auto &Value : I1)
+			{
+				Assert::AreEqual(One, Value, NullPtr, LINE_INFO());
+			}
+
+			/* N2 Ierator tests */
+			Select.Size = HI2;
+			TIterator<FReal> I2(Select);
+			Size = 0;
+			for (auto &Value : I2)
+			{
+				Value = Two;
+				++Size;
+			}
+			Assert::AreEqual(HI2, Size, NullPtr, LINE_INFO());
+			for (const auto &Value : I2)
+			{
+				Assert::AreEqual(Two, Value, NullPtr, LINE_INFO());
+			}
+
+			/* N3 Ierator tests */
+			Select.Size = HI3;
+			TIterator<FReal> I3(Select);
+			Size = 0;
+			for (auto &Value : I3)
+			{
+				Value = Three;
+				++Size;
+			}
+			Assert::AreEqual(HI3, Size, NullPtr, LINE_INFO());
+			for (const auto &Value : I3)
+			{
+				Assert::AreEqual(Three, Value, NullPtr, LINE_INFO());
+			}
+
+			/* NN Ierator tests */
+			Select.Size = HIN;
+			TIterator<FReal> IN(Select);
+			Size = 0;
+			for (auto &Value : IN)
+			{
+				Value = Four;
+				++Size;
+			}
+			Assert::AreEqual(HIN, Size, NullPtr, LINE_INFO());
+			for (const auto &Value : IN)
+			{
+				Assert::AreEqual(Four, Value, NullPtr, LINE_INFO());
+			}
+
+			/* Reset test */
+			Select.Size = HIK;
+			TIterator<FReal> IK(Select);
+			IK.Reset(HIN);
+			Size = 0;
+			for (auto &Value : IK)
+			{
+				Value = Five;
+				++Size;
+			}
+			Assert::AreEqual(HIK - HIN, Size, NullPtr, LINE_INFO());
+
+			/* OnStop and OnGet test */
+			FReal Six = 6; FReal Zeven = 7;
+			TIterator<FReal> IS;
+			IS.OnStop = [&StopAt](auto Index) -> auto { return Index > StopAt; };
+			IS.OnGet = [&Six, &Zeven, &HIN](auto Index, auto Offset, auto Stride) -> FReal& { return Index == HIN ? Six : Zeven; };
+			Size = 0;
+			for (auto &Value : IS)
+			{
+				if(Size == HIN)
+				{
+					Assert::AreEqual(Six, Value, NullPtr, LINE_INFO());
+				}
+				else
+				{
+					Assert::AreEqual(Zeven, Value, NullPtr, LINE_INFO());
+				}
+				++Size;
+			}
+			Assert::AreEqual(StopAt + 1, Size, NullPtr, LINE_INFO());
+		}
+
+		TEST_METHOD(TestRecord)
+		{
+			TRecord<int, double, char[32]> Record;
+
 		}
 
 	};
+
+
+
 }

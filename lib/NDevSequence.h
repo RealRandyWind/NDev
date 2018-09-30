@@ -194,22 +194,22 @@ namespace NDev
 
 		FByte * Bytes()
 		{
-			return (FByte *) &_Data[0];
+			return (FByte *) _Data;
 		}
 
 		const FByte * Bytes() const
 		{
-			return (FByte *) &_Data[0];
+			return (FByte *) _Data;
 		}
 
 		TypeData * Data()
 		{
-			return &_Data[0];
+			return _Data;
 		}
 
 		const TypeData * Data() const
 		{
-			return &_Data[0];
+			return _Data;
 		}
 
 		TypeData *Data(const FDescriptor Descriptor, FBoolean bNoFree = True)
@@ -228,7 +228,7 @@ namespace NDev
 			_Data = Pointer;
 			_bHeap = bHeap;
 			if(bNoFree) { _bClearDataOnReplace = _bClearDataOnDestroy = !bNoFree; }
-			return &_Data[0];
+			return _Data;
 		}
 
 		const FDescriptor Descriptor() const
@@ -240,7 +240,7 @@ namespace NDev
 			_Descriptor.Size = _Size;
 			_Descriptor._Size = _BufferSize;
 			_Descriptor.bHeap = _bHeap;
-			_Descriptor.Pointer = (FPointer) _Data;
+			_Descriptor.Bytes = (FByte *) _Data;
 			_Descriptor.Offset = 0;
 			_Descriptor.Stride = 0;
 			return _Descriptor;
@@ -284,22 +284,24 @@ namespace NDev
 
 		TypeData * begin()
 		{
-			return &_Data[0];
+			return _Data;
 		}
 
 		const TypeData * begin() const
 		{
-			return &_Data[0];
+			return _Data;
 		}
 
 		TypeData * end()
 		{
-			return _bIterateAll ? &_Data[_BufferSize] : &_Data[_Size];
+			if (!_Data) { return NullPtr;  }
+			return _bIterateAll ? (_Data + _BufferSize) : (_Data + _Size);
 		}
 
 		const TypeData * end() const
 		{
-			return _bIterateAll ? &_Data[_BufferSize] : &_Data[_Size];
+			if (!_Data) { return NullPtr; }
+			return _bIterateAll ? (_Data + _BufferSize) : (_Data + _Size);
 		}
 
 

@@ -12,27 +12,28 @@ namespace NDev
     {
 		using FIterator = TIterator<TypeData>;
 
-		using FOnGet = TFunction<TypeData *(FSize)>;
+		using FOnGet = TFunction<TypeData &(FSize, FSize, FSize)>;
+		
+		using FOnStop = TFunction<FBoolean(FSize)>;
 
+		FOnStop OnStop;
 		FOnGet OnGet;
 		FBoolean _bHeap;
-		FSize _Size, _Offset, _Index;
+		FSize _Size, _Offset, _Stride, _Index;
 		FByte *_Data;
 
 		TIterator()
 		{
-			_Index = _Size = _Offset;
+			_Index = _Size = _Offset = _Stride = 0;
 			_Data = NullPtr;
 			_bHeap = True;
 			OnGet = NullPtr;
+			OnStop = NullPtr;
 		}
 
-		TIterator(const FDescriptor Descriptor) : TIterator()
+		TIterator(const FDescriptor Descriptor, FSize Index = 0) : TIterator()
 		{
-			_Size = Descriptor.Size;
-			_Offset = Descriptor.Offset;
-			_Data = Descriptor.Bytes;
-			_bHeap = Descriptor.bHeap;
+			Reset(Descriptor, Index);
 		}
 
 		~TIterator()
@@ -50,6 +51,16 @@ namespace NDev
 			return _Offset;
 		}
 
+		FSize Stride()
+		{
+			return _Stride;
+		}
+
+		const FSize Stride() const
+		{
+			return _Stride;
+		}
+
 		FSize Size()
 		{
 			return _Size;
@@ -58,6 +69,26 @@ namespace NDev
 		const FSize Size() const
 		{
 			return _Size;
+		}
+
+		FSize SizeOf()
+		{
+			return (sizeof(TypeData) + _Stride) * _Size + _Offset;
+		}
+
+		const FSize SizeOf() const
+		{
+			return (sizeof(TypeData) + _Stride) * _Size + _Offset;
+		}
+
+		FByte * Bytes()
+		{
+			return _Data;
+		}
+
+		const FByte * Bytes() const
+		{
+			return _Data;
 		}
 
 		const FDescriptor Descriptor() const
@@ -71,22 +102,22 @@ namespace NDev
 			_Descriptor.bHeap = _bHeap;
 			_Descriptor.Bytes = _Data;
 			_Descriptor.Offset = _Offset;
-			_Descriptor.Stride = 0;
+			_Descriptor.Stride = _Stride;
 			return _Descriptor;
 		}
 		
         TypeData & operator[](FSize Index)
 		{
-			if (_Data == _Data) { exit(Failure); }
-			if (OnGet) { return *OnGet(Index); }
-			return *((TypeData*)(_Data + sizeof(TypeData) * Index + _Offset));
+			if (OnGet) { return OnGet(Index, _Offset, _Stride); }
+			if (!_Data) { exit(Failure); }
+			return *((TypeData*)(_Data + (sizeof(TypeData) + _Stride) * Index + _Offset));
 		}
 
 		const TypeData & operator[](FSize Index) const
 		{
-			if (_Data == _Data) { exit(Failure); }
-			if (OnGet) { return *OnGet(Index); }
-			return *((TypeData*)(_Data + sizeof(TypeData) * Index + _Offset));
+			if (OnGet) { return OnGet(Index, _Offset, _Stride); }
+			if (!_Data) { exit(Failure); }
+			return *((TypeData*)(_Data + (sizeof(TypeData) + _Stride) * Index + _Offset));
 		}
 
 		FIterator & begin()
@@ -111,16 +142,16 @@ namespace NDev
 
 		TypeData & operator*()
 		{
+			if (OnGet) { return OnGet(_Index, _Offset, _Stride); }
 			if (_Index >= _Size) { exit(Failure); }
-			if (OnGet) { return *OnGet(_Index); }
-			else { return *((TypeData*)(_Data + sizeof(TypeData) * _Index + _Offset)); }
+			else { return *((TypeData*)(_Data + (sizeof(TypeData) + _Stride) * _Index + _Offset)); }
 		}
 
 		const TypeData & operator*() const
 		{
+			if (OnGet) { return OnGet(_Index, _Offset, _Stride); }
 			if (_Index >= _Size) { exit(Failure); }
-			if (OnGet) { return *OnGet(_Index); }
-			return *((TypeData*)(_Data + sizeof(TypeData) * _Index + _Offset));
+			return *((TypeData*)(_Data + (sizeof(TypeData) + _Stride) * _Index + _Offset));
 		}
 
 		FIterator & operator++()
@@ -137,15 +168,27 @@ namespace NDev
 		}
 
 		FBoolean operator!=(const FIterator &Rhs) const
-		{
-			if (_Size != Rhs._Size) { exit(Failure); }
-			return _Index >= _Size || Rhs._Index >= _Size;
+		{	
+			if (Rhs._Size != _Size) { exit(Failure); }
+			if (OnStop) { return !OnStop(_Index); }
+			return  _Index < _Size && Rhs._Index < Rhs._Size;
 		}
 
-		FVoid Reset()
+		FVoid Reset(FSize Index = 0)
 		{
-			_Index = 0;
+			_Index = Index;
 		}
+
+		FVoid Reset(const FDescriptor Descriptor, FSize Index = 0)
+		{
+			_Index = Index;
+			_Size = Descriptor.Size;
+			_Offset = Descriptor.Offset;
+			_Stride = Descriptor.Stride;
+			_Data = Descriptor.Bytes;
+			_bHeap = Descriptor.bHeap;
+		}
+
         
     };
 

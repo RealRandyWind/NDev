@@ -82,7 +82,7 @@ namespace NDev
 			_Descriptor._Size = SizeData;
 			_Descriptor.N = 0;
 			_Descriptor.bHeap = False;
-			_Descriptor.Pointer = (FPointer) &_Data[0];
+			_Descriptor.Bytes = (FByte *) &_Data[0];
 			_Descriptor.Offset = 0;
 			_Descriptor.Stride = 0;
 			return _Descriptor;

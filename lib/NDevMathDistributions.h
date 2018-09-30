@@ -63,7 +63,7 @@ namespace NDev
 
 		virtual FVoid Seed(FSize SeedIn) override
 		{
-			return Generator.seed(static_cast<unsigned int>(SeedIn));
+			Generator.seed(static_cast<unsigned int>(SeedIn));
 		}
 
 		virtual Type Next() override
@@ -99,7 +99,7 @@ namespace NDev
 
 		virtual FVoid Seed(FSize SeedIn) override
 		{
-			return Generator.seed(static_cast<unsigned int>(SeedIn));
+			Generator.seed(static_cast<unsigned int>(SeedIn));
 		}
 
 		virtual Type Next() override
@@ -135,7 +135,7 @@ namespace NDev
 
 		virtual FVoid Seed(FSize SeedIn) override
 		{
-			return Generator.seed(static_cast<unsigned int>(SeedIn));
+			Generator.seed(static_cast<unsigned int>(SeedIn));
 		}
 
 		virtual Type Next() override
@@ -148,4 +148,7 @@ namespace NDev
 			Distribution.reset();
 		}
 	};
+
+
+
 }
