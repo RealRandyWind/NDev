@@ -859,7 +859,7 @@ namespace NDevTest
 
 		TEST_METHOD(TestRecord)
 		{
-			TRecord<int, double, char[32]> Record;
+			
 
 		}
 

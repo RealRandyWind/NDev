@@ -11,7 +11,7 @@ namespace NDev
 {
     using namespace Types;
 
-    template<typename Type>
+	template<typename Type>
 	struct TDistribution
 	{
 		Type &operator()(Type &Value) { Value = Next();  return Value; }

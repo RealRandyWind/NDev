@@ -6,7 +6,6 @@
 #include "NDevIterator.h"
 #include "NDevData.h"
 #include "NDevPoint.h"
-#include <NDevRecord.h>
 #include "NDevSequence.h"
 #include "NDevMath.h"
 #include "NDevSimulation.h"
