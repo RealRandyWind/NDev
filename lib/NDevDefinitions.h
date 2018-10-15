@@ -174,13 +174,13 @@ namespace NDev
 	}
 
 	template<typename Type>
-	Type * Move(Type *From, Type *To, FSize Size = 1)
+	Type * Move(Type *From, Type *To = NullPtr, FSize Size = 1)
 	{
 		return (Type *) _Move(From, To, Size * sizeof(Type));
 	}
 
 	template<typename Type>
-	Type * Copy(const Type *From, Type *To, FSize Size = 1)
+	Type * Copy(const Type *From, Type *To = NullPtr, FSize Size = 1)
 	{
 		return (Type *) _Copy(From, To, Size * sizeof(Type));
 	}
@@ -197,14 +197,24 @@ namespace NDev
 		return (Type *) _Set(Pointer, &Value, sizeof(Type) * Size, sizeof(Type));
 	}
 
-	static FString Text(const char *String)
+	static FString Text(const char *String, char End = '\0', FSize *PtrSize = NullPtr)
 	{
-		return (FString) _Text(String);
+		FSize Size;
+
+		if (!String) { return NullPtr; }
+		for (Size = 0; String[Size] != End; ++Size) { };
+		if (PtrSize) { *PtrSize = Size; }
+		return (FString) _Copy(String, NullPtr, Size + 1);
 	}
 
-	static FString Text(const FString String)
+	static FString Text(const FString String, FCharacter End = NullChr, FSize *PtrSize = NullPtr)
 	{
-		return (FString) _Text(String);
+		FSize Size;
+
+		if (!String) { return NullPtr; }
+		for (Size = 0; String[Size] != End; ++Size) {};
+		if (PtrSize) { *PtrSize = Size; }
+		return (FString) _Copy(String, NullPtr, Size + 1);
 	}
 
 
