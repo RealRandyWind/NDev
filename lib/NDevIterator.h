@@ -36,6 +36,20 @@ namespace NDev
 			Reset(Descriptor, Index);
 		}
 
+		TIterator(FOnGet _OnGet, FOnStop _OnStop, FSize Index = 0) : TIterator()
+		{
+			OnGet = _OnGet;
+			OnStop = _OnStop;
+			Reset(Index);
+		}
+
+		TIterator(FOnGet _OnGet, FSize Size, FSize Index = 0) : TIterator()
+		{
+			OnGet = _OnGet;
+			_Size = Size;
+			Reset(Index);
+		}
+
 		~TIterator()
 		{
 
