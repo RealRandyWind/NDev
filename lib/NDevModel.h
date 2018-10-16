@@ -100,7 +100,20 @@ namespace NDev
 			FLabel Label;
 
 			if (!_bInitialized) { return; }
-			
+
+			for (const auto &Sample : Samples)
+			{
+				_Use(Sample.Feature, Label, True);
+				_Train(Label, Sample);
+			}
+		}
+
+		FVoid Train(const TIterator<FSample> &Samples)
+		{
+			FLabel Label;
+
+			if (!_bInitialized) { return; }
+
 			for (const auto &Sample : Samples)
 			{
 				_Use(Sample.Feature, Label, True);
