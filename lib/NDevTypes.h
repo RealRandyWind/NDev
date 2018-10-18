@@ -3,7 +3,9 @@
 #include <stdlib.h>
 #include <inttypes.h>
 #include <chrono>
+#include <iostream>
 #include <functional>
+#include <initializer_list>
 
 namespace NDev
 {
@@ -46,6 +48,12 @@ namespace NDev
 
 		using FReturn = decltype(EXIT_SUCCESS);
 
+		using FFile = std::fstream;
+		
+		using FOut = std::ostream;
+
+		using FIn = std::istream;
+
 		static const size_t ByteSize = 8;
 		static const decltype("") NullStr = "";
 		static const decltype('\0') NullChr = '\0';
@@ -58,8 +66,13 @@ namespace NDev
 		static const decltype(false) False = false;
 		static const decltype(true) True = true;
 
+		static decltype(std::cin) &InStream = std::cin;
+		static decltype(std::cout) &OutStream = std::cout;
+		static decltype(std::clog) &LogStream = std::clog;
+		static decltype(std::cerr) &ErrorStream = std::cerr;
 
-		
+
+
 	}
 
 
