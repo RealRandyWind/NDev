@@ -118,6 +118,38 @@ namespace NDevTest
 			Assert::AreEqual(Result, RN, NullPtr, LINE_INFO());
 		}
 
+		TEST_METHOD(TestDot)
+		{
+			const FSize ND1 = 1, ND2 = 2, ND3 = 3, NDN = 4096;
+			const FReal Two = 2, Three = 3, Four = 4;
+			const FReal R1 = ND1 * Two * Three, R2 = ND2 * Two * Three, R3 = ND3 * Two * Three, RN = NDN * Two * Three;
+			FReal Result;
+
+			TPoint<ND1, FReal> P1D, P1D2;
+			P1D = Two;
+			P1D2 = Three;
+			Result = Dot(P1D, P1D2);
+			Assert::AreEqual(R1, Result, NullPtr, LINE_INFO());
+
+			TPoint<ND2, FReal> P2D, P2D2;
+			P2D = Two;
+			P2D2 = Three;
+			Result = Dot(P2D, P2D2);
+			Assert::AreEqual(R2, Result, NullPtr, LINE_INFO());
+
+			TPoint<ND3, FReal> P3D, P3D2;
+			P3D = Two;
+			P3D2 = Three;
+			Result = Dot(P3D, P3D2);
+			Assert::AreEqual(R3, Result, NullPtr, LINE_INFO());
+
+			TPoint<NDN, FReal> PND, PND2;
+			PND = Two;
+			PND2 = Three;
+			Result = Dot(PND, PND2);
+			Assert::AreEqual(RN, Result, NullPtr, LINE_INFO());
+		}
+
 		TEST_METHOD(TestNorm2)
 		{
 			const FSize ND1 = 1, ND2 = 2, ND3 = 3, NDN = 4096;

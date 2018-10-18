@@ -21,40 +21,40 @@ namespace NDevTest
 		{
 			const FSize N0 = 0, N1 = 1, N2 = 2, N3 = 3, N4 = 4, N5 = 5;
 
-			Assert::AreEqual(N0, CResource::ResourceCount(), NullPtr, LINE_INFO());
-			CResource R1, R2, *R3, *R4, *R5, *R7;
-			Assert::AreEqual(N2, CResource::ResourceCount(), NullPtr, LINE_INFO());
-			Assert::IsTrue(&R1 == &CResource::Reference(N1 - 1), NullPtr, LINE_INFO());
-			Assert::IsTrue(&R2 == &CResource::Reference(N2 - 1), NullPtr, LINE_INFO());
-			R3 = new CResource();
-			R4 = new CResource();
-			Assert::AreEqual(N4, CResource::ResourceCount(), NullPtr, LINE_INFO());
+			Assert::AreEqual(N0, FResource::ResourceCount(), NullPtr, LINE_INFO());
+			FResource R1, R2, *R3, *R4, *R5, *R7;
+			Assert::AreEqual(N2, FResource::ResourceCount(), NullPtr, LINE_INFO());
+			Assert::IsTrue(&R1 == &FResource::Reference(N1 - 1), NullPtr, LINE_INFO());
+			Assert::IsTrue(&R2 == &FResource::Reference(N2 - 1), NullPtr, LINE_INFO());
+			R3 = new FResource();
+			R4 = new FResource();
+			Assert::AreEqual(N4, FResource::ResourceCount(), NullPtr, LINE_INFO());
 			Assert::AreEqual(N4 - 1, R4->Id(), NullPtr, LINE_INFO());
-			Assert::IsTrue(R4 == CResource::Pointer(N4 - 1), NullPtr, LINE_INFO());
+			Assert::IsTrue(R4 == FResource::Pointer(N4 - 1), NullPtr, LINE_INFO());
 			delete R4;
-			Assert::IsNull(CResource::Pointer(N4), NullPtr, LINE_INFO());
-			Assert::AreEqual(N3, CResource::ResourceCount(), NullPtr, LINE_INFO());
-			R5 = new CResource();
-			Assert::AreEqual(N4, CResource::ResourceCount(), NullPtr, LINE_INFO());
+			Assert::IsNull(FResource::Pointer(N4), NullPtr, LINE_INFO());
+			Assert::AreEqual(N3, FResource::ResourceCount(), NullPtr, LINE_INFO());
+			R5 = new FResource();
+			Assert::AreEqual(N4, FResource::ResourceCount(), NullPtr, LINE_INFO());
 			Assert::AreEqual(N4 - 1, R5->Id(), NullPtr, LINE_INFO());
-			Assert::IsTrue(R5 == CResource::Pointer(N4 - 1), NullPtr, LINE_INFO());
+			Assert::IsTrue(R5 == FResource::Pointer(N4 - 1), NullPtr, LINE_INFO());
 			if (True)
 			{
-				CResource R6;
-				Assert::AreEqual(N5, CResource::ResourceCount(), NullPtr, LINE_INFO());
-				Assert::IsTrue(&R6 == CResource::Pointer(N5 - 1), NullPtr, LINE_INFO());
+				FResource R6;
+				Assert::AreEqual(N5, FResource::ResourceCount(), NullPtr, LINE_INFO());
+				Assert::IsTrue(&R6 == FResource::Pointer(N5 - 1), NullPtr, LINE_INFO());
 			}
-			Assert::AreEqual(N4, CResource::ResourceCount(), NullPtr, LINE_INFO());
-			Assert::IsNull(CResource::Pointer(N5 - 1), NullPtr, LINE_INFO());
+			Assert::AreEqual(N4, FResource::ResourceCount(), NullPtr, LINE_INFO());
+			Assert::IsNull(FResource::Pointer(N5 - 1), NullPtr, LINE_INFO());
 			delete R5;
 			delete R3;
-			Assert::AreEqual(N2, CResource::ResourceCount(), NullPtr, LINE_INFO());
-			R3 = new CResource();
-			R5 = new CResource();
-			R7 = new CResource();
-			Assert::IsTrue(R3 == CResource::Pointer(N3 - 1), NullPtr, LINE_INFO());
-			Assert::IsTrue(R5 == CResource::Pointer(N4 - 1), NullPtr, LINE_INFO());
-			Assert::IsTrue(R7 == CResource::Pointer(N5 - 1), NullPtr, LINE_INFO());
+			Assert::AreEqual(N2, FResource::ResourceCount(), NullPtr, LINE_INFO());
+			R3 = new FResource();
+			R5 = new FResource();
+			R7 = new FResource();
+			Assert::IsTrue(R3 == FResource::Pointer(N3 - 1), NullPtr, LINE_INFO());
+			Assert::IsTrue(R5 == FResource::Pointer(N4 - 1), NullPtr, LINE_INFO());
+			Assert::IsTrue(R7 == FResource::Pointer(N5 - 1), NullPtr, LINE_INFO());
 			Assert::AreEqual(N5 - 1, R7->Id(), NullPtr, LINE_INFO());
 		}
 

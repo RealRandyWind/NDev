@@ -12,7 +12,7 @@ namespace NDev
 	using namespace Types;
 
 	template<FSize SizeFeature, FSize SizeLabel>
-	struct TModel : public CResource
+	struct TModel : public FResource
 	{
 		using FFeature = TPoint<SizeFeature, FReal>;
 

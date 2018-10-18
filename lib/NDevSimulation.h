@@ -11,7 +11,7 @@ namespace NDev
 	using namespace Types;
 
 	template<FSize SizePoint>
-	struct TSimulation : public CResource
+	struct TSimulation : public FResource
 	{
 		using FPoint = TPoint<SizePoint, FReal>;
 

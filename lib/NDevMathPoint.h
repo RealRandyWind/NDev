@@ -380,6 +380,20 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
+	Type Dot(const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs)
+	{
+		FSize Index, End;
+		Type Result = Type();
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result += Lhs[Index] * Rhs[Index];
+		}
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
 	Type Norm2(const TPoint<Size, Type> &Rhs, const Type &N)
 	{
 		FSize Index, End;

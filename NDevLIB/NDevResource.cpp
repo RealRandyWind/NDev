@@ -3,11 +3,13 @@
 
 using namespace NDev;
 
-FSize CResource::_NextId = 0;
-FSize CResource::_Count = 0;
-TSequence<_FResource> CResource::_List = TSequence<_FResource>();
 
-CResource::CResource()
+
+FSize FResource::_NextId = 0;
+FSize FResource::_Count = 0;
+TSequence<_FResource> FResource::_List = TSequence<_FResource>();
+
+FResource::FResource()
 {
 	auto &Slot = _List[_NextId];
 	_Id = _NextId;
@@ -22,7 +24,7 @@ CResource::CResource()
 	++_Count;
 }
 
-CResource::~CResource()
+FResource::~FResource()
 {
 	--_Count;
 	auto &Slot = _List[_Id];
@@ -31,17 +33,17 @@ CResource::~CResource()
 	_NextId = _Id;
 }
 
-FSize CResource::Id()
+FSize FResource::Id()
 {
 	return _Id;
 }
 
-const FSize CResource::Id() const
+const FSize FResource::Id() const
 {
 	return _Id;
 }
 
-CResource &CResource::Reference(FSize ResourceId)
+FResource &FResource::Reference(FSize ResourceId)
 {
 	if (ResourceId >= _List.Size()) { exit(Failure); }
 	auto Resource = _List[ResourceId].Pointer;
@@ -49,18 +51,18 @@ CResource &CResource::Reference(FSize ResourceId)
 	return *Resource;
 }
 
-CResource *CResource::Pointer(FSize ResourceId)
+FResource *FResource::Pointer(FSize ResourceId)
 {
 	if (ResourceId >= _List.Size()) { return NullPtr; }
 	return _List[ResourceId].Pointer;
 }
 
-FSize CResource::ResourceCount()
+FSize FResource::ResourceCount()
 {
 	return _Count;
 }
 
-FSize CResource::ResourceBufferSize()
+FSize FResource::ResourceBufferSize()
 {
 	return _List.BufferSize();
 }

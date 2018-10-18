@@ -7,44 +7,55 @@ namespace NDev
 {
 	using namespace Types;
 
-	class CResource;
-	
+	struct FResource;
+
 	struct _FResource
 	{
 		FSize Id;
-		CResource *Pointer;
+		FResource *Pointer;
 	};
 
-	class CResource
+	struct FResource
 	{
-	public:
-		CResource();
+		FResource();
 
-		~CResource();
+		~FResource();
 
 		FSize Id();
 
 		const FSize Id() const;
 
-		static CResource &Reference(FSize);
+		static FResource &Reference(FSize);
 
-		static CResource *Pointer(FSize);
+		static FResource *Pointer(FSize);
 
 		static FSize ResourceCount();
 
 		static FSize ResourceBufferSize();
 
-
-	private:
-		FSize _Id;
-
 		static FSize _NextId;
 		static FSize _Count;
 		static TSequence<_FResource> _List;
 
+		FSize _Id;
+
 
 	};
 
+	template<typename Type>
+	struct TResource : public FResource
+	{
+		TResource() : FResource()
+		{
 
+		}
+
+		~TResource()
+		{
+
+		}
+
+
+	};
 
 }

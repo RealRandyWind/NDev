@@ -9,7 +9,7 @@ namespace NDev
 	using namespace Types;
 
 	template<typename TypeData>
-	struct TData : public CResource
+	struct TData : public FResource
 	{
 		FSize _Size, _BufferSize;
 		FBoolean _bIterateAll, _bClearDataOnDestroy, _bClearDataOnReplace, _bHeap;

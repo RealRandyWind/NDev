@@ -120,7 +120,7 @@ namespace NDev
 			return _Descriptor;
 		}
 		
-        TypeData & operator[](FSize Index)
+		TypeData & operator[](FSize Index)
 		{
 			if (OnGet) { return OnGet(Index, _Offset, _Stride); }
 			if (!_Data) { exit(Failure); }

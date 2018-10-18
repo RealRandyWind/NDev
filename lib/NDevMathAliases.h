@@ -49,5 +49,7 @@ namespace NDev
 		TPoint<4, Type> Point;
 		struct { Type R, G, B, A; };
 		struct { Type C, M, Y, K; };
+		struct { Type H, S; };
+		struct { Type U, V; };
 	};
 }
