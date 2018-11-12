@@ -10,7 +10,9 @@ namespace NDev
 	template<typename TypeData>
 	struct TSequence
 	{
-		FSize _Size, _BufferSize, _ActiveIndex, _LastIndex, _IncrementSize;
+		using FOnPriority = TFunction<FBoolean(const TypeData&, const TypeData&)>;
+
+		FSize _Size, _BufferSize, _ActiveIndex, _RecentIndex, _LastIndex, _IncrementSize;
 		FBoolean _bIterateAll, _bClearDataOnDestroy, _bClearDataOnReplace, _bFixedSize, _bResizeOnAccess, _bSizeOnAccess, _bHeap;
 		TypeData *_Data;
 
@@ -18,7 +20,7 @@ namespace NDev
 		{
 			_IncrementSize = 64;
 			_Size = _BufferSize = 0;
-			_ActiveIndex = _LastIndex = 0;
+			_ActiveIndex = _RecentIndex = _LastIndex = 0;
 			_bIterateAll = False;
 			_bClearDataOnDestroy = True;
 			_bClearDataOnReplace = _bClearDataOnDestroy;
@@ -84,7 +86,7 @@ namespace NDev
 		
 		FVoid Reset()
 		{
-			_Size = _ActiveIndex = _LastIndex = 0;
+			_Size = _ActiveIndex = _RecentIndex = _LastIndex = 0;
 		}
 
 		FVoid Add(TypeData Rhs)
@@ -98,18 +100,36 @@ namespace NDev
 
 		FVoid Swap(TypeData Rhs)
 		{
-			if (_Size < _BufferSize)
-			{
-				++_Size;
-			}
+			if (_Size < _BufferSize) { ++_Size; }
 
 			++_ActiveIndex;
-			if (_ActiveIndex >= _BufferSize)
+			if (_ActiveIndex >= _BufferSize) { _ActiveIndex = 0; }
+			if (_ActiveIndex == _LastIndex)
 			{
-				_ActiveIndex = 0;
+				--_LastIndex;
+				if (_LastIndex <= 0) { _LastIndex = _BufferSize - 1; }
+			}
+			
+			_Data[_ActiveIndex] = Rhs;
+		}
+
+		FVoid Queue(TypeData Rhs, FOnPriority OnPriority = NullPtr)
+		{
+			FSize Index;
+			
+			if (!OnPriority)
+			{
+				if (_Size >= _BufferSize) { return; }
+				++_Size;
+				NDev::Swap(Rhs, _Data[_LastIndex]);
+				
+				--_LastIndex;
+				if (_LastIndex <= 0) { _LastIndex = _BufferSize - 1; }
+
+				if (_LastIndex != _ActiveIndex) { _Data[_LastIndex] = Rhs; }
 			}
 
-			_Data[_ActiveIndex] = Rhs;
+			/* TODO insert on priority base, list is ordered */
 		}
 
 		TypeData & Active()
@@ -130,6 +150,16 @@ namespace NDev
 		const TypeData & Last() const
 		{
 			return _Data[_LastIndex];
+		}
+
+		TypeData & Recent()
+		{
+			return _Data[_RecentIndex];
+		}
+
+		const TypeData & Recent() const
+		{
+			return _Data[_RecentIndex];
 		}
 
 		FSize Stride()
@@ -253,7 +283,7 @@ namespace NDev
 
 			if (bResize) { Reserve(Index + _IncrementSize); }
 			if (bSize) { _Size = Index + 1; }
-			_LastIndex = Index;
+			_RecentIndex = Index;
 			return _Data[Index];
 		}
 

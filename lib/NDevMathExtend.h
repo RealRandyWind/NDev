@@ -1,6 +1,7 @@
 #pragma once
 
 #include <limits.h>
+#include <chrono>
 
 #include "NDevTypes.h"
 
@@ -40,6 +41,20 @@ namespace NDev
 		{
 			if (!std::numeric_limits<Type>::has_quiet_NaN) { return Type(); }
 			return std::numeric_limits<Type>::quiet_NaN();
+		}
+	};
+
+	template<typename Type>
+	struct TUnit
+	{
+		static Type Seconds(FTime Time)
+		{
+			return std::chrono::duration_cast<std::chrono::duration<Type>>(std::chrono::time_point_cast<std::chrono::seconds>(Time).time_since_epoch()).count();
+		}
+
+		static Type Seconds(FDuration Time)
+		{
+			return std::chrono::duration_cast<std::chrono::duration<Type>>(Time).count();;
 		}
 	};
 }
