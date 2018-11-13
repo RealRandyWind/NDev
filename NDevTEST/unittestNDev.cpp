@@ -3,6 +3,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
+#include <random>
 #include "NDev.h"
 #include "ModelStub.h"
 #include "SimulationStub.h"
@@ -167,10 +168,11 @@ namespace NDevTest
 		TEST_METHOD(TestSequence)
 		{
 			const FReal Zero = 0, One = 1, Two = 2, Three = 3, Four = 4;
-			const FSize HS0 = 0, HS1 = 1, HS2 = 2, HS3 = 3, HSN = 4096, HSK = 8192;
-			TSequence<FReal> S0, S1, S2, S3, SN;
-			FSize Index, End, Center, Size = 0;
-			FReal Number;
+			const FSize HS0 = 0, HS1 = 1, HS2 = 2, HS3 = 3, HSN = 4096, HSK = 8192, HSM = 128;
+			TSequence<FReal> S0, S1, S2, S3, SN, SM;
+			TSequence<FSize> SIM;
+			FSize Index, End, Center, Size = 0, Pivot = 0, Select = 0, Temp = 0;
+			FReal Number, OtherNumber;
 
 			/* reserve buffer tests */
 			S1.Reserve(HS1);
@@ -254,6 +256,74 @@ namespace NDevTest
 				S3.Swap(Number);
 				Assert::AreEqual(Number, S3.Active(), NullPtr, LINE_INFO());
 			}
+
+			/* queue tests */
+			SM.Reserve(HSM);
+			End = HSM;
+			for (Index = 0; Index < End; ++Index)
+			{
+				Number = (FReal)(Index);
+				SM.Queue(Number);
+				Assert::AreEqual(Number, SM.Last(), NullPtr, LINE_INFO());
+				Assert::AreEqual(Zero, SM.First(), NullPtr, LINE_INFO());
+			}
+			SM.Queue(HSK);
+			Assert::AreEqual(Number, SM.Last(), NullPtr, LINE_INFO());
+			Assert::AreEqual(Zero, SM.First(), NullPtr, LINE_INFO());
+			OtherNumber = SM.Dequeue();
+			Assert::AreEqual(Zero, OtherNumber, NullPtr, LINE_INFO());
+			Assert::AreEqual(Number, SM.Last(), NullPtr, LINE_INFO());
+			Assert::AreEqual(One, SM.First(), NullPtr, LINE_INFO());
+			OtherNumber = (FReal)End;
+			SM.Queue(OtherNumber);
+			Assert::AreEqual(OtherNumber, SM.Last(), NullPtr, LINE_INFO());
+			Assert::AreEqual(One, SM.First(), NullPtr, LINE_INFO());
+
+			
+			SM.Reset();
+			SM.OnPriority = [](const auto &Lhs, const auto &Rhs) { return Lhs > Rhs; };
+			Size = End = HSM * HS3;
+			for (Index = 0; Index < End; ++Index)
+			{
+				SM.Queue(Index);
+			}
+			OtherNumber = (FReal)HSM;
+
+			SM.Queue(OtherNumber);
+			Assert::AreNotEqual(OtherNumber, SM.Last(), NullPtr, LINE_INFO());
+			End = HSM;
+			for (Index = 0; Index < End; ++Index)
+			{
+				Number = Size - Index - 1;
+				Assert::AreEqual(Number, SM.Dequeue(), NullPtr, LINE_INFO());
+			}
+
+			SIM.Reserve(HSM);
+			End = HSM;
+			for (Index = 0; Index < End; ++Index)
+			{
+				SIM[Index] = Index;
+			}
+			SM.Reset();
+			srand(HSM);
+			End = HSM;
+			for (Index = 0; Index < End; ++Index)
+			{
+				Select = rand() % (HSM - Pivot);
+				SM.Queue(SIM[Select]);
+				
+				Temp = SIM[Pivot];
+				SIM[Pivot] = SIM[Select];
+				SIM[Select] = Temp;
+				++Pivot;
+			}
+			End = HSM;
+			for (Index = 0; Index < End; ++Index)
+			{
+				Number = HSM - Index - 1;
+				Assert::AreEqual(Number, SM.Dequeue(), NullPtr, LINE_INFO());
+			}
+
 		}
 
 		TEST_METHOD(TestData)

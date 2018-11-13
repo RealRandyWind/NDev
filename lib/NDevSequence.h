@@ -12,15 +12,18 @@ namespace NDev
 	{
 		using FOnPriority = TFunction<FBoolean(const TypeData&, const TypeData&)>;
 
-		FSize _Size, _BufferSize, _ActiveIndex, _RecentIndex, _LastIndex, _IncrementSize;
+		FOnPriority OnPriority;
+
+		FSize _Size, _BufferSize, _ActiveIndex, _RecentIndex, _LastIndex, _FirstIndex, _IncrementSize;
 		FBoolean _bIterateAll, _bClearDataOnDestroy, _bClearDataOnReplace, _bFixedSize, _bResizeOnAccess, _bSizeOnAccess, _bHeap;
 		TypeData *_Data;
 
 		TSequence()
 		{
+			OnPriority = NullPtr;
 			_IncrementSize = 64;
 			_Size = _BufferSize = 0;
-			_ActiveIndex = _RecentIndex = _LastIndex = 0;
+			_ActiveIndex = _RecentIndex = _LastIndex = _FirstIndex = 0;
 			_bIterateAll = False;
 			_bClearDataOnDestroy = True;
 			_bClearDataOnReplace = _bClearDataOnDestroy;
@@ -52,6 +55,16 @@ namespace NDev
 		const FBoolean Empty() const
 		{
 			return !_Size || !_Data;
+		}
+
+		FBoolean Full()
+		{
+			return (_Size >= _BufferSize) && _Data;
+		}
+
+		const FBoolean Full() const
+		{
+			return (_Size >= _BufferSize) && _Data;
 		}
 
 		FVoid IterateAll(FBoolean bTrue = True)
@@ -86,7 +99,7 @@ namespace NDev
 		
 		FVoid Reset()
 		{
-			_Size = _ActiveIndex = _RecentIndex = _LastIndex = 0;
+			_Size = _ActiveIndex = _RecentIndex = _LastIndex = _FirstIndex = 0;
 		}
 
 		FVoid Add(TypeData Rhs)
@@ -104,32 +117,77 @@ namespace NDev
 
 			++_ActiveIndex;
 			if (_ActiveIndex >= _BufferSize) { _ActiveIndex = 0; }
-			if (_ActiveIndex == _LastIndex)
-			{
-				--_LastIndex;
-				if (_LastIndex <= 0) { _LastIndex = _BufferSize - 1; }
-			}
 			
 			_Data[_ActiveIndex] = Rhs;
 		}
 
-		FVoid Queue(TypeData Rhs, FOnPriority OnPriority = NullPtr)
+		FBoolean _Queue(TypeData Rhs)
 		{
 			FSize Index;
-			
-			if (!OnPriority)
-			{
-				if (_Size >= _BufferSize) { return; }
-				++_Size;
-				NDev::Swap(Rhs, _Data[_LastIndex]);
-				
-				--_LastIndex;
-				if (_LastIndex <= 0) { _LastIndex = _BufferSize - 1; }
 
-				if (_LastIndex != _ActiveIndex) { _Data[_LastIndex] = Rhs; }
+			if (_Size >= _BufferSize) { return False; }
+			_LastIndex = (_LastIndex == 0 ? _BufferSize : _LastIndex) - 1;
+			if (!_Size) { _FirstIndex = _LastIndex; }
+			_Data[_LastIndex] = Rhs;
+			++_Size;
+			return True;
+		}
+
+		FBoolean Queue(TypeData Rhs)
+		{
+			FSize Index;
+			FBoolean bPriority, bQueued;
+			
+			if (!OnPriority || !_Size) { return _Queue(Rhs); }
+			
+			Index = _LastIndex;
+			bQueued = False;
+			bPriority = OnPriority(Rhs, _Data[Index]);
+			while (Index != _FirstIndex && bPriority)
+			{
+				++Index;
+				if (Index >= _BufferSize) { Index = 0; }
+				bPriority = OnPriority(Rhs, _Data[Index]);
 			}
 
-			/* TODO insert on priority base, list is ordered */
+			if (bPriority)
+			{
+				++_FirstIndex;
+				if (_FirstIndex >= _BufferSize) { _FirstIndex = 0; }
+
+				_Data[_FirstIndex] = Rhs;
+
+				if (_Size >= _BufferSize)
+				{
+					++_LastIndex;
+					if (_LastIndex >= _BufferSize) { _LastIndex = 0; }
+					return True;
+				}
+
+				++_Size;
+				return True;
+			}
+
+			while (Index != _LastIndex)
+			{
+				NDev::Swap(Rhs, _Data[Index]);
+				Index = (Index == 0 ? _BufferSize : Index) - 1;
+				bQueued = True;
+			}
+
+			return _Queue(Rhs) || bQueued;
+		}
+
+		TypeData Dequeue()
+		{
+			FSize Index;
+
+			if (!_Size) { exit(Failure); }
+			--_Size;
+			if (_FirstIndex == _LastIndex) { return _Data[_FirstIndex]; }
+			Index = _FirstIndex;
+			_FirstIndex = (_FirstIndex == 0 ? _BufferSize : _FirstIndex) - 1;
+			return _Data[Index];
 		}
 
 		TypeData & Active()
@@ -150,6 +208,16 @@ namespace NDev
 		const TypeData & Last() const
 		{
 			return _Data[_LastIndex];
+		}
+
+		TypeData & First()
+		{
+			return _Data[_FirstIndex];
+		}
+
+		const TypeData & First() const
+		{
+			return _Data[_FirstIndex];
 		}
 
 		TypeData & Recent()
@@ -325,13 +393,13 @@ namespace NDev
 		TypeData * end()
 		{
 			if (!_Data) { return NullPtr;  }
-			return _bIterateAll ? (_Data + _BufferSize) : (_Data + _Size);
+			return _Data + (_bIterateAll ? _BufferSize : _Size);
 		}
 
 		const TypeData * end() const
 		{
 			if (!_Data) { return NullPtr; }
-			return _bIterateAll ? (_Data + _BufferSize) : (_Data + _Size);
+			return _Data + (_bIterateAll ? _BufferSize : _Size);
 		}
 
 

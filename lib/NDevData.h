@@ -47,6 +47,16 @@ namespace NDev
 			return !_Size || !_Data;
 		}
 
+		FBoolean Full()
+		{
+			return (_Size >= _BufferSize) && _Data;
+		}
+
+		const FBoolean Full() const
+		{
+			return (_Size >= _BufferSize) && _Data;
+		}
+
 		FVoid IterateAll(FBoolean bTrue = True)
 		{
 			_bIterateAll = bTrue;
@@ -219,13 +229,13 @@ namespace NDev
 		TypeData * end()
 		{
 			if (!_Data) { return NullPtr; }
-			return _bIterateAll ? (_Data + _BufferSize) : (_Data + _Size);
+			return _Data + (_bIterateAll ? _BufferSize : _Size);
 		}
 
 		const TypeData * end() const
 		{
 			if (!_Data) { return NullPtr; }
-			return _bIterateAll ? (_Data + _BufferSize) : (_Data + _Size);
+			return _Data + (_bIterateAll ? _BufferSize : _Size);
 		}
 
 
