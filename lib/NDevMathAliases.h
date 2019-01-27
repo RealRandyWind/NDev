@@ -50,6 +50,6 @@ namespace NDev
 		struct { Type R, G, B, A; };
 		struct { Type C, M, Y, K; };
 		struct { Type H, S; };
-		struct { Type U, V; };
+		struct { Type V, U; };
 	};
 }

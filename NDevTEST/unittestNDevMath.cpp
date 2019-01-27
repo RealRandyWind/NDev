@@ -216,7 +216,7 @@ namespace NDevTest
 			TPoint<ND1, FReal> P1D, R1;
 			R1 = Two / N1;
 			P1D = Two;
-			Normalize(P1D);
+			NormalizeInto(P1D);
 			End = ND1;
 			for (Index = 0; Index < End; ++Index)
 			{
@@ -226,7 +226,7 @@ namespace NDevTest
 			TPoint<ND2, FReal> P2D, R2;
 			R2 = Two / N2;
 			P2D = Two;
-			Normalize(P2D);
+			NormalizeInto(P2D);
 			End = ND2;
 			for (Index = 0; Index < End; ++Index)
 			{
@@ -236,7 +236,7 @@ namespace NDevTest
 			TPoint<ND3, FReal> P3D, R3;
 			R3 = Two / N3;
 			P3D = Two;
-			Normalize(P3D);
+			NormalizeInto(P3D);
 			End = ND3;
 			for (Index = 0; Index < End; ++Index)
 			{
@@ -246,7 +246,7 @@ namespace NDevTest
 			TPoint<NDN, FReal> PND, RN;
 			RN = Two / NN;
 			PND = Two;
-			Normalize(PND);
+			NormalizeInto(PND);
 			End = NDN;
 			for (Index = 0; Index < End; ++Index)
 			{
@@ -264,7 +264,7 @@ namespace NDevTest
 			TPoint<ND1, FReal> P1D, R1;
 			R1 = Two / N1;
 			P1D = Two;
-			Normalize2(P1D);
+			Normalize2Into(P1D);
 			End = ND1;
 			for (Index = 0; Index < End; ++Index)
 			{
@@ -274,7 +274,7 @@ namespace NDevTest
 			TPoint<ND2, FReal> P2D, R2;
 			R2 = Two / N2;
 			P2D = Two;
-			Normalize2(P2D);
+			Normalize2Into(P2D);
 			End = ND2;
 			for (Index = 0; Index < End; ++Index)
 			{
@@ -284,7 +284,7 @@ namespace NDevTest
 			TPoint<ND3, FReal> P3D, R3;
 			R3 = Two / N3;
 			P3D = Two;
-			Normalize2(P3D);
+			Normalize2Into(P3D);
 			End = ND3;
 			for (Index = 0; Index < End; ++Index)
 			{
@@ -294,7 +294,7 @@ namespace NDevTest
 			TPoint<NDN, FReal> PND, RN;
 			RN = Two / NN;
 			PND = Two;
-			Normalize2(PND);
+			Normalize2Into(PND);
 			End = NDN;
 			for (Index = 0; Index < End; ++Index)
 			{

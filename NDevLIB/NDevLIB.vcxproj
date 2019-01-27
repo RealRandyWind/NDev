@@ -204,6 +204,10 @@
     <ClInclude Include="..\lib\NDevData.h" />
     <ClInclude Include="..\lib\NDevDefinitions.h" />
     <ClInclude Include="..\lib\NDevIterator.h" />
+    <ClInclude Include="..\lib\NDevKDTree.h" />
+    <ClInclude Include="..\lib\NDevKTree.h" />
+    <ClInclude Include="..\lib\NDevList.h" />
+    <ClInclude Include="..\lib\NDevMap.h" />
     <ClInclude Include="..\lib\NDevMath.h" />
     <ClInclude Include="..\lib\NDevMathAliases.h" />
     <ClInclude Include="..\lib\NDevMathDistributions.h" />
@@ -211,10 +215,15 @@
     <ClInclude Include="..\lib\NDevMathPoint.h" />
     <ClInclude Include="..\lib\NDevModel.h" />
     <ClInclude Include="..\lib\NDevPoint.h" />
+    <ClInclude Include="..\lib\NDevPointer.h" />
+    <ClInclude Include="..\lib\NDevQueue.h" />
     <ClInclude Include="..\lib\NDevRecord.h" />
+    <ClInclude Include="..\lib\NDevReferences.h" />
     <ClInclude Include="..\lib\NDevResource.h" />
     <ClInclude Include="..\lib\NDevSequence.h" />
     <ClInclude Include="..\lib\NDevSimulation.h" />
+    <ClInclude Include="..\lib\NDevStack.h" />
+    <ClInclude Include="..\lib\NDevBuffer.h" />
     <ClInclude Include="..\lib\NDevTemplates.h" />
     <ClInclude Include="..\lib\NDevTypes.h" />
     <ClInclude Include="..\lib\NDevWindow.h" />

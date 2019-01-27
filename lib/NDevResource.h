@@ -1,7 +1,7 @@
 #pragma once
 
 #include "NDevTypes.h"
-#include "NDevSequence.h"
+#include "NDevList.h"
 
 namespace NDev
 {
@@ -35,7 +35,7 @@ namespace NDev
 
 		static FSize _NextId;
 		static FSize _Count;
-		static TSequence<_FResource> _List;
+		static TList<_FResource> _List;
 
 		FSize _Id;
 

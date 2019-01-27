@@ -10,20 +10,17 @@ namespace NDev
 	template<typename TypeData>
 	struct TSequence
 	{
-		using FOnPriority = TFunction<FBoolean(const TypeData&, const TypeData&)>;
+		using FData = typename TypeData;
 
-		FOnPriority OnPriority;
-
-		FSize _Size, _BufferSize, _ActiveIndex, _RecentIndex, _LastIndex, _FirstIndex, _IncrementSize;
+		FSize _Size, _BufferSize, _RecentIndex, _IncrementSize;
 		FBoolean _bIterateAll, _bClearDataOnDestroy, _bClearDataOnReplace, _bFixedSize, _bResizeOnAccess, _bSizeOnAccess, _bHeap;
-		TypeData *_Data;
+		FData *_Data;
 
 		TSequence()
 		{
-			OnPriority = NullPtr;
 			_IncrementSize = 64;
 			_Size = _BufferSize = 0;
-			_ActiveIndex = _RecentIndex = _LastIndex = _FirstIndex = 0;
+			_RecentIndex = 0;
 			_bIterateAll = False;
 			_bClearDataOnDestroy = True;
 			_bClearDataOnReplace = _bClearDataOnDestroy;
@@ -97,127 +94,9 @@ namespace NDev
 			_bSizeOnAccess = bTrue;
 		}
 		
-		FVoid Reset()
+		virtual FVoid Reset()
 		{
-			_Size = _ActiveIndex = _RecentIndex = _LastIndex = _FirstIndex = 0;
-		}
-
-		FVoid Add(TypeData Rhs)
-		{
-			FBoolean bResize = !_bFixedSize && _Size >= _BufferSize;
-
-			if (bResize) { Reserve(_Size + _IncrementSize); }
-			_Data[_Size] = Rhs;
-			++_Size;
-		}
-
-		FVoid Swap(TypeData Rhs)
-		{
-			if (_Size < _BufferSize) { ++_Size; }
-
-			++_ActiveIndex;
-			if (_ActiveIndex >= _BufferSize) { _ActiveIndex = 0; }
-			
-			_Data[_ActiveIndex] = Rhs;
-		}
-
-		FBoolean _Queue(TypeData Rhs)
-		{
-			FSize Index;
-
-			if (_Size >= _BufferSize) { return False; }
-			_LastIndex = (_LastIndex == 0 ? _BufferSize : _LastIndex) - 1;
-			if (!_Size) { _FirstIndex = _LastIndex; }
-			_Data[_LastIndex] = Rhs;
-			++_Size;
-			return True;
-		}
-
-		FBoolean Queue(TypeData Rhs)
-		{
-			FSize Index;
-			FBoolean bPriority, bQueued;
-			
-			if (!OnPriority || !_Size) { return _Queue(Rhs); }
-			
-			Index = _LastIndex;
-			bQueued = False;
-			bPriority = OnPriority(Rhs, _Data[Index]);
-			while (Index != _FirstIndex && bPriority)
-			{
-				++Index;
-				if (Index >= _BufferSize) { Index = 0; }
-				bPriority = OnPriority(Rhs, _Data[Index]);
-			}
-
-			if (bPriority)
-			{
-				++_FirstIndex;
-				if (_FirstIndex >= _BufferSize) { _FirstIndex = 0; }
-
-				_Data[_FirstIndex] = Rhs;
-
-				if (_Size >= _BufferSize)
-				{
-					++_LastIndex;
-					if (_LastIndex >= _BufferSize) { _LastIndex = 0; }
-					return True;
-				}
-
-				++_Size;
-				return True;
-			}
-
-			while (Index != _LastIndex)
-			{
-				NDev::Swap(Rhs, _Data[Index]);
-				Index = (Index == 0 ? _BufferSize : Index) - 1;
-				bQueued = True;
-			}
-
-			return _Queue(Rhs) || bQueued;
-		}
-
-		TypeData Dequeue()
-		{
-			FSize Index;
-
-			if (!_Size) { exit(Failure); }
-			--_Size;
-			if (_FirstIndex == _LastIndex) { return _Data[_FirstIndex]; }
-			Index = _FirstIndex;
-			_FirstIndex = (_FirstIndex == 0 ? _BufferSize : _FirstIndex) - 1;
-			return _Data[Index];
-		}
-
-		TypeData & Active()
-		{
-			return _Data[_ActiveIndex];
-		}
-
-		const TypeData & Active() const
-		{
-			return _Data[_ActiveIndex];
-		}
-
-		TypeData & Last()
-		{
-			return _Data[_LastIndex];
-		}
-
-		const TypeData & Last() const
-		{
-			return _Data[_LastIndex];
-		}
-
-		TypeData & First()
-		{
-			return _Data[_FirstIndex];
-		}
-
-		const TypeData & First() const
-		{
-			return _Data[_FirstIndex];
+			_Size = _RecentIndex = 0;
 		}
 
 		TypeData & Recent()

@@ -143,6 +143,7 @@ namespace NDevTest
 
 			/* casting and assignmnet tests */
 			TPoint<HND, FSize> PNDT;
+			TPoint<HND, FReal> PNDA, PNDB, PNDC;
 			PNDT = Three;
 			PND = PNDT;
 			for (auto Value : PND) { Assert::AreEqual(Value, Three, NullPtr, LINE_INFO()); }
@@ -162,6 +163,51 @@ namespace NDevTest
 				if (Index < H3D) { Assert::AreEqual(Value, Four, NullPtr, LINE_INFO()); }
 				else { Assert::AreEqual(Value, One, NullPtr, LINE_INFO()); }
 			}
+			
+			PNDA = PNDB = Three;
+			End = HND;
+			for (Index = 0; Index < End; ++Index)
+			{
+				Assert::AreEqual(PNDA._Data[Index], Three, NullPtr, LINE_INFO());
+				Assert::AreEqual(PNDB._Data[Index], Three, NullPtr, LINE_INFO());
+			}
+			PNDA = Four;
+			End = HND;
+			for (Index = 0; Index < End; ++Index)
+			{
+				Assert::AreEqual(PNDA._Data[Index], Four, NullPtr, LINE_INFO());
+				Assert::AreEqual(PNDB._Data[Index], Three, NullPtr, LINE_INFO());
+			}
+			PNDC = One;
+			PNDA = PNDB = PNDC;
+			End = HND;
+			for (Index = 0; Index < End; ++Index)
+			{
+				Assert::AreEqual(PNDA._Data[Index], One, NullPtr, LINE_INFO());
+				Assert::AreEqual(PNDB._Data[Index], One, NullPtr, LINE_INFO());
+				Assert::AreEqual(PNDC._Data[Index], One, NullPtr, LINE_INFO());
+			}
+			PNDA = Four;
+			End = HND;
+			for (Index = 0; Index < End; ++Index)
+			{
+				Assert::AreEqual(PNDA._Data[Index], Four, NullPtr, LINE_INFO());
+				Assert::AreEqual(PNDB._Data[Index], One, NullPtr, LINE_INFO());
+				Assert::AreEqual(PNDC._Data[Index], One, NullPtr, LINE_INFO());
+			}
+			PNDB = Four;
+			End = HND;
+			for (Index = 0; Index < End; ++Index)
+			{
+				Assert::AreEqual(PNDA._Data[Index], Four, NullPtr, LINE_INFO());
+				Assert::AreEqual(PNDB._Data[Index], Four, NullPtr, LINE_INFO());
+				Assert::AreEqual(PNDC._Data[Index], One, NullPtr, LINE_INFO());
+			}
+
+			/* like tests */
+			auto SameSize = PNDT.Like<FReal>();
+			Assert::AreEqual(PNDT.Size(), SameSize.Size());
+			auto SameType = PNDT.Like<HND / 2>();
 
 		}
 
@@ -171,8 +217,7 @@ namespace NDevTest
 			const FSize HS0 = 0, HS1 = 1, HS2 = 2, HS3 = 3, HSN = 4096, HSK = 8192, HSM = 128;
 			TSequence<FReal> S0, S1, S2, S3, SN, SM;
 			TSequence<FSize> SIM;
-			FSize Index, End, Center, Size = 0, Pivot = 0, Select = 0, Temp = 0;
-			FReal Number, OtherNumber;
+			FSize Size = 0, Pivot = 0, Select = 0, Temp = 0;
 
 			/* reserve buffer tests */
 			S1.Reserve(HS1);
@@ -232,32 +277,59 @@ namespace NDevTest
 			SK.IterateAll(False);
 			for (auto &Value : SK) { Assert::Fail(NullPtr, LINE_INFO()); }
 
+		}
+
+		TEST_METHOD(TestList)
+		{
+			const FReal Three = 3;
+			const FSize HSK = 8192;
+			TList<FReal> SN;
+			FSize Index, End, Center, Size = 0;
+
 			/* add element tests */
 			Center = HSK / 2;
 			End = Center;
 			for (Index = 0; Index < End; ++Index)
 			{
-				Assert::AreEqual(SK._Data[Index], Zero, NullPtr, LINE_INFO());
-				SK.Add(Three);
-				Assert::AreEqual(SK.Size(), Index + 1, NullPtr, LINE_INFO());
-				Assert::AreEqual(SK._Data[Index], Three, NullPtr, LINE_INFO());
+				SN.Add(Three);
+				Assert::AreEqual(SN.Size(), Index + 1, NullPtr, LINE_INFO());
+				Assert::AreEqual(SN[Index], Three, NullPtr, LINE_INFO());
 			}
 			Size = 0;
-			for (auto &Value : SK) { Assert::AreEqual(Value, Three, NullPtr, LINE_INFO()); ++Size; }
+			for (auto &Value : SN) { Assert::AreEqual(Value, Three, NullPtr, LINE_INFO()); ++Size; }
 			Assert::AreEqual(Size, Center, NullPtr, LINE_INFO());
+			
+		}
+
+		TEST_METHOD(TestSwap)
+		{
+			const FSize HS3 = 3, HSN = 4096;
+			TBuffer<FReal> SN;
+			FSize Index, End, Size = 0;
+			FReal Number;
 
 			/* swap buffer tests */
-			Size = 0;
-			for (auto &Value : S3) { Value = (FReal)Size; ++Size; }
-			End = HS3 * HS3;
+			SN.Reserve(HSN);
+			End = HSN * HS3;
 			for (Index = 0; Index < End; ++Index)
 			{
 				Number = (FReal)Index;
-				S3.Swap(Number);
-				Assert::AreEqual(Number, S3.Active(), NullPtr, LINE_INFO());
+				SN.Swap(Number);
+				Assert::AreEqual(Number, SN.Active(), NullPtr, LINE_INFO());
 			}
+			
+		}
 
-			/* queue tests */
+		TEST_METHOD(TestQueue)
+		{
+			const FReal Zero = 0, One = 1, Two = 2, Three = 3, Four = 4;
+			const FSize HS0 = 0, HS1 = 1, HS2 = 2, HS3 = 3, HSN = 4096, HSK = 8192, HSM = 128;
+			TQueue<FReal> SM;
+			TSequence<FSize> SIM;
+			FSize Index, End, Size = 0, Pivot = 0, Select = 0, Temp = 0;
+			FReal Number, OtherNumber;
+
+			/* queue/dequeue tests */
 			SM.Reserve(HSM);
 			End = HSM;
 			for (Index = 0; Index < End; ++Index)
@@ -278,8 +350,6 @@ namespace NDevTest
 			SM.Queue(OtherNumber);
 			Assert::AreEqual(OtherNumber, SM.Last(), NullPtr, LINE_INFO());
 			Assert::AreEqual(One, SM.First(), NullPtr, LINE_INFO());
-
-			
 			SM.Reset();
 			SM.OnPriority = [](const auto &Lhs, const auto &Rhs) { return Lhs > Rhs; };
 			Size = End = HSM * HS3;
@@ -288,7 +358,6 @@ namespace NDevTest
 				SM.Queue(Index);
 			}
 			OtherNumber = (FReal)HSM;
-
 			SM.Queue(OtherNumber);
 			Assert::AreNotEqual(OtherNumber, SM.Last(), NullPtr, LINE_INFO());
 			End = HSM;
@@ -297,25 +366,44 @@ namespace NDevTest
 				Number = Size - Index - 1;
 				Assert::AreEqual(Number, SM.Dequeue(), NullPtr, LINE_INFO());
 			}
-
+			Assert::IsTrue(SM.Empty(), NullPtr, LINE_INFO());
+			SM.Reset();
+			SM.OnPriority = [](const auto &Lhs, const auto &Rhs) { return Lhs > Rhs; };
+			Size = End = HSM * HS3;
+			for (Index = 0; Index < End; ++Index)
+			{
+				SM.Queue(End - Index - 1);
+			}
+			OtherNumber = (FReal)HSM;
+			SM.Queue(OtherNumber);
+			Assert::AreNotEqual(OtherNumber, SM.Last(), NullPtr, LINE_INFO());
+			End = HSM;
+			for (Index = 0; Index < End; ++Index)
+			{
+				Number = Size - Index - 1;
+				Assert::AreEqual(Number, SM.Dequeue(), NullPtr, LINE_INFO());
+			}
+			Assert::IsTrue(SM.Empty(), NullPtr, LINE_INFO());
 			SIM.Reserve(HSM);
+			SM.OnPriority = [](const auto &Lhs, const auto &Rhs) { return Lhs > Rhs; };
 			End = HSM;
 			for (Index = 0; Index < End; ++Index)
 			{
 				SIM[Index] = Index;
 			}
 			SM.Reset();
+			SM.OnPriority = [](const auto &Lhs, const auto &Rhs) { return Lhs > Rhs; };
 			srand(HSM);
 			End = HSM;
 			for (Index = 0; Index < End; ++Index)
 			{
-				Select = rand() % (HSM - Pivot);
+				Pivot = HSM - Index - 1;
+				Select = rand() % (Pivot + 1);
 				SM.Queue(SIM[Select]);
-				
+
 				Temp = SIM[Pivot];
 				SIM[Pivot] = SIM[Select];
 				SIM[Select] = Temp;
-				++Pivot;
 			}
 			End = HSM;
 			for (Index = 0; Index < End; ++Index)
@@ -323,7 +411,7 @@ namespace NDevTest
 				Number = HSM - Index - 1;
 				Assert::AreEqual(Number, SM.Dequeue(), NullPtr, LINE_INFO());
 			}
-
+			Assert::IsTrue(SM.Empty(), NullPtr, LINE_INFO());
 		}
 
 		TEST_METHOD(TestData)
@@ -800,6 +888,8 @@ namespace NDevTest
 					Assert::AreEqual(RS, Value, NullPtr, LINE_INFO());
 				}
 			}
+
+
 		}
 
 		TEST_METHOD(TestIterator)
@@ -930,6 +1020,65 @@ namespace NDevTest
 		TEST_METHOD(TestRecord)
 		{
 			
+
+		}
+
+		TEST_METHOD(TestPointer)
+		{
+
+
+		}
+
+		TEST_METHOD(TestKDTree)
+		{
+
+
+		}
+
+		TEST_METHOD(TestKTree)
+		{
+
+		}
+
+		TEST_METHOD(TestReference)
+		{
+			const FReal Zero = 0, One = 1, Two = 2, Three = 3, Four = 4, Five = 5;
+			const FSize HI0 = 0, HI1 = 1, HI2 = 2, HI3 = 3, HIN = 4096, HIK = 8192;
+			FReal Number = Four, OtherNumber = Three;
+			FSize End, Index;
+
+			TReferences<HI1, FReal> RF1;
+			
+			/* HI1 iterator, assign and index test */
+			for (const auto Pointer : RF1)
+			{
+				Assert::IsNotNull(Pointer, NullPtr, LINE_INFO());
+			}
+			RF1 = NullPtr;
+			for (const auto Pointer : RF1)
+			{
+				Assert::IsNull(Pointer, NullPtr, LINE_INFO());
+			}
+			RF1 = &Number;
+			for (const auto Pointer : RF1)
+			{
+				Assert::AreSame(Number, *Pointer, NullPtr, LINE_INFO());
+			}
+			for (auto &Pointer : RF1)
+			{
+				Pointer = &OtherNumber;
+			}
+			for (const auto Pointer : RF1)
+			{
+				Assert::AreSame(OtherNumber, *Pointer, NullPtr, LINE_INFO());
+			}
+			OtherNumber = Five;
+			for (const auto Pointer : RF1)
+			{
+				Assert::AreSame(OtherNumber, *Pointer, NullPtr, LINE_INFO());
+			}
+
+			/* HI1 index access test */
 
 		}
 

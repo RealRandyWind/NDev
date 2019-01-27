@@ -10,6 +10,8 @@ namespace NDev
     template<typename TypeData>
     struct TIterator
     {
+		using FData = typename TypeData;
+
 		using FIterator = TIterator<TypeData>;
 
 		using FOnGet = TFunction<TypeData &(FSize, FSize, FSize)>;
