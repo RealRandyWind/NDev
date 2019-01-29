@@ -282,23 +282,82 @@ namespace NDevTest
 		TEST_METHOD(TestList)
 		{
 			const FReal Three = 3;
-			const FSize HSK = 8192;
-			TList<FReal> SN;
-			FSize Index, End, Center, Size = 0;
+			const FSize HSK = 8192, HSN = 2048, HSM = 2;
+			TSequence<FSize> SIN, STN, STIN;
+			TList<FReal> SK, SN, SON;
+			FSize Index, End, Center, Size = 0, Select, Pivot, Temp;
+			FReal Number;
 
 			/* add element tests */
 			Center = HSK / 2;
 			End = Center;
 			for (Index = 0; Index < End; ++Index)
 			{
-				SN.Add(Three);
-				Assert::AreEqual(SN.Size(), Index + 1, NullPtr, LINE_INFO());
-				Assert::AreEqual(SN[Index], Three, NullPtr, LINE_INFO());
+				SK.Add(Three);
+				Assert::AreEqual(SK.Size(), Index + 1, NullPtr, LINE_INFO());
+				Assert::AreEqual(SK[Index], Three, NullPtr, LINE_INFO());
 			}
 			Size = 0;
-			for (auto &Value : SN) { Assert::AreEqual(Value, Three, NullPtr, LINE_INFO()); ++Size; }
+			for (auto &Value : SK) { Assert::AreEqual(Value, Three, NullPtr, LINE_INFO()); ++Size; }
 			Assert::AreEqual(Size, Center, NullPtr, LINE_INFO());
-			
+
+			/* sort test */
+			STN.Reserve(HSN / HSM, True);
+			SON.Reserve(HSN, True);
+			SN.Reserve(HSN, True);
+			SN.OnPriority = [](const auto &Lhs, const auto &Rhs) { return Lhs > Rhs; };
+			End = HSN;
+			for (Index = 0; Index < End; ++Index)
+			{
+				SON[Index] = Index;
+			}
+			End = HSN / HSM;
+			for (Index = 0; Index < End; ++Index)
+			{
+				STN[Index] = Index * HSM;
+			}
+			srand(HSN);
+			End = HSN;
+			for (Index = 0; Index < End; ++Index)
+			{
+				Pivot = End - 1 - Index;
+				Select = rand() % (Pivot + 1);
+				SN[Index] = SON[Select];
+
+				Temp = SON[Pivot];
+				SON[Pivot] = SON[Select];
+				SON[Select] = Temp;
+			}
+			SN.Sort(SIN);
+			End = HSN;
+			for (Index = 0; Index < End; ++Index)
+			{
+				Number = Index;
+				Assert::AreEqual(Number, SN[SIN[Index]], NullPtr, LINE_INFO());
+			}
+			for (Index = 1; Index < End; ++Index)
+			{
+				Assert::IsTrue(SN.OnPriority(SN[SIN[Index]], SN[SIN[Index - 1]]), NullPtr, LINE_INFO());
+			}
+			SN.TargetSort(STIN, STN);
+			End = STN.Size();
+			for (Index = 1; Index < End; ++Index)
+			{
+				Assert::IsTrue(SN.OnPriority(SN[STIN[Index]], SN[STIN[Index - 1]]), NullPtr, LINE_INFO());
+			}
+			SN.TargetSort(STN);
+			End = STN.Size();
+			for (Index = 1; Index < End; ++Index)
+			{
+				Assert::IsTrue(SN.OnPriority(SN[STN[Index]], SN[STN[Index - 1]]), NullPtr, LINE_INFO());
+			}
+			SN.Sort();
+			End = HSN;
+			for (Index = 0; Index < End; ++Index)
+			{
+				Number = Index;
+				Assert::AreEqual(Number, SN[Index], NullPtr, LINE_INFO());
+			}
 		}
 
 		TEST_METHOD(TestSwap)
@@ -1045,41 +1104,46 @@ namespace NDevTest
 			const FReal Zero = 0, One = 1, Two = 2, Three = 3, Four = 4, Five = 5;
 			const FSize HI0 = 0, HI1 = 1, HI2 = 2, HI3 = 3, HIN = 4096, HIK = 8192;
 			FReal Number = Four, OtherNumber = Three;
-			FSize End, Index;
+			FSize Select = HIN/2;
 
-			TReferences<HI1, FReal> RF1;
+			TReferences<HIN, FReal> RFN;
 			
 			/* HI1 iterator, assign and index test */
-			for (const auto Pointer : RF1)
+			for (const auto Pointer : RFN)
 			{
 				Assert::IsNotNull(Pointer, NullPtr, LINE_INFO());
 			}
-			RF1 = NullPtr;
-			for (const auto Pointer : RF1)
+			RFN = NullPtr;
+			for (const auto Pointer : RFN)
 			{
 				Assert::IsNull(Pointer, NullPtr, LINE_INFO());
 			}
-			RF1 = &Number;
-			for (const auto Pointer : RF1)
+			RFN = &Number;
+			for (const auto Pointer : RFN)
 			{
 				Assert::AreSame(Number, *Pointer, NullPtr, LINE_INFO());
 			}
-			for (auto &Pointer : RF1)
+			for (auto &Pointer : RFN)
 			{
 				Pointer = &OtherNumber;
 			}
-			for (const auto Pointer : RF1)
+			for (const auto Pointer : RFN)
 			{
 				Assert::AreSame(OtherNumber, *Pointer, NullPtr, LINE_INFO());
 			}
 			OtherNumber = Five;
-			for (const auto Pointer : RF1)
+			for (const auto Pointer : RFN)
 			{
 				Assert::AreSame(OtherNumber, *Pointer, NullPtr, LINE_INFO());
 			}
 
 			/* HI1 index access test */
-
+			RFN[Select] = One;
+			Assert::AreEqual(One, OtherNumber, NullPtr, LINE_INFO());
+			for (const auto Pointer : RFN)
+			{
+				Assert::AreSame(OtherNumber, *Pointer, NullPtr, LINE_INFO());
+			}
 		}
 
 	};

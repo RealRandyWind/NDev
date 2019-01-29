@@ -40,8 +40,6 @@ namespace NDev
 
 		FBoolean _Queue(TypeData Rhs)
 		{
-			FSize Index;
-
 			if (this->_Size >= this->_BufferSize) { return False; }
 			_LastIndex = (_LastIndex == 0 ? this->_BufferSize : _LastIndex) - 1;
 			if (!this->_Size) { _FirstIndex = _LastIndex; }

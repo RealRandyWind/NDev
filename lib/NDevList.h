@@ -39,11 +39,6 @@ namespace NDev
 			++this->_Size;
 		}
 
-		FVoid Remove(TypeData &Rhs)
-		{
-
-		}
-
 		FVoid Sort()
 		{
 			FSize End, Cursor, Pivot;
@@ -59,7 +54,7 @@ namespace NDev
 			}
 		}
 
-		FVoid Sort(TSequence<FSize> &Indices)
+		FVoid Sort(TSequence<FSize> &Indices) const
 		{
 			FSize End, Cursor, Pivot;
 			Indices.Reserve(this->_Size, True);
@@ -69,59 +64,59 @@ namespace NDev
 			End = this->_Size;
 			for (Pivot = 0; Pivot < End; ++Pivot)
 			{
-				auto &Value = this->_Data[Pivot];
-				_FindPosition(Value, Cursor, Pivot, Indices);
-				_InsertPosition(Pivot, Cursor, Pivot, Indices);
+				Indices[Pivot] = Pivot;
+				_FindPosition(this->_Data[Pivot], Cursor, Pivot, Indices);
+				_InsertPosition(Indices[Pivot], Cursor, Pivot, Indices);
 			}
 		}
 
-		FVoid Sort(TSequence<FSize> &Indices) const
+		FVoid TargetSort(TSequence<FSize> &Indices, const TSequence<FSize> &Targets) const
 		{
-			FSize Index, End;
+			FSize End, Cursor, Pivot;
+			Indices.Reserve(Targets.Size(), True);
 
 			if (!OnPriority) { return; }
 
-			End = this->_Size;
-		}
-
-		FVoid Sort(TSequence<FSize> &Indices, const TSequence<FSize> &Targets)
-		{
-			FSize Index, End;
-
-			if (!OnPriority) { return; }
-
-			End = this->_Size;
-		}
-
-		FVoid Sort(TSequence<FSize> &Indices, const TSequence<FSize> &Targets) const
-		{
-			FSize Index, End;
-
-			if (!OnPriority) { return; }
-
-			End = this->_Size;
-		}
-
-		FVoid _FindPosition(TypeData &Value, FSize &Cursor, FSize Pivot)
-		{
-			FBoolean bPriority;
-
-			for (Cursor = 0; Cursor < Pivot && bPriority; ++Cursor)
+			End = Targets.Size();
+			for (Pivot = 0; Pivot < End; ++Pivot)
 			{
-				bPriority = OnPriority(Value, this->_Data[Cursor]);
+				Indices[Pivot] = Targets[Pivot];
+				_FindPosition(this->_Data[Targets[Pivot]], Cursor, Pivot, Indices);
+				_InsertPosition(Indices[Pivot], Cursor, Pivot, Indices);
 			}
 		}
 
-		FVoid _FindPosition(TypeData &Value, FSize &Cursor, FSize Pivot, const TSequence<FSize> &Indices)
+		FVoid TargetSort(const TSequence<FSize> &Targets)
 		{
-			FBoolean bPriority;
+			FSize End, Cursor, Pivot;
 
-			for (Cursor = 0; Cursor < Pivot && bPriority; ++Cursor)
+			if (!OnPriority) { return; }
+
+			End = Targets.Size();
+			for (Pivot = 0; Pivot < End; ++Pivot)
 			{
-				bPriority = OnPriority(Value, this->_Data[Indices[Cursor]]);
+				auto &Value = this->_Data[Targets[Pivot]];
+				_TargetFindPosition(Value, Cursor, Pivot, Targets);
+				_TargetInsertPosition(Value, Cursor, Pivot, Targets);
 			}
 		}
-		
+
+		FVoid _FindPosition(const TypeData &Value, FSize &Cursor, FSize Pivot) const
+		{
+			for (Cursor = 0; Cursor < Pivot; ++Cursor)
+			{
+				if (!OnPriority(Value, this->_Data[Cursor])) { return; }
+			}
+		}
+
+		FVoid _FindPosition(const TypeData &Value, FSize &Cursor, FSize Pivot, const TSequence<FSize> &Indices) const
+		{
+			for (Cursor = 0; Cursor < Pivot; ++Cursor)
+			{
+				if (!OnPriority(Value, this->_Data[Indices[Cursor]])) { return; }
+			}
+		}
+
 		FVoid _InsertPosition(TypeData &Value, FSize Cursor, FSize Pivot)
 		{
 			for (; Cursor < Pivot; ++Cursor)
@@ -130,11 +125,27 @@ namespace NDev
 			}
 		}
 
-		FVoid _InsertPosition(TypeData &Value, FSize Cursor, FSize Pivot, const TSequence<FSize> &Indices)
+		FVoid _InsertPosition(FSize &Index, FSize Cursor, FSize Pivot, TSequence<FSize> &Indices) const
 		{
 			for (; Cursor < Pivot; ++Cursor)
 			{
-				Swap(Value, this->_Data[Cursor]);
+				Swap(Index, Indices[Cursor]);
+			}
+		}
+
+		FVoid _TargetFindPosition(const TypeData &Value, FSize &Cursor, FSize Pivot, const TSequence<FSize> &Targets) const
+		{
+			for (Cursor = 0; Cursor < Pivot; ++Cursor)
+			{
+				if (!OnPriority(Value, this->_Data[Targets[Cursor]])) { return; }
+			}
+		}
+
+		FVoid _TargetInsertPosition(TypeData &Value, FSize Cursor, FSize Pivot, const TSequence<FSize> &Targets)
+		{
+			for (; Cursor < Pivot; ++Cursor)
+			{
+				Swap(Value, this->_Data[Targets[Cursor]]);
 			}
 		}
 
