@@ -210,9 +210,11 @@
     <ClInclude Include="..\lib\NDevMap.h" />
     <ClInclude Include="..\lib\NDevMath.h" />
     <ClInclude Include="..\lib\NDevMathAliases.h" />
+    <ClInclude Include="..\lib\NDevMathConstants.h" />
     <ClInclude Include="..\lib\NDevMathDistributions.h" />
     <ClInclude Include="..\lib\NDevMathExtend.h" />
     <ClInclude Include="..\lib\NDevMathPoint.h" />
+    <ClInclude Include="..\lib\NDevMathSequence.h" />
     <ClInclude Include="..\lib\NDevModel.h" />
     <ClInclude Include="..\lib\NDevPoint.h" />
     <ClInclude Include="..\lib\NDevPointer.h" />

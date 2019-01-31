@@ -9,10 +9,10 @@ namespace NDev
 {
 	using namespace Types;
 
-	template<FSize SizeData, typename TypeData>
+	template<FSize SizeData, typename TypeValue>
 	struct TKDTree
 	{
-		using FPoint = typename TPoint<SizeData, TypeData>;
+		using FPoint = typename TPoint<SizeData, TypeValue>;
 		
 		struct FNode
 		{

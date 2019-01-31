@@ -8,16 +8,16 @@ namespace NDev
 {
 	using namespace Types;
 
-	template<typename TypeData>
-	struct TQueue : public TSequence<TypeData>
+	template<typename TypeValue>
+	struct TQueue : public TSequence<TypeValue>
 	{
-		using FOnPriority = TFunction<FBoolean(const TypeData&, const TypeData&)>;
+		using FOnPriority = TFunction<FBoolean(const TypeValue&, const TypeValue&)>;
 
 		FOnPriority OnPriority;
 
 		FSize _LastIndex, _FirstIndex;
 
-		TQueue() : TSequence<TypeData>()
+		TQueue() : TSequence<TypeValue>()
 		{
 			OnPriority = NullPtr;
 			_LastIndex = _FirstIndex = 0;
@@ -38,7 +38,7 @@ namespace NDev
 			this->_Size = this->_RecentIndex = _LastIndex = _FirstIndex = 0;
 		}
 
-		FBoolean _Queue(TypeData Rhs)
+		FBoolean _Queue(TypeValue Rhs)
 		{
 			if (this->_Size >= this->_BufferSize) { return False; }
 			_LastIndex = (_LastIndex == 0 ? this->_BufferSize : _LastIndex) - 1;
@@ -48,52 +48,18 @@ namespace NDev
 			return True;
 		}
 
-		FBoolean Queue(TypeData Rhs)
+		FBoolean Queue(TypeValue Rhs)
 		{
-			FSize Index;
-			FBoolean bPriority, bQueued;
+			FSize Index, Cursor;
+			FBoolean bQueued;
 
-			if (!OnPriority || !this->_Size) { return _Queue(Rhs); }
+			_FindPosition(Rhs, Cursor, bQueued);
+			_InsertPosition(Rhs, Cursor, bQueued);
 
-			Index = _LastIndex;
-			bQueued = False;
-			bPriority = OnPriority(Rhs, this->_Data[Index]);
-			while (Index != _FirstIndex && bPriority)
-			{
-				++Index;
-				if (Index >= this->_BufferSize) { Index = 0; }
-				bPriority = OnPriority(Rhs, this->_Data[Index]);
-			}
-
-			if (bPriority)
-			{
-				++_FirstIndex;
-				if (_FirstIndex >= this->_BufferSize) { _FirstIndex = 0; }
-
-				this->_Data[_FirstIndex] = Rhs;
-
-				if (this->_Size >= this->_BufferSize)
-				{
-					++_LastIndex;
-					if (_LastIndex >= this->_BufferSize) { _LastIndex = 0; }
-					return True;
-				}
-
-				++this->_Size;
-				return True;
-			}
-
-			while (Index != _LastIndex)
-			{
-				NDev::Swap(Rhs, this->_Data[Index]);
-				Index = (Index == 0 ? this->_BufferSize : Index) - 1;
-				bQueued = True;
-			}
-
-			return _Queue(Rhs) || bQueued;
+			return bQueued;
 		}
 
-		TypeData Dequeue()
+		TypeValue Dequeue()
 		{
 			FSize Index;
 
@@ -105,26 +71,47 @@ namespace NDev
 			return this->_Data[Index];
 		}
 
-		TypeData & Last()
+		TypeValue & Last()
 		{
 			return this->_Data[_LastIndex];
 		}
 
-		const TypeData & Last() const
+		const TypeValue & Last() const
 		{
 			return this->_Data[_LastIndex];
 		}
 
-		TypeData & First()
+		TypeValue & First()
 		{
 			return this->_Data[_FirstIndex];
 		}
 
-		const TypeData & First() const
+		const TypeValue & First() const
 		{
 			return this->_Data[_FirstIndex];
 		}
 
+		FVoid _FindPosition(const TypeValue &Rhs, FSize &Cursor, FBoolean &bQueue)
+		{
+			bQueue = False;
+
+			if (!OnPriority)
+			{
+				bQueue = True;
+				Cursor = (_LastIndex == 0 ? this->_Size : this->_LastIndex) - 1 ;
+				return;
+			}
+		}
+
+		FVoid _InsertPosition(TypeValue &Rhs, FSize Cursor, FBoolean bQueue)
+		{
+			FBoolean bResize = !this->_bFixedSize && bQueue && this->_FirstIndex == this->_LastIndex;
+			
+			if (bResize)
+			{
+				
+			}
+		}
 
 	};
 

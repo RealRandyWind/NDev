@@ -8,11 +8,11 @@ namespace NDev
 {
 	using namespace Types;
 	
-	template<typename TypeData>
-	struct TStack : public TSequence<TypeData>
+	template<typename TypeValue>
+	struct TStack : public TSequence<TypeValue>
 	{
 
-		TStack() : TSequence<TypeData>()
+		TStack() : TSequence<TypeValue>()
 		{
 
 		}
@@ -27,7 +27,7 @@ namespace NDev
 
 		}
 
-		FVoid Push(TypeData Rhs)
+		FVoid Push(TypeValue Rhs)
 		{
 			FBoolean bResize = !this->_bFixedSize && this->_Size >= this->_BufferSize;
 
@@ -36,18 +36,18 @@ namespace NDev
 			++this->_Size;
 		}
 
-		TypeData &Pop()
+		TypeValue Pop()
 		{
-			--this->Size;
+			--this->_Size;
 			return this->_Data[this->_Size];
 		}
 
-		TypeData &Peek()
+		TypeValue &Peek()
 		{
 			return this->_Data[this->_Size - 1];
 		}
 
-		const TypeData &Peek() const
+		const TypeValue &Peek() const
 		{
 			return this->_Data[this->_Size - 1];
 		}

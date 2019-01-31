@@ -360,7 +360,7 @@ namespace NDevTest
 			}
 		}
 
-		TEST_METHOD(TestSwap)
+		TEST_METHOD(TestBuffer)
 		{
 			const FSize HS3 = 3, HSN = 4096;
 			TBuffer<FReal> SN;
@@ -376,7 +376,31 @@ namespace NDevTest
 				SN.Swap(Number);
 				Assert::AreEqual(Number, SN.Active(), NullPtr, LINE_INFO());
 			}
-			
+		}
+
+		TEST_METHOD(TestStack)
+		{
+			const FSize HS3 = 3, HSN = 4096;
+			TStack<FReal> SN;
+			FSize Index, End, Size = 0;
+			FReal Number;
+
+			/* stack tests */
+			SN.Reserve(HSN);
+			End = HSN * HS3;
+			for (Index = 0; Index < End; ++Index)
+			{
+				Number = (FReal)Index;
+				SN.Push(Number);
+				Assert::AreEqual(Number, SN.Peek(), NullPtr, LINE_INFO());
+			}
+
+			for (; End; --End)
+			{
+				Number = (FReal)End;
+				SN.Push(Number);
+				Assert::AreEqual(Number, SN.Pop(), NullPtr, LINE_INFO());
+			}
 		}
 
 		TEST_METHOD(TestQueue)

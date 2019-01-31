@@ -7,10 +7,10 @@ namespace NDev
 {
 	using namespace Types;
 	
-	template<FSize SizeData, typename TypeData>
+	template<FSize SizeData, typename TypeValue>
 	struct TReferences
 	{
-		using FData = typename TypeData;
+		using FData = typename TypeValue;
 	
 		FPointer _Data[SizeData];
 
@@ -58,36 +58,36 @@ namespace NDev
 			return _Data[Index] != NullPtr;
 		}
 
-		TypeData & operator[](FSize Index)
+		TypeValue & operator[](FSize Index)
 		{
 			if (!_Data[Index]) { exit(Failure); }
-			return *(TypeData *)_Data[Index];
+			return *(TypeValue *)_Data[Index];
 		}
 
-		const TypeData & operator[](FSize Index) const
+		const TypeValue & operator[](FSize Index) const
 		{
 			if (!_Data[Index]) { exit(Failure); }
-			return *(TypeData *)_Data[Index];
+			return *(TypeValue *)_Data[Index];
 		}
 
-		TypeData ** begin()
+		TypeValue ** begin()
 		{
-			return (TypeData **)&_Data[0];
+			return (TypeValue **)&_Data[0];
 		}
 
-		const TypeData ** begin() const
+		const TypeValue ** begin() const
 		{
-			return (TypeData **)&_Data[0];
+			return (TypeValue **)&_Data[0];
 		}
 
-		TypeData ** end()
+		TypeValue ** end()
 		{
-			return (TypeData **)&_Data[SizeData];
+			return (TypeValue **)&_Data[SizeData];
 		}
 
-		const TypeData ** end() const
+		const TypeValue ** end() const
 		{
-			return (TypeData **)&_Data[SizeData];
+			return (TypeValue **)&_Data[SizeData];
 		}
 
 		template<FSize SizeLhs, typename TypeLhs>
@@ -109,7 +109,7 @@ namespace NDev
 			return Lhs;
 		}
 		
-		TReferences<SizeData, typename TypeData> & operator=(const decltype(NullPtr) Rhs)
+		TReferences<SizeData, typename TypeValue> & operator=(const decltype(NullPtr) Rhs)
 		{
 			FSize Index, End;
 			End = SizeData;
@@ -122,30 +122,30 @@ namespace NDev
 
 
 		template<typename TypeRhs>
-		TReferences<SizeData, TypeData> & operator=(const TypeRhs &Rhs)
+		TReferences<SizeData, TypeValue> & operator=(const TypeRhs &Rhs)
 		{
 			FSize Index, End;
-			TypeData **Pointers;
+			TypeValue **Pointers;
 			
-			Pointers = (TypeData **)_Data;
+			Pointers = (TypeValue **)_Data;
 			End = SizeData;
 			for (Index = 0; Index < End; ++Index)
 			{
 				if (Pointers[Index])
 				{
-					*Pointers[Index] = static_cast<TypeData>(Rhs);
+					*Pointers[Index] = static_cast<TypeValue>(Rhs);
 				}
 			}
 			return *this;
 		}
 
 		template<typename TypeRhs>
-		TReferences<SizeData, TypeData> & operator=(TypeRhs *Rhs)
+		TReferences<SizeData, TypeValue> & operator=(TypeRhs *Rhs)
 		{
 			FSize Index, End;
-			TypeData **Pointers;
+			TypeValue **Pointers;
 
-			Pointers = (TypeData **)this->_Data;
+			Pointers = (TypeValue **)this->_Data;
 			End = SizeData;
 			for (Index = 0; Index < End; ++Index)
 			{
@@ -155,7 +155,7 @@ namespace NDev
 		}
 
 		template<FSize SizeRhs, typename TypRhs>
-		TReferences<SizeData, TypeData> & operator=(const TReferences<SizeRhs, TypRhs> &Rhs)
+		TReferences<SizeData, TypeValue> & operator=(const TReferences<SizeRhs, TypRhs> &Rhs)
 		{
 			FSize Index, End;
 
@@ -168,9 +168,9 @@ namespace NDev
 		}
 
 		template<FSize SizeRhs>
-		static TReferences<SizeRhs, TypeData> Like()
+		static TReferences<SizeRhs, TypeValue> Like()
 		{
-			TReferences<SizeRhs, TypeData> Result;
+			TReferences<SizeRhs, TypeValue> Result;
 			return Result;
 		}
 

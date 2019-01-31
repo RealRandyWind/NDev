@@ -7,14 +7,23 @@ namespace NDev
 {
 	using namespace Types;
 	
-	template<typename TypeKeys, typename TypeData>
+	template<typename TypeKey, typename TypeValue>
 	struct TMap
 	{
+		using FValue = TypeValue;
+
+		using FKey = TypeKey;
+
+		struct FPair
+		{
+			TypeKey &Key;
+			TypeValue &Value;
+		};
 
 		FSize _Size, _BufferSize, _RecentIndex, _IncrementSize;
 		FBoolean _bIterateAll, _bClearDataOnDestroy, _bClearDataOnReplace, _bFixedSize, _bResizeOnAccess, _bSizeOnAccess, _bHeap;
-		TypeKeys *_Keys;
-		TypeData *_Data;
+		TypeKey *_Keys;
+		TypeValue *_Data;
 
 		TMap()
 		{
@@ -99,12 +108,12 @@ namespace NDev
 			_Size = _RecentIndex = 0;
 		}
 
-		TypeData & Recent()
+		TypeValue & Recent()
 		{
 			return _Data[_RecentIndex];
 		}
 
-		const TypeData & Recent() const
+		const TypeValue & Recent() const
 		{
 			return _Data[_RecentIndex];
 		}
@@ -151,22 +160,22 @@ namespace NDev
 
 		FSize SizeOf()
 		{
-			return sizeof(TypeData) * _Size;
+			return sizeof(TypeValue) * _Size;
 		}
 
 		const FSize SizeOf() const
 		{
-			return sizeof(TypeData) * _Size;
+			return sizeof(TypeValue) * _Size;
 		}
 
 		FSize BufferSizeOf()
 		{
-			return sizeof(TypeData) * _BufferSize;
+			return sizeof(TypeValue) * _BufferSize;
 		}
 
 		const FSize BufferSizeOf() const
 		{
-			return sizeof(TypeData) * _BufferSize;
+			return sizeof(TypeValue) * _BufferSize;
 		}
 
 		FByte * Bytes()
@@ -179,22 +188,22 @@ namespace NDev
 			return (FByte *) _Data;
 		}
 
-		TypeData * Data()
+		TypeValue * Data()
 		{
 			return _Data;
 		}
 
-		const TypeData * Data() const
+		const TypeValue * Data() const
 		{
 			return _Data;
 		}
 
-		TypeData *Data(const FDescriptor Descriptor, FBoolean bNoFree = True)
+		TypeValue *Data(const FDescriptor Descriptor, FBoolean bNoFree = True)
 		{
-			return Data((TypeData *) Descriptor.Pointer, Descriptor.Size, Descriptor._Size, Descriptor.bHeap, bNoFree);
+			return Data((TypeValue *) Descriptor.Pointer, Descriptor.Size, Descriptor._Size, Descriptor.bHeap, bNoFree);
 		}
 
-		TypeData *Data(TypeData *Pointer, FSize SizeData, FSize SizeBuffer = 0, FBoolean bHeap = True, FBoolean bNoFree = True)
+		TypeValue *Data(TypeValue *Pointer, FSize SizeData, FSize SizeBuffer = 0, FBoolean bHeap = True, FBoolean bNoFree = True)
 		{
 			FBoolean bFree = _bHeap && _bClearDataOnReplace && _Data;
 
@@ -213,7 +222,7 @@ namespace NDev
 			FDescriptor _Descriptor;
 
 			_Descriptor.Type = None;
-			_Descriptor.SizeOf = sizeof(TypeData);
+			_Descriptor.SizeOf = sizeof(TypeValue);
 			_Descriptor.Size = _Size;
 			_Descriptor._Size = _BufferSize;
 			_Descriptor.bHeap = _bHeap;
@@ -223,7 +232,7 @@ namespace NDev
 			return _Descriptor;
 		}
 
-		TypeData & operator[](FSize Index)
+		TypeValue & operator[](FSize Index)
 		{
 			FBoolean bResize = !_bFixedSize && _bResizeOnAccess && _BufferSize <= Index;
 			FBoolean bSize = _bSizeOnAccess && Index >= _Size;
@@ -234,7 +243,7 @@ namespace NDev
 			return _Data[Index];
 		}
 
-		const TypeData & operator[](FSize Index) const
+		const TypeValue & operator[](FSize Index) const
 		{
 			if (Index >= _Size) { exit(Failure); }
 			return _Data[Index];
@@ -245,7 +254,7 @@ namespace NDev
 			FPointer Pointer;
 			FBoolean bFaildResize;
 
-			Pointer = realloc(_Data, ReserveSize * sizeof(TypeData));
+			Pointer = realloc(_Data, ReserveSize * sizeof(TypeValue));
 			bFaildResize = _Data && !Pointer && ReserveSize;
 			if (bFaildResize) { exit(Failure); }
 			if (_bHeap)
@@ -253,29 +262,29 @@ namespace NDev
 				_bHeap = True;
 				_bClearDataOnDestroy = True;
 			}
-			_Data = (TypeData *) Pointer;
+			_Data = (TypeValue *) Pointer;
 			if (bSetSizeToReserveSize) { _Size = ReserveSize; }
 			_BufferSize = ReserveSize;
 			if (ReserveSize < _Size) { _Size = ReserveSize; }
 		}
 
-		TypeData * begin()
+		TypeValue * begin()
 		{
 			return _Data;
 		}
 
-		const TypeData * begin() const
+		const TypeValue * begin() const
 		{
 			return _Data;
 		}
 
-		TypeData * end()
+		TypeValue * end()
 		{
 			if (!_Data) { return NullPtr;  }
 			return _Data + (_bIterateAll ? _BufferSize : _Size);
 		}
 
-		const TypeData * end() const
+		const TypeValue * end() const
 		{
 			if (!_Data) { return NullPtr; }
 			return _Data + (_bIterateAll ? _BufferSize : _Size);

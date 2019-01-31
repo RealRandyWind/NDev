@@ -7,12 +7,12 @@ namespace NDev
 {
 	using namespace Types;
 	
-	template<FSize SizeData, typename TypeData>
+	template<FSize SizeData, typename TypeValue>
 	struct TPoint
 	{
-		using FData = typename TypeData;
+		using FValue = typename TypeValue;
 
-		TypeData _Data[SizeData];
+		TypeValue _Data[SizeData];
 
 		FSize Size()
 		{
@@ -26,12 +26,12 @@ namespace NDev
 
 		FSize SizeOf()
 		{
-			return sizeof(TypeData) * SizeData;
+			return sizeof(TypeValue) * SizeData;
 		}
 
 		const FSize SizeOf() const
 		{
-			return sizeof(TypeData) * SizeData;
+			return sizeof(TypeValue) * SizeData;
 		}
 
 		FByte * Bytes()
@@ -44,12 +44,12 @@ namespace NDev
 			return (FByte *) &_Data[0];
 		}
 
-		TypeData * Data()
+		TypeValue * Data()
 		{
 			return &_Data[SizeData];
 		}
 
-		const TypeData * Data() const
+		const TypeValue * Data() const
 		{
 			return &_Data[SizeData];
 		}
@@ -59,7 +59,7 @@ namespace NDev
 			FDescriptor _Descriptor;
 
 			_Descriptor.Type = None;
-			_Descriptor.SizeOf = sizeof(TypeData);
+			_Descriptor.SizeOf = sizeof(TypeValue);
 			_Descriptor.Size = SizeData;
 			_Descriptor._Size = SizeData;
 			_Descriptor.N = 0;
@@ -70,32 +70,32 @@ namespace NDev
 			return _Descriptor;
 		}
 
-		TypeData & operator[](FSize Index)
+		TypeValue & operator[](FSize Index)
 		{
 			return _Data[Index];
 		}
 
-		const TypeData & operator[](FSize Index) const
+		const TypeValue & operator[](FSize Index) const
 		{
 			return _Data[Index];
 		}
 
-		TypeData * begin()
+		TypeValue * begin()
 		{
 			return &_Data[0];
 		}
 
-		const TypeData * begin() const
+		const TypeValue * begin() const
 		{
 			return &_Data[0];
 		}
 
-		TypeData * end()
+		TypeValue * end()
 		{
 			return &_Data[SizeData];
 		}
 
-		const TypeData * end() const
+		const TypeValue * end() const
 		{
 			return &_Data[SizeData];
 		}
@@ -120,46 +120,44 @@ namespace NDev
 		}
 
 		template<typename TypeRhs>
-		TPoint<SizeData, TypeData> & operator=(const TypeRhs &Rhs)
+		TPoint<SizeData, TypeValue> & operator=(const TypeRhs &Rhs)
 		{
 			FSize Index, End;
 
 			End = SizeData;
 			for (Index = 0; Index < End; ++Index)
 			{
-				_Data[Index] = static_cast<TypeData>(Rhs);
+				_Data[Index] = static_cast<TypeValue>(Rhs);
 			}
 			return *this;
 		}
 
 		template<FSize SizeRhs, typename TypRhs>
-		TPoint<SizeData, TypeData> & operator=(const TPoint<SizeRhs, TypRhs> &Rhs)
+		TPoint<SizeData, TypeValue> & operator=(const TPoint<SizeRhs, TypRhs> &Rhs)
 		{
 			FSize Index, End;
 
 			End = Min(SizeData, SizeRhs);
 			for (Index = 0; Index < End; ++Index)
 			{
-				_Data[Index] = static_cast<TypeData>(Rhs._Data[Index]);
+				_Data[Index] = static_cast<TypeValue>(Rhs._Data[Index]);
 			}
 			return *this;
 		}
 
 		template<FSize SizeRhs>
-		static TPoint<SizeRhs, TypeData> Like()
+		static TPoint<SizeRhs, TypeValue> Like()
 		{
-			TPoint<SizeRhs, TypeData> Point;
-			return Point;
+			TPoint<SizeRhs, TypeValue> Result;
+			return Result;
 		}
 
 		template<typename TypeRhs>
 		static TPoint<SizeData, TypeRhs> Like()
 		{
-			TPoint<SizeData, TypeRhs> Point;
-			return Point;
+			TPoint<SizeData, TypeRhs> Result;
+			return Result;
 		}
 	};
-
-
 
 }

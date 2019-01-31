@@ -8,14 +8,14 @@ namespace NDev
 {
 	using namespace Types;
 	
-	template<typename TypeData>
-	struct TList : public TSequence<TypeData>
+	template<typename TypeValue>
+	struct TList : public TSequence<TypeValue>
 	{
-		using FOnPriority = TFunction<FBoolean(const TypeData&, const TypeData&)>;
+		using FOnPriority = TFunction<FBoolean(const TypeValue&, const TypeValue&)>;
 
 		FOnPriority OnPriority;
 
-		TList() : TSequence<TypeData>()
+		TList() : TSequence<TypeValue>()
 		{
 			OnPriority = NullPtr;
 		}
@@ -30,7 +30,7 @@ namespace NDev
 
 		}
 
-		FVoid Add(TypeData Rhs)
+		FVoid Add(TypeValue Rhs)
 		{
 			FBoolean bResize = !this->_bFixedSize && this->_Size >= this->_BufferSize;
 
@@ -43,7 +43,7 @@ namespace NDev
 		{
 			FSize End, Cursor, Pivot;
 
-			if (!OnPriority) { return; }
+			if (!OnPriority || this->_Size < 2) { return; }
 
 			End = this->_Size;
 			for (Pivot = 0; Pivot < End; ++Pivot)
@@ -90,7 +90,7 @@ namespace NDev
 		{
 			FSize End, Cursor, Pivot;
 
-			if (!OnPriority) { return; }
+			if (!OnPriority || this->_Size < 2) { return; }
 
 			End = Targets.Size();
 			for (Pivot = 0; Pivot < End; ++Pivot)
@@ -101,7 +101,7 @@ namespace NDev
 			}
 		}
 
-		FVoid _FindPosition(const TypeData &Value, FSize &Cursor, FSize Pivot) const
+		FVoid _FindPosition(const TypeValue &Value, FSize &Cursor, FSize Pivot) const
 		{
 			for (Cursor = 0; Cursor < Pivot; ++Cursor)
 			{
@@ -109,7 +109,7 @@ namespace NDev
 			}
 		}
 
-		FVoid _FindPosition(const TypeData &Value, FSize &Cursor, FSize Pivot, const TSequence<FSize> &Indices) const
+		FVoid _FindPosition(const TypeValue &Value, FSize &Cursor, FSize Pivot, const TSequence<FSize> &Indices) const
 		{
 			for (Cursor = 0; Cursor < Pivot; ++Cursor)
 			{
@@ -117,7 +117,7 @@ namespace NDev
 			}
 		}
 
-		FVoid _InsertPosition(TypeData &Value, FSize Cursor, FSize Pivot)
+		FVoid _InsertPosition(TypeValue &Value, FSize Cursor, FSize Pivot)
 		{
 			for (; Cursor < Pivot; ++Cursor)
 			{
@@ -133,7 +133,7 @@ namespace NDev
 			}
 		}
 
-		FVoid _TargetFindPosition(const TypeData &Value, FSize &Cursor, FSize Pivot, const TSequence<FSize> &Targets) const
+		FVoid _TargetFindPosition(const TypeValue &Value, FSize &Cursor, FSize Pivot, const TSequence<FSize> &Targets) const
 		{
 			for (Cursor = 0; Cursor < Pivot; ++Cursor)
 			{
@@ -141,7 +141,7 @@ namespace NDev
 			}
 		}
 
-		FVoid _TargetInsertPosition(TypeData &Value, FSize Cursor, FSize Pivot, const TSequence<FSize> &Targets)
+		FVoid _TargetInsertPosition(TypeValue &Value, FSize Cursor, FSize Pivot, const TSequence<FSize> &Targets)
 		{
 			for (; Cursor < Pivot; ++Cursor)
 			{

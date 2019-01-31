@@ -7,14 +7,14 @@ namespace NDev
 {
 	using namespace Types;
 
-    template<typename TypeData>
+    template<typename TypeValue>
     struct TIterator
     {
-		using FData = typename TypeData;
+		using FData = typename TypeValue;
 
-		using FIterator = TIterator<TypeData>;
+		using FIterator = TIterator<TypeValue>;
 
-		using FOnGet = TFunction<TypeData &(FSize, FSize, FSize)>;
+		using FOnGet = TFunction<TypeValue &(FSize, FSize, FSize)>;
 		
 		using FOnStop = TFunction<FBoolean(FSize)>;
 
@@ -89,12 +89,12 @@ namespace NDev
 
 		FSize SizeOf()
 		{
-			return (sizeof(TypeData) + _Stride) * _Size + _Offset;
+			return (sizeof(TypeValue) + _Stride) * _Size + _Offset;
 		}
 
 		const FSize SizeOf() const
 		{
-			return (sizeof(TypeData) + _Stride) * _Size + _Offset;
+			return (sizeof(TypeValue) + _Stride) * _Size + _Offset;
 		}
 
 		FByte * Bytes()
@@ -112,7 +112,7 @@ namespace NDev
 			FDescriptor _Descriptor;
 
 			_Descriptor.Type = None;
-			_Descriptor.SizeOf = sizeof(TypeData);
+			_Descriptor.SizeOf = sizeof(TypeValue);
 			_Descriptor.Size = _Size;
 			_Descriptor._Size = _Size;
 			_Descriptor.bHeap = _bHeap;
@@ -122,18 +122,18 @@ namespace NDev
 			return _Descriptor;
 		}
 		
-		TypeData & operator[](FSize Index)
+		TypeValue & operator[](FSize Index)
 		{
 			if (OnGet) { return OnGet(Index, _Offset, _Stride); }
 			if (!_Data) { exit(Failure); }
-			return *((TypeData*)(_Data + (sizeof(TypeData) + _Stride) * Index + _Offset));
+			return *((TypeValue*)(_Data + (sizeof(TypeValue) + _Stride) * Index + _Offset));
 		}
 
-		const TypeData & operator[](FSize Index) const
+		const TypeValue & operator[](FSize Index) const
 		{
 			if (OnGet) { return OnGet(Index, _Offset, _Stride); }
 			if (!_Data) { exit(Failure); }
-			return *((TypeData*)(_Data + (sizeof(TypeData) + _Stride) * Index + _Offset));
+			return *((TypeValue*)(_Data + (sizeof(TypeValue) + _Stride) * Index + _Offset));
 		}
 
 		FIterator & begin()
@@ -156,18 +156,18 @@ namespace NDev
 			return *this;
 		}
 
-		TypeData & operator*()
+		TypeValue & operator*()
 		{
 			if (OnGet) { return OnGet(_Index, _Offset, _Stride); }
 			if (_Index >= _Size) { exit(Failure); }
-			else { return *((TypeData*)(_Data + (sizeof(TypeData) + _Stride) * _Index + _Offset)); }
+			else { return *((TypeValue*)(_Data + (sizeof(TypeValue) + _Stride) * _Index + _Offset)); }
 		}
 
-		const TypeData & operator*() const
+		const TypeValue & operator*() const
 		{
 			if (OnGet) { return OnGet(_Index, _Offset, _Stride); }
 			if (_Index >= _Size) { exit(Failure); }
-			return *((TypeData*)(_Data + (sizeof(TypeData) + _Stride) * _Index + _Offset));
+			return *((TypeValue*)(_Data + (sizeof(TypeValue) + _Stride) * _Index + _Offset));
 		}
 
 		FIterator & operator++()
