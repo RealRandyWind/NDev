@@ -10,7 +10,7 @@ namespace NDev
 	template<FSize SizeData, typename TypeValue>
 	struct TReferences
 	{
-		using FData = typename TypeValue;
+		using FValue = typename TypeValue;
 	
 		FPointer _Data[SizeData];
 

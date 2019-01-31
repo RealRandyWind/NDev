@@ -118,6 +118,34 @@ namespace NDevTest
 			Assert::AreEqual(Result, RN, NullPtr, LINE_INFO());
 		}
 
+		TEST_METHOD(TestProd)
+		{
+			const FSize ND1 = 1, ND2 = 2, ND3 = 3, NDN = 16;
+			const FReal Two = 2, Four = 4;
+			const FReal R1 = 1 << ND1, R2 = 1 << ND2, R3 = 1 << ND3, RN = 1 << NDN;
+			FReal Result;
+
+			TPoint<ND1, FReal> P1D;
+			P1D = Two;
+			Result = Prod(P1D);
+			Assert::AreEqual(Result, R1, NullPtr, LINE_INFO());
+
+			TPoint<ND2, FReal> P2D;
+			P2D = Two;
+			Result = Prod(P2D);
+			Assert::AreEqual(Result, R2, NullPtr, LINE_INFO());
+
+			TPoint<ND3, FReal> P3D;
+			P3D = Two;
+			Result = Prod(P3D);
+			Assert::AreEqual(Result, R3, NullPtr, LINE_INFO());
+
+			TPoint<NDN, FReal> PND;
+			PND = Two;
+			Result = Prod(PND);
+			Assert::AreEqual(Result, RN, NullPtr, LINE_INFO());
+		}
+
 		TEST_METHOD(TestDot)
 		{
 			const FSize ND1 = 1, ND2 = 2, ND3 = 3, NDN = 4096;
@@ -688,5 +716,9 @@ namespace NDevTest
 			}
 		}
 
+
 	};
+
+
+
 }

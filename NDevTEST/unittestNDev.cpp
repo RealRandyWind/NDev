@@ -408,7 +408,7 @@ namespace NDevTest
 			const FReal Zero = 0, One = 1, Two = 2, Three = 3, Four = 4;
 			const FSize HS0 = 0, HS1 = 1, HS2 = 2, HS3 = 3, HSN = 4096, HSK = 8192, HSM = 128;
 			TQueue<FReal> SM;
-			TSequence<FSize> SIM;
+			TSequence<FReal> SOM;
 			FSize Index, End, Size = 0, Pivot = 0, Select = 0, Temp = 0;
 			FReal Number, OtherNumber;
 
@@ -467,12 +467,12 @@ namespace NDevTest
 				Assert::AreEqual(Number, SM.Dequeue(), NullPtr, LINE_INFO());
 			}
 			Assert::IsTrue(SM.Empty(), NullPtr, LINE_INFO());
-			SIM.Reserve(HSM);
+			SOM.Reserve(HSM);
 			SM.OnPriority = [](const auto &Lhs, const auto &Rhs) { return Lhs > Rhs; };
 			End = HSM;
 			for (Index = 0; Index < End; ++Index)
 			{
-				SIM[Index] = Index;
+				SOM[Index] = Index;
 			}
 			SM.Reset();
 			SM.OnPriority = [](const auto &Lhs, const auto &Rhs) { return Lhs > Rhs; };
@@ -480,18 +480,18 @@ namespace NDevTest
 			End = HSM;
 			for (Index = 0; Index < End; ++Index)
 			{
-				Pivot = HSM - Index - 1;
+				Pivot = End - Index - 1;
 				Select = rand() % (Pivot + 1);
-				SM.Queue(SIM[Select]);
+				SM.Queue(SOM[Select]);
 
-				Temp = SIM[Pivot];
-				SIM[Pivot] = SIM[Select];
-				SIM[Select] = Temp;
+				Temp = SOM[Pivot];
+				SOM[Pivot] = SOM[Select];
+				SOM[Select] = Temp;
 			}
 			End = HSM;
 			for (Index = 0; Index < End; ++Index)
 			{
-				Number = HSM - Index - 1;
+				Number = End - Index - 1;
 				Assert::AreEqual(Number, SM.Dequeue(), NullPtr, LINE_INFO());
 			}
 			Assert::IsTrue(SM.Empty(), NullPtr, LINE_INFO());

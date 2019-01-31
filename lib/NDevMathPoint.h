@@ -632,6 +632,36 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
+	Type Prod(const TPoint<Size, Type> &Rhs)
+	{
+		const Type One = 1;
+		FSize Index, End;
+		Type Result = One;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result *= Rhs[Index];
+		}
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
+	Type Prod(const TPoint<Size, Type> &Rhs, const Type &Alpha)
+	{
+		const Type One = 1;
+		FSize Index, End;
+		Type Result = One;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result *= Rhs[Index] * (One / Alpha) ;
+		}
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
 	Type Dot(const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs)
 	{
 		FSize Index, End;
@@ -690,64 +720,64 @@ namespace NDev
 	template<FSize Size, typename Type>
 	TPoint<Size, Type> &Normalize2(const TPoint<Size, Type> &Rhs, const Type &N)
 	{
-		const FReal One = 1;
-		FReal Alpha = One / Norm2(Rhs, N);
+		const Type One = 1;
+		Type Alpha = One / Norm2(Rhs, N);
 		return Rhs * Alpha;
 	}
 
 	template<FSize Size, typename Type>
 	FVoid Normalize2Into(TPoint<Size, Type> &Rhs, const Type &N)
 	{
-		const FReal One = 1;
-		FReal Alpha = One / Norm2(Rhs, N);
+		const Type One = 1;
+		Type Alpha = One / Norm2(Rhs, N);
 		Rhs *= Alpha;
 	}
 
 	template<FSize Size, typename Type>
 	TPoint<Size, Type> &Normalize2(const TPoint<Size, Type> &Rhs)
 	{
-		const FReal One = 1;
-		FReal Alpha = One / Norm2(Rhs);
+		const Type One = 1;
+		Type Alpha = One / Norm2(Rhs);
 		return Rhs * Alpha;
 	}
 
 	template<FSize Size, typename Type>
 	FVoid Normalize2Into(TPoint<Size, Type> &Rhs)
 	{
-		const FReal One = 1;
-		FReal Alpha = One / Norm2(Rhs);
+		const Type One = 1;
+		Type Alpha = One / Norm2(Rhs);
 		Rhs *= Alpha;
 	}
 
 	template<FSize Size, typename Type>
 	TPoint<Size, Type> &Normalize(const TPoint<Size, Type> &Rhs, const Type &N)
 	{
-		const FReal One = 1;
-		FReal Alpha = One / Norm(Rhs, N);
+		const Type One = 1;
+		Type Alpha = One / Norm(Rhs, N);
 		return  Rhs * Alpha;
 	}
 
 	template<FSize Size, typename Type>
 	FVoid NormalizeInto(TPoint<Size, Type> &Rhs, const Type &N)
 	{
-		const FReal One = 1;
-		FReal Alpha = One / Norm(Rhs, N);
+		const Type One = 1;
+		Type Alpha = One / Norm(Rhs, N);
 		Rhs *= Alpha;
 	}
 
 	template<FSize Size, typename Type>
 	TPoint<Size, Type> &Normalize(const TPoint<Size, Type> &Rhs)
 	{
-		const FReal One = 1;
-		FReal Alpha = One / Norm(Rhs);
+		const Type One = 1;
+		Type Alpha = One / Norm(Rhs);
 		return  Rhs * Alpha;
 	}
 
 	template<FSize Size, typename Type>
 	FVoid NormalizeInto(TPoint<Size, Type> &Rhs)
 	{
-		const FReal One = 1;
-		FReal Alpha = One / Norm(Rhs);
+		const Type One = 1;
+		Type Alpha = One / Norm(Rhs);
 		Rhs *= Alpha;
 	}
 
@@ -806,8 +836,8 @@ namespace NDev
 	template<FSize Size, typename Type>
 	Type Angle(const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs)
 	{
-		const FReal One = 1;
-		FReal Alpha = One / (Norm(Lhs) * Norm(Rhs));
+		const Type One = 1;
+		Type Alpha = One / (Norm(Lhs) * Norm(Rhs));
 		return acos(Dot(Lhs, Rhs) * Alpha);
 	}
 
