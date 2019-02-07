@@ -618,10 +618,10 @@ namespace NDev
 	/* Function(Vector...) */
 
 	template<FSize Size, typename Type>
-	Type Sum(const TPoint<Size, Type> &Rhs)
+	Type Sum(const TPoint<Size, Type> &Rhs, const Type Zero = 0)
 	{
 		FSize Index, End;
-		Type Result = Type();
+		Type Result = Zero;
 
 		End = Size;
 		for (Index = 0; Index < End; ++Index)
@@ -632,9 +632,8 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	Type Prod(const TPoint<Size, Type> &Rhs)
+	Type Prod(const TPoint<Size, Type> &Rhs, const Type One = 1)
 	{
-		const Type One = 1;
 		FSize Index, End;
 		Type Result = One;
 
@@ -647,9 +646,8 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	Type Prod(const TPoint<Size, Type> &Rhs, const Type &Alpha)
+	Type Prod(const TPoint<Size, Type> &Rhs, const Type &Alpha, const Type One = 1)
 	{
-		const Type One = 1;
 		FSize Index, End;
 		Type Result = One;
 
@@ -662,10 +660,10 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	Type Dot(const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs)
+	Type Dot(const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs, const Type Zero = 0)
 	{
 		FSize Index, End;
-		Type Result = Type();
+		Type Result = Zero;
 
 		End = Size;
 		for (Index = 0; Index < End; ++Index)
@@ -690,10 +688,10 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	Type Norm2(const TPoint<Size, Type> &Rhs)
+	Type Norm2(const TPoint<Size, Type> &Rhs, const Type Zero = 0)
 	{
 		FSize Index, End;
-		Type Result = Type();
+		Type Result = Zero;
 
 		End = Size;
 		for (Index = 0; Index < End; ++Index)
@@ -704,9 +702,9 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	Type Norm(const TPoint<Size, Type> &Rhs, const Type &N)
+	Type Norm(const TPoint<Size, Type> &Rhs, const Type &N, const Type One = 1)
 	{
-		const Type ByN = 1 / N;
+		const Type ByN = One / N;
 
 		return pow(Norm2(Rhs, N), ByN);
 	}
@@ -718,67 +716,87 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	TPoint<Size, Type> &Normalize2(const TPoint<Size, Type> &Rhs, const Type &N)
+	TPoint<Size, Type> &Normalize2(const TPoint<Size, Type> &Rhs, const Type &N, const Type One = 1)
 	{
-		const Type One = 1;
 		Type Alpha = One / Norm2(Rhs, N);
 		return Rhs * Alpha;
 	}
 
 	template<FSize Size, typename Type>
-	FVoid Normalize2Into(TPoint<Size, Type> &Rhs, const Type &N)
+	FVoid Normalize2Into(TPoint<Size, Type> &Into, const Type &N, const Type One = 1)
 	{
-		const Type One = 1;
-		Type Alpha = One / Norm2(Rhs, N);
-		Rhs *= Alpha;
+		Type Alpha = One / Norm2(Into, N);
+		Into *= Alpha;
 	}
 
 	template<FSize Size, typename Type>
-	TPoint<Size, Type> &Normalize2(const TPoint<Size, Type> &Rhs)
+	FVoid Normalize2Into(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Rhs, const Type &N, const Type One = 1)
 	{
-		const Type One = 1;
+		Type Alpha = One / Norm2(Rhs, N);
+		Into = Rhs * Alpha;
+	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> &Normalize2(const TPoint<Size, Type> &Rhs, const Type One = 1)
+	{
 		Type Alpha = One / Norm2(Rhs);
 		return Rhs * Alpha;
 	}
 
 	template<FSize Size, typename Type>
-	FVoid Normalize2Into(TPoint<Size, Type> &Rhs)
+	FVoid Normalize2Into(TPoint<Size, Type> &Into, const Type One = 1)
 	{
-		const Type One = 1;
+		Type Alpha = One / Norm2(Into);
+		Into *= Alpha;
+	}
+
+	template<FSize Size, typename Type>
+	FVoid Normalize2Into(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Rhs, const Type One = 1)
+	{
 		Type Alpha = One / Norm2(Rhs);
-		Rhs *= Alpha;
+		Into = Rhs * Alpha;
 	}
 
 	template<FSize Size, typename Type>
-	TPoint<Size, Type> &Normalize(const TPoint<Size, Type> &Rhs, const Type &N)
+	TPoint<Size, Type> &Normalize(const TPoint<Size, Type> &Rhs, const Type &N, const Type One = 1)
 	{
-		const Type One = 1;
 		Type Alpha = One / Norm(Rhs, N);
 		return  Rhs * Alpha;
 	}
 
 	template<FSize Size, typename Type>
-	FVoid NormalizeInto(TPoint<Size, Type> &Rhs, const Type &N)
+	FVoid NormalizeInto(TPoint<Size, Type> &Into, const Type &N, const Type One = 1)
 	{
-		const Type One = 1;
-		Type Alpha = One / Norm(Rhs, N);
-		Rhs *= Alpha;
+		Type Alpha = One / Norm(Into, N);
+		Into *= Alpha;
 	}
 
 	template<FSize Size, typename Type>
-	TPoint<Size, Type> &Normalize(const TPoint<Size, Type> &Rhs)
+	FVoid NormalizeInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Rhs, const Type &N, const Type One = 1)
 	{
-		const Type One = 1;
+		Type Alpha = One / Norm(Rhs, N);
+		Into = Rhs * Alpha;
+	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> &Normalize(const TPoint<Size, Type> &Rhs, const Type One = 1)
+	{
 		Type Alpha = One / Norm(Rhs);
 		return  Rhs * Alpha;
 	}
 
 	template<FSize Size, typename Type>
-	FVoid NormalizeInto(TPoint<Size, Type> &Rhs)
+	FVoid NormalizeInto(TPoint<Size, Type> &Into, const Type One = 1)
 	{
-		const Type One = 1;
+		Type Alpha = One / Norm(Into);
+		Into *= Alpha;
+	}
+
+	template<FSize Size, typename Type>
+	FVoid NormalizeInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Rhs, const Type One = 1)
+	{
 		Type Alpha = One / Norm(Rhs);
-		Rhs *= Alpha;
+		Into = Rhs * Alpha;
 	}
 
 	template<FSize Size, typename Type>
@@ -796,14 +814,26 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	FVoid MinInto(TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs)
+	FVoid MinInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Rhs)
 	{
 		FSize Index, End;
 
 		End = Size;
 		for (Index = 0; Index < End; ++Index)
 		{
-			Lhs[Index] = Min(Lhs[Index], Rhs[Index]);
+			Into[Index] = Min(Into[Index], Rhs[Index]);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	FVoid MinInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = Min(Lhs[Index], Rhs[Index]);
 		}
 	}
 
@@ -822,14 +852,102 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	FVoid MaxInto(TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs)
+	FVoid MaxInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Rhs)
 	{
 		FSize Index, End;
 
 		End = Size;
 		for (Index = 0; Index < End; ++Index)
 		{
-			Lhs[Index] = Max(Lhs[Index], Rhs[Index]);
+			Into[Index] = Max(Into[Index], Rhs[Index]);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	FVoid MaxInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = Max(Lhs[Index], Rhs[Index]);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> Sign(const TPoint<Size, Type> &Lhs, const Type Zero = 0, const Type One = 1)
+	{
+		FSize Index, End;
+		TPoint<Size, Type> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result[Index] = Sign(Lhs[Index], Zero, One);
+		}
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
+	FVoid SignInto(TPoint<Size, Type> &Into, const Type Zero = 0, const Type One = 1)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = Sign(Into[Index], Zero, One);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	FVoid SignInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Rhs, const Type Zero = 0, const Type One = 1)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = Sign(Rhs[Index], Zero, One);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> Abs(const TPoint<Size, Type> &Lhs, const Type Zero = 0)
+	{
+		FSize Index, End;
+		TPoint<Size, Type> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result[Index] = Abs(Lhs[Index], Zero);
+		}
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
+	FVoid AbsInto(TPoint<Size, Type> &Into, const Type Zero = 0)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = Abs(Into[Index], Zero);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	FVoid AbsInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Rhs, const Type Zero = 0)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = Abs(Rhs[Index], Zero);
 		}
 	}
 
@@ -882,14 +1000,26 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	FVoid MaskInto(TPoint<Size, Type> &Lhs, const TPoint<Size, FBoolean> &Rhs)
+	FVoid MaskInto(TPoint<Size, Type> &Into, const TPoint<Size, FBoolean> &Rhs)
 	{
 		FSize Index, End;
 
 		End = Size;
 		for (Index = 0; Index < End; ++Index)
 		{
-			Lhs[Index] *= Rhs[Index];
+			Into[Index] *= Rhs[Index];
+		}
+	}
+
+	template<FSize Size, typename Type>
+	FVoid MaskInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lhs, const TPoint<Size, FBoolean> &Rhs)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = Lhs[Index] * Rhs[Index];
 		}
 	}
 	

@@ -33,6 +33,18 @@ namespace NDev
 	}
 
 	template<typename Type>
+	Type Sign(const Type &Lhs, const Type Zero = 0, const Type One = 1)
+	{
+		return Lhs < Zero ? -One : One;
+	}
+
+	template<typename Type>
+	Type Abs(const Type &Lhs, const Type Zero = 0)
+	{
+		return Lhs < Zero ? -Lhs : Lhs;
+	}
+
+	template<typename Type>
 	Type &Swap(Type &Lhs, Type &Rhs)
 	{
 		Type Temp;
