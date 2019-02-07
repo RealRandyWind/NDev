@@ -56,22 +56,22 @@ namespace NDev
 	template<typename Type>
 	union TComplex
 	{
-		TPoint<3, Type> Point;
-		struct { Type Re, Im, W; };
+		TPoint<2, Type> Point;
+		struct { Type Re, Im; };
 	};
 
 	template<typename Type>
 	union TSinusoid
 	{
-		TPoint<4, Type> Point;
-		struct { Type A, F, Phi, W; };
+		TPoint<3, Type> Point;
+		struct { Type A, F, Phi; };
 	};
 
 	template<typename Type>
 	union TPulse
 	{
-		TPoint<4, Type> Point;
-		struct { Type I, Mu, Sigma, W; };
+		TPoint<3, Type> Point;
+		struct { Type I, Mu, Sigma; };
 	};
 
 	template<typename Type>
@@ -81,4 +81,7 @@ namespace NDev
 		struct { Type One, I, J, K; };
 		struct { Type A, B, C, D; };
 	};
+
+
+
 }
