@@ -44,6 +44,48 @@ namespace NDev
 	};
 
 	template<typename Type>
+	union TPoint6D
+	{
+		TPoint<6, Type> Point;
+		struct { Type X, Y, Z, W, T, E; };
+	};
+
+	template<typename Type>
+	union TPoint7D
+	{
+		TPoint<7, Type> Point;
+		struct { Type X, Y, Z, W, T, E, R; };
+	};
+
+	template<typename Type>
+	union TPoint8D
+	{
+		TPoint<8, Type> Point;
+		struct { Type X, Y, Z, W, T, E, R, M; };
+	};
+
+	template<typename Type>
+	union TPoint9D
+	{
+		TPoint<9, Type> Point;
+		struct { Type X, Y, Z, W, T, E, R, M, Q; };
+	};
+
+	template<typename Type>
+	union TPoint10D
+	{
+		TPoint<10, Type> Point;
+		struct { Type X, Y, Z, W, T, E, R, M, Q, I; };
+	};
+
+	template<typename Type>
+	union TPoint11D
+	{
+		TPoint<11, Type> Point;
+		struct { Type X, Y, Z, W, T, E, R, M, Q, I, J; };
+	};
+
+	template<typename Type>
 	union TColor
 	{
 		TPoint<4, Type> Point;
