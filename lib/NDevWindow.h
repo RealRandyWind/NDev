@@ -12,7 +12,7 @@ namespace NDev
 	{
 		FReal LookSpeed, MoveSpeed, FieldOfView, AspectRatio, Near, Far;
 		FSize Width, Height, X, Y;
-		FBoolean bFullScreen, bWait, bPerspective, bHold, bUpdate;
+		FBoolean bFullScreen, bBorderless, bWait, bPerspective, bHold, bUpdate;
 		FString Title, Style, Simulation;
 		NDev::TColor<FReal> Color;
 		NDev::TPoint3D<FReal> LookAt, Position, Up;
@@ -24,6 +24,7 @@ namespace NDev
 			X = Y = 32;
 			AspectRatio = static_cast<FReal>(Width) * (1.0 / static_cast<FReal>(Height));
 			bFullScreen = false;
+			bBorderless = false;
 			bWait = false;
 			bPerspective = true;
 			bHold = false;

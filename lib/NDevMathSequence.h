@@ -12,7 +12,6 @@ namespace NDev
 	TSequence<Type> Conv(const TSequence<Type> &Lhs, const TSequence<Type> &Rhs, FBoolean bCircular = False)
 	{
 		TSequence<Type> Result;
-
 		return Result;
 	}
 
@@ -36,6 +35,59 @@ namespace NDev
 
 	}
 
+	template<typename Type>
+	TSequence<Type> Union(const TSequence<Type> &Lhs, const TSequence<Type> &Rhs)
+	{
+		TSequence<Type> Result;
 
+		return Result;
+	}
 
+	template<typename Type>
+	FVoid UnionInto(TSequence<Type> &Lhs, const TSequence<Type> &Rhs)
+	{
+
+	}
+
+	template<typename Type>
+	TSequence<Type> Intersection(const TSequence<Type> &Lhs, const TSequence<Type> &Rhs)
+	{
+		TSequence<Type> Result;
+
+		return Result;
+	}
+
+	template<typename Type>
+	FVoid IntersectionInto(TSequence<Type> &Lhs, const TSequence<Type> &Rhs)
+	{
+
+	}
+
+	template<typename Type>
+	TSequence<Type> Complement(const TSequence<Type> &Lhs, const TSequence<Type> &Rhs)
+	{
+		TSequence<Type> Result;
+
+		return Result;
+	}
+
+	template<typename Type>
+	FVoid ComplementInto(TSequence<Type> &Lhs, const TSequence<Type> &Rhs)
+	{
+		
+	}
+
+	template<typename Type>
+	TSequence<Type> & Difference(const TSequence<Type> &Lhs, const TSequence<Type> &Rhs)
+	{
+		TSequence<Type> Result;
+
+		return Result;
+	}
+
+	template<typename Type>
+	TSequence<Type> DifferenceInto(TSequence<Type> &Lhs, const TSequence<Type> &Rhs)
+	{
+
+	}
 }

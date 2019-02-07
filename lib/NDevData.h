@@ -207,7 +207,7 @@ namespace NDev
 			Pointer = realloc(_Data, ReserveSize * sizeof(TypeValue));
 			bFaildResize = _Data && !Pointer && ReserveSize;
 			if (bFaildResize) { exit(Failure); }
-			if (_bHeap)
+			if (!_bHeap)
 			{
 				_bHeap = True;
 				_bClearDataOnDestroy = True;

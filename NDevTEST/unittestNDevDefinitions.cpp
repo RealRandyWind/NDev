@@ -29,7 +29,48 @@ namespace NDevTest
 
 		TEST_METHOD(TestSwap2)
 		{
+			
+		}
 
+		TEST_METHOD(TestRotate)
+		{
+			const FSize NL1 = 1, NL2 = 2, NL3 = 3, NLN = 2048, K=7;
+			FSize Index, End;
+			FReal *L;
+			FReal Number;
+
+			End = NL1;
+			L = (FReal *) malloc(End * sizeof(FReal));
+			for (Index = 0; Index < End; ++Index) { L[Index] = Index; }
+			L = Rotate(L, K, End);
+			for (Index = 0; Index < End; ++Index)
+			{
+				Number = (Index + K) % End;
+				Assert::AreEqual(Number, L[Index], NullPtr, LINE_INFO());
+			}
+			L = Rotate(L, K, End, False);
+			for (Index = 0; Index < End; ++Index)
+			{
+				Number = Index;
+				Assert::AreEqual(Number, L[Index], NullPtr, LINE_INFO());
+			}
+
+			End = NL2;
+			L = (FReal *)malloc(End * sizeof(FReal));
+			for (Index = 0; Index < End; ++Index) { L[Index] = Index; }
+			L = Rotate(L, K, End);
+			for (Index = 0; Index < End; ++Index)
+			{
+				Number = (Index + K) % End;
+				Assert::AreEqual(Number, L[Index], NullPtr, LINE_INFO());
+			}
+			L = Rotate(L, K, End, False);
+			for (Index = 0; Index < End; ++Index)
+			{
+				Number = Index;
+				Assert::AreEqual(Number, L[Index], NullPtr, LINE_INFO());
+			}
+			
 		}
 
 		TEST_METHOD(TestMake)

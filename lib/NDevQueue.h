@@ -51,23 +51,24 @@ namespace NDev
 		FBoolean Queue(TypeValue Rhs)
 		{
 			FSize Index, Cursor;
-			FBoolean bQueued;
+			FBoolean bQueued, bPriority;
 
-			_FindPosition(Rhs, Cursor, bQueued);
-			_InsertPosition(Rhs, Cursor, bQueued);
+			_FindPosition(Rhs, Cursor, bPriority);
+			_InsertPosition(Rhs, Cursor, bPriority, bQueued);
 
 			return bQueued;
 		}
 
 		TypeValue Dequeue()
 		{
-			FSize Index;
+			FSize Index = _FirstIndex;
 
 			if (!this->_Size) { exit(Failure); }
 			--this->_Size;
-			if (_FirstIndex == _LastIndex) { return this->_Data[_FirstIndex]; }
-			Index = _FirstIndex;
-			_FirstIndex = (_FirstIndex == 0 ? this->_BufferSize : _FirstIndex) - 1;
+			if (_FirstIndex != _LastIndex)
+			{
+				_FirstIndex = (_FirstIndex == this->_BufferSize ? 0 : _FirstIndex) + 1;
+			}
 			return this->_Data[Index];
 		}
 
@@ -91,27 +92,83 @@ namespace NDev
 			return this->_Data[_FirstIndex];
 		}
 
-		FVoid _FindPosition(const TypeValue &Rhs, FSize &Cursor, FBoolean &bQueue)
+		FVoid _ResizeQueue(FSize &Cursor)
 		{
-			bQueue = False;
+			this->Reserve(this->_BufferSize + this->_IncrementSize);
+			
+			if (_LastIndex < _FirstIndex)
+			{
+				Copy(&this->_Data[_FirstIndex], &this->_Data[_FirstIndex + _IncrementSize], _IncrementSize);
+				_FirstIndex += _IncrementSize;
+				if (Cursor >= _FirstIndex) { Cursor += _IncrementSize; }
+			}
+			else
+			{
+				Copy(&this->_Data[_LastIndex], &this->_Data[_LastIndex + _IncrementSize], _IncrementSize);
+				_LastIndex += _IncrementSize;
+				if (Cursor >= _LastIndex) { Cursor += _IncrementSize; }
+				if (_LastIndex == _FirstIndex) { _FirstIndex = _LastIndex; }
+			}
+		}
+
+		FVoid _FindPosition(const TypeValue &Value, FSize &Cursor, FBoolean &bPriority)
+		{
+			if (!this->_Size)
+			{
+				bPriority = False;
+				Cursor = 0;
+				return;
+			}
 
 			if (!OnPriority)
 			{
-				bQueue = True;
-				Cursor = (_LastIndex == 0 ? this->_Size : this->_LastIndex) - 1 ;
+				bPriority = False;
+				Cursor = _LastIndex + 1;
 				return;
 			}
+
+			Cursor = _FirstIndex;
+			while (Cursor != _LastIndex)
+			{
+				if (OnPriority(Value, this->_Data[Cursor]))
+				{
+					bPriority = True;
+					return;
+				}
+				Cursor = (Cursor + 1) % this->_BufferSize;
+			}
+			bPriority = OnPriority(Value, this->_Data[Cursor]);
+			if (!bPriority) { ++Cursor; }
 		}
 
-		FVoid _InsertPosition(TypeValue &Rhs, FSize Cursor, FBoolean bQueue)
+		FVoid _InsertPosition(TypeValue &Value, FSize Cursor, FBoolean bPriority, FBoolean &bQueued)
 		{
-			FBoolean bResize = !this->_bFixedSize && bQueue && this->_FirstIndex == this->_LastIndex;
+			FBoolean bFull = this->_Size + 1 >= this->_BufferSize;
+			FBoolean bResize = !this->_bFixedSize && bFull;
 			
+			bQueued = False;
+			//Q =(a0 A aN ...)|(... a0 A aN ...)|(AN aN ... a0 A0) |(...), a0 > ai > aN, j = ?
+			if (bPriority)
+			{
+				while (Cursor != _LastIndex)
+				{
+					Swap(Value, this->_Data[Cursor]);
+					Cursor = (Cursor + 1) % this->_BufferSize;
+				}
+				Swap(Value, this->_Data[Cursor]);
+				bQueued = True;
+			}
+
 			if (bResize)
 			{
-				
+				_ResizeQueue(Cursor);
+				this->_Data[Cursor] = Value;
+				bQueued = True;
 			}
+
+			if (!bFull || bResize) { ++this->_Size; }
 		}
+
 
 	};
 

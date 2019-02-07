@@ -65,6 +65,22 @@ namespace NDev
 		return _To;
 	}
 
+	static void * _Rotate(void *Pointer, FSize Steps, FSize Bytes, FBoolean bClockwise = True)
+	{
+		FSize Index, End, _Index;
+
+		if (!Pointer) { exit(Failure); }
+		auto _Pointer = (FRaw *)Pointer;
+		if (!(Steps % Bytes)) { return _Pointer; }
+		End = Bytes;
+		for (Index = 0; Index < End; ++Index)
+		{
+			_Index = bClockwise ? (Index + Steps) % End : End - ((End - Index + Steps) % End) - 1;
+			Swap(_Pointer[Index], _Pointer[_Index]);
+		}
+		return _Pointer;
+	}
+
 	static void * _Resize(void *Pointer, FSize Bytes)
 	{
 		FPointer _Pointer = realloc(Pointer, Bytes);
@@ -159,6 +175,12 @@ namespace NDev
 	Type * Swap2(Type *From, Type *To, FSize Size = 1)
 	{
 		return (Type *)_Swap2(From, To, Size * sizeof(Type));
+	}
+
+	template<typename Type>
+	Type * Rotate(Type *Pointer, FSize Steps, FSize Size = 1, FBoolean bClockwise = True)
+	{
+		return (Type *)_Rotate(Pointer, Steps * sizeof(Type), Size * sizeof(Type), bClockwise);
 	}
 
 	template<typename Type>

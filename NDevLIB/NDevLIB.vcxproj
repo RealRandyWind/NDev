@@ -200,6 +200,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\NDev.h" />
+    <ClInclude Include="..\lib\NDevBases.h" />
     <ClInclude Include="..\lib\NDevBytes.h" />
     <ClInclude Include="..\lib\NDevData.h" />
     <ClInclude Include="..\lib\NDevDefinitions.h" />
@@ -226,7 +227,6 @@
     <ClInclude Include="..\lib\NDevSimulation.h" />
     <ClInclude Include="..\lib\NDevStack.h" />
     <ClInclude Include="..\lib\NDevBuffer.h" />
-    <ClInclude Include="..\lib\NDevTemplates.h" />
     <ClInclude Include="..\lib\NDevTypes.h" />
     <ClInclude Include="..\lib\NDevWindow.h" />
     <ClInclude Include="stdafx.h" />
