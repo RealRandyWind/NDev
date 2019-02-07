@@ -16,7 +16,13 @@ namespace NDev
 	}
 
 	template<typename Type>
-	FVoid ConvInto(TSequence<Type> &Lhs, const TSequence<Type> &Rhs, FBoolean bCircular = False)
+	FVoid ConvInto(TSequence<Type> &Into, const TSequence<Type> &Rhs, FBoolean bCircular = False)
+	{
+
+	}
+
+	template<typename Type>
+	FVoid ConvInto(TSequence<Type> &Into, const TSequence<Type> &Lhs, const TSequence<Type> &Rhs, FBoolean bCircular = False)
 	{
 
 	}
@@ -30,7 +36,13 @@ namespace NDev
 	}
 
 	template<typename Type>
-	FVoid CorrInto(TSequence<Type> &Lhs, const TSequence<Type> &Rhs, FBoolean bCircular = False)
+	FVoid CorrInto(TSequence<Type> &Into, const TSequence<Type> &Rhs, FBoolean bCircular = False)
+	{
+
+	}
+
+	template<typename Type>
+	FVoid CorrInto(TSequence<Type> &Into, const TSequence<Type> &Lhs, const TSequence<Type> &Rhs, FBoolean bCircular = False)
 	{
 
 	}
@@ -44,7 +56,13 @@ namespace NDev
 	}
 
 	template<typename Type>
-	FVoid UnionInto(TSequence<Type> &Lhs, const TSequence<Type> &Rhs)
+	FVoid UnionInto(TSequence<Type> &Into, const TSequence<Type> &Rhs)
+	{
+
+	}
+
+	template<typename Type>
+	FVoid UnionInto(TSequence<Type> &Into, const TSequence<Type> &Lhs, const TSequence<Type> &Rhs)
 	{
 
 	}
@@ -58,7 +76,13 @@ namespace NDev
 	}
 
 	template<typename Type>
-	FVoid IntersectionInto(TSequence<Type> &Lhs, const TSequence<Type> &Rhs)
+	FVoid IntersectionInto(TSequence<Type> &Into, const TSequence<Type> &Rhs)
+	{
+
+	}
+
+	template<typename Type>
+	FVoid IntersectionInto(TSequence<Type> &Into, const TSequence<Type> &Lhs, const TSequence<Type> &Rhs)
 	{
 
 	}
@@ -72,10 +96,17 @@ namespace NDev
 	}
 
 	template<typename Type>
-	FVoid ComplementInto(TSequence<Type> &Lhs, const TSequence<Type> &Rhs)
+	FVoid ComplementInto(TSequence<Type> &Into, const TSequence<Type> &Rhs)
 	{
 		
 	}
+
+	template<typename Type>
+	FVoid ComplementInto(TSequence<Type> &Into, const TSequence<Type> &Lhs, const TSequence<Type> &Rhs)
+	{
+
+	}
+
 
 	template<typename Type>
 	TSequence<Type> & Difference(const TSequence<Type> &Lhs, const TSequence<Type> &Rhs)
@@ -86,7 +117,13 @@ namespace NDev
 	}
 
 	template<typename Type>
-	TSequence<Type> DifferenceInto(TSequence<Type> &Lhs, const TSequence<Type> &Rhs)
+	TSequence<Type> DifferenceInto(TSequence<Type> &Into, const TSequence<Type> &Rhs)
+	{
+
+	}
+
+	template<typename Type>
+	TSequence<Type> DifferenceInto(TSequence<Type> &Into, const TSequence<Type> &Lhs, const TSequence<Type> &Rhs)
 	{
 
 	}

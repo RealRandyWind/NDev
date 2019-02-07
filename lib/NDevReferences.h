@@ -11,6 +11,15 @@ namespace NDev
 	struct TReferences
 	{
 		using FValue = typename TypeValue;
+
+		struct FSame
+		{
+			template<typename _TypeValue>
+			using Size = TReferences<SizeData, _TypeValue>;
+
+			template<FSize _SizeData>
+			using Type = TReferences<_SizeData, typename TypeValue>;
+		};
 	
 		FPointer _Data[SizeData];
 

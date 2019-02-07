@@ -12,6 +12,15 @@ namespace NDev
 	{
 		using FValue = typename TypeValue;
 
+		struct FSame
+		{
+			template<typename _TypeValue>
+			using Size = TPoint<SizeData, _TypeValue>;
+
+			template<FSize _SizeData>
+			using Type = TPoint<_SizeData, typename TypeValue>;
+		};
+
 		TypeValue _Data[SizeData];
 
 		FSize Size()
@@ -159,5 +168,6 @@ namespace NDev
 			return Result;
 		}
 	};
+
 
 }

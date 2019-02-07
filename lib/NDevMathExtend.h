@@ -31,15 +31,15 @@ namespace NDev
 			return std::numeric_limits<Type>::epsilon();
 		}
 
-		static Type Infinity()
+		static Type Infinity(const Type Zero = 0)
 		{
-			if (!std::numeric_limits<Type>::has_infinity) { return Type(); }
+			if (!std::numeric_limits<Type>::has_infinity) { return Zero; }
 			return std::numeric_limits<Type>::infinity();
 		}
 
-		static Type NaN()
+		static Type NaN(const Type Zero = 0)
 		{
-			if (!std::numeric_limits<Type>::has_quiet_NaN) { return Type(); }
+			if (!std::numeric_limits<Type>::has_quiet_NaN) { return Zero; }
 			return std::numeric_limits<Type>::quiet_NaN();
 		}
 	};

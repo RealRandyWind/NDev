@@ -74,26 +74,6 @@ namespace NDev
 			_bClearDataOnReplace = bTrue;
 		}
 
-		FSize Stride()
-		{
-			return 0;
-		}
-
-		const FSize Stride() const
-		{
-			return 0;
-		}
-
-		FSize Offset()
-		{
-			return 0;
-		}
-
-		const FSize Offset() const
-		{
-			return 0;
-		}
-
 		FSize Size()
 		{
 			return _Size;
