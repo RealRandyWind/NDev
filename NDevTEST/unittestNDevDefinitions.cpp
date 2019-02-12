@@ -32,9 +32,9 @@ namespace NDevTest
 			
 		}
 
-		TEST_METHOD(TestRotate)
+		TEST_METHOD(TestShift)
 		{
-			const FSize NL1 = 1, NL2 = 2, NL3 = 3, NLN = 2048, K=7;
+			const FSize NL1 = 1, NL10=10, NLN = 2048, K=7, R=511;
 			FSize Index, End;
 			FReal *L;
 			FReal Number;
@@ -42,13 +42,140 @@ namespace NDevTest
 			End = NL1;
 			L = (FReal *) malloc(End * sizeof(FReal));
 			for (Index = 0; Index < End; ++Index) { L[Index] = Index; }
-			L = Rotate(L, K, End);
+			L = Shift(L, K, End);
+			for (Index = K; Index < End; ++Index)
+			{
+				Number = Index - K;
+				Assert::AreEqual(Number, L[Index], NullPtr, LINE_INFO());
+			}
+			free(L);
+			End = NL10;
+			L = (FReal *)malloc(End * sizeof(FReal));
+			for (Index = 0; Index < End; ++Index) { L[Index] = Index; }
+			L = Shift(L, K, End);
+			for (Index = K; Index < End; ++Index)
+			{
+				Number = Index - K;
+				Assert::AreEqual(Number, L[Index], NullPtr, LINE_INFO());
+			}
+			free(L);
+			End = NLN;
+			L = (FReal *)malloc(End * sizeof(FReal));
+			for (Index = 0; Index < End; ++Index) { L[Index] = Index; }
+			L = Shift(L, K, End);
+			for (Index = K; Index < End; ++Index)
+			{
+				Number = Index - K;
+				Assert::AreEqual(Number, L[Index], NullPtr, LINE_INFO());
+			}
+			free(L);
+			End = NLN;
+			L = (FReal *)malloc(End * sizeof(FReal));
+			for (Index = 0; Index < End; ++Index) { L[Index] = Index; }
+			L = Shift(L, R, End);
+			for (Index = R; Index < End; ++Index)
+			{
+				Number = Index - R;
+				Assert::AreEqual(Number, L[Index], NullPtr, LINE_INFO());
+			}
+			End = NL1;
+			L = (FReal *) malloc(End * sizeof(FReal));
+			for (Index = 0; Index < End; ++Index) { L[Index] = Index; }
+			L = Shift(L, K, End);
+			for (Index = K; Index < End; ++Index)
+			{
+				Number = Index - K;
+				Assert::AreEqual(Number, L[Index], NullPtr, LINE_INFO());
+			}
+			free(L);
+			End = NL10;
+			L = (FReal *)malloc(End * sizeof(FReal));
+			for (Index = 0; Index < End; ++Index) { L[Index] = Index; }
+			L = Shift(L, K, End);
+			for (Index = K; Index < End; ++Index)
+			{
+				Number = Index - K;
+				Assert::AreEqual(Number, L[Index], NullPtr, LINE_INFO());
+			}
+			free(L);
+			End = NLN;
+			L = (FReal *)malloc(End * sizeof(FReal));
+			for (Index = 0; Index < End; ++Index) { L[Index] = Index; }
+			L = Shift(L, K, End);
+			for (Index = K; Index < End; ++Index)
+			{
+				Number = Index - K;
+				Assert::AreEqual(Number, L[Index], NullPtr, LINE_INFO());
+			}
+			free(L);
+			End = NLN;
+			L = (FReal *)malloc(End * sizeof(FReal));
+			for (Index = 0; Index < End; ++Index) { L[Index] = Index; }
+			L = Shift(L, R, End);
+			for (Index = R; Index < End; ++Index)
+			{
+				Number = Index - R;
+				Assert::AreEqual(Number, L[Index], NullPtr, LINE_INFO());
+			}
+			End = NL1;
+			L = (FReal *)malloc(End * sizeof(FReal));
+			for (Index = 0; Index < End; ++Index) { L[Index] = Index; }
+			L = Shift(L, K, End, False);
+			for (Index = 0; Index + K < End; ++Index)
+			{
+				Number = Index + K;
+				Assert::AreEqual(Number, L[Index], NullPtr, LINE_INFO());
+			}
+			free(L);
+			End = NL10;
+			L = (FReal *)malloc(End * sizeof(FReal));
+			for (Index = 0; Index < End; ++Index) { L[Index] = Index; }
+			L = Shift(L, K, End, False);
+			for (Index = 0; Index + K < End; ++Index)
+			{
+				Number = Index + K;
+				Assert::AreEqual(Number, L[Index], NullPtr, LINE_INFO());
+			}
+			free(L);
+			End = NLN;
+			L = (FReal *)malloc(End * sizeof(FReal));
+			for (Index = 0; Index < End; ++Index) { L[Index] = Index; }
+			L = Shift(L, K, End, False);
+			for (Index = 0; Index + K < End; ++Index)
+			{
+				Number = Index + K;
+				Assert::AreEqual(Number, L[Index], NullPtr, LINE_INFO());
+			}
+			free(L);
+			End = NLN;
+			L = (FReal *)malloc(End * sizeof(FReal));
+			for (Index = 0; Index < End; ++Index) { L[Index] = Index; }
+			L = Shift(L, R, End, False);
+			for (Index = 0; Index + R < End; ++Index)
+			{
+				Number = Index + R;
+				Assert::AreEqual(Number, L[Index], NullPtr, LINE_INFO());
+			}
+		}
+
+		TEST_METHOD(TestRotate)
+		{
+			/*
+			const FSize NL1 = 1, NL2 = 2, NL3 = 3, NLN = 2048, K = 7;
+			FSize Index, End;
+			FReal *L;
+			FReal Number;
+
+			End = NL1;
+			L = (FReal *)malloc(End * sizeof(FReal));
+			for (Index = 0; Index < End; ++Index) { L[Index] = Index; }
+			L = Shift(L, K, End);
 			for (Index = 0; Index < End; ++Index)
 			{
 				Number = (Index + K) % End;
 				Assert::AreEqual(Number, L[Index], NullPtr, LINE_INFO());
 			}
-			L = Rotate(L, K, End, False);
+			L = Shift(L, K, End, False);
 			for (Index = 0; Index < End; ++Index)
 			{
 				Number = Index;
@@ -58,19 +185,19 @@ namespace NDevTest
 			End = NL2;
 			L = (FReal *)malloc(End * sizeof(FReal));
 			for (Index = 0; Index < End; ++Index) { L[Index] = Index; }
-			L = Rotate(L, K, End);
+			L = Shift(L, K, End);
 			for (Index = 0; Index < End; ++Index)
 			{
 				Number = (Index + K) % End;
 				Assert::AreEqual(Number, L[Index], NullPtr, LINE_INFO());
 			}
-			L = Rotate(L, K, End, False);
+			L = Shift(L, K, End, False);
 			for (Index = 0; Index < End; ++Index)
 			{
 				Number = Index;
 				Assert::AreEqual(Number, L[Index], NullPtr, LINE_INFO());
 			}
-			
+			*/
 		}
 
 		TEST_METHOD(TestMake)
@@ -90,7 +217,65 @@ namespace NDevTest
 
 		TEST_METHOD(TestCopy)
 		{
+			const FSize NL1 = 1, NL2 = 2, NL3 = 3, NLN = 2048, K = 7;
+			FSize Index, End;
+			FReal *L, *Q, *NullL = NullPtr;
+			FReal Number;
 
+			End = NL1;
+			L = (FReal *)malloc(End * sizeof(FReal));
+			for (Index = 0; Index < End; ++Index) { L[Index] = Index; }
+			Q = Copy(L, NullL, End);
+			for (Index = 0; Index < End; ++Index)
+			{
+				Assert::AreEqual(L[Index], Q[Index], NullPtr, LINE_INFO());
+			}
+			free(L);
+			free(Q);
+
+			End = NL2;
+			L = (FReal *)malloc(End * sizeof(FReal));
+			for (Index = 0; Index < End; ++Index) { L[Index] = Index; }
+			Q = Copy(L, NullL, End);
+			for (Index = 0; Index < End; ++Index)
+			{
+				Assert::AreEqual(L[Index], Q[Index], NullPtr, LINE_INFO());
+			}
+			free(L);
+			free(Q);
+
+			End = NL3;
+			L = (FReal *)malloc(End * sizeof(FReal));
+			for (Index = 0; Index < End; ++Index) { L[Index] = Index; }
+			Q = Copy(L, NullL, End);
+			for (Index = 0; Index < End; ++Index)
+			{
+				Assert::AreEqual(L[Index], Q[Index], NullPtr, LINE_INFO());
+			}
+			free(L);
+			free(Q);
+
+			End = NLN;
+			L = (FReal *)malloc(End * sizeof(FReal));
+			for (Index = 0; Index < End; ++Index) { L[Index] = Index; }
+			Q = Copy(L, NullL, End);
+			for (Index = 0; Index < End; ++Index)
+			{
+				Assert::AreEqual(L[Index], Q[Index], NullPtr, LINE_INFO());
+			}
+			Q = Copy(L, Q, End);
+			for (Index = 0; Index < End; ++Index)
+			{
+				Assert::AreEqual(L[Index], Q[Index], NullPtr, LINE_INFO());
+			}
+			Copy(L, &Q[End/2], End/2);
+			for (Index = 0; Index < End/2; ++Index)
+			{
+				Assert::AreEqual(L[Index], Q[Index], NullPtr, LINE_INFO());
+				Assert::AreEqual(L[Index], Q[End/2 + Index], NullPtr, LINE_INFO());
+			}
+			free(L);
+			free(Q);
 		}
 
 		TEST_METHOD(TestRemove)

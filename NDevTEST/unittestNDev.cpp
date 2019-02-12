@@ -409,10 +409,11 @@ namespace NDevTest
 			const FSize HS0 = 0, HS1 = 1, HS2 = 2, HS3 = 3, HSN = 4096, HSK = 8192, HSM = 128;
 			TQueue<FReal> SM;
 			TSequence<FReal> SOM;
-			FSize Index, End, Size = 0, Pivot = 0, Select = 0, Temp = 0;
+			FSize Index, End, Next, Size = 0, Pivot = 0, Select = 0, Temp = 0;
 			FReal Number, OtherNumber;
 
 			/* queue/dequeue tests */
+			SM.FixedSize();
 			SM.Reserve(HSM);
 			End = HSM;
 			for (Index = 0; Index < End; ++Index)
@@ -488,7 +489,57 @@ namespace NDevTest
 				SOM[Pivot] = SOM[Select];
 				SOM[Select] = Temp;
 			}
+			Index = SM._FirstIndex;
+			while (Index != SM._LastIndex)
+			{
+				Next = (Index + 1) % SM._BufferSize;
+				Assert::IsTrue(SM.OnPriority(SM._Data[Index],SM._Data[Next]), NullPtr, LINE_INFO());
+				Index = Next;
+			}
 			End = HSM;
+			for (Index = 0; Index < End; ++Index)
+			{
+				Number = End - Index - 1;
+				Assert::AreEqual(Number, SM.Dequeue(), NullPtr, LINE_INFO());
+			}
+			Assert::IsTrue(SM.Empty(), NullPtr, LINE_INFO());
+
+			/* repeate no fixed size */
+			SM.Reset();
+			SM.FixedSize(False);
+			SM.Reserve(HSM);
+			SM.OnPriority = NullPtr;
+			End = HSM;
+			for (Index = 0; Index < End; ++Index)
+			{
+				Number = (FReal)(Index);
+				SM.Queue(Number);
+				Assert::AreEqual(HSM, SM.BufferSize(), NullPtr, LINE_INFO());
+				Assert::AreEqual(Number, SM.Last(), NullPtr, LINE_INFO());
+				Assert::AreEqual(Zero, SM.First(), NullPtr, LINE_INFO());
+			}
+			SM.OnPriority = [](const auto &Lhs, const auto &Rhs) { return Lhs > Rhs; };
+			srand(HSM);
+			End = HSM;
+			for (Index = 0; Index < End; ++Index)
+			{
+				Pivot = End - Index - 1;
+				Select = rand() % (Pivot + 1);
+				SM.Queue(SOM[Select] + HSM);
+
+				Temp = SOM[Pivot];
+				SOM[Pivot] = SOM[Select];
+				SOM[Select] = Temp;
+			}
+			End = 2 * HSM;
+			Assert::AreEqual(End, SM.Size(), NullPtr, LINE_INFO());
+			Index = SM._FirstIndex;
+			while (Index != SM._LastIndex)
+			{
+				Next = (Index + 1) % SM._BufferSize;
+				Assert::IsTrue(SM.OnPriority(SM._Data[Index], SM._Data[Next]), NullPtr, LINE_INFO());
+				Index = Next;
+			}
 			for (Index = 0; Index < End; ++Index)
 			{
 				Number = End - Index - 1;

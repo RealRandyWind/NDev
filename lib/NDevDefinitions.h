@@ -55,6 +55,12 @@ namespace NDev
 		return Rhs;
 	}
 
+	template<typename Type>
+	Type Clamp(const Type &Lhs, const Type &Lower, const Type &Upper)
+	{
+		return Lhs > Upper ? Upper : (Lhs < Lower ? Lower : Lhs);
+	}
+
 	/* Pure Memory Functions */
 
 	static void * _Make(FSize Bytes)
@@ -75,22 +81,6 @@ namespace NDev
 		End = Bytes;
 		for (Index = 0; Index < End; ++Index) { Swap(_From[Index], _To[Index]); }
 		return _To;
-	}
-
-	static void * _Rotate(void *Pointer, FSize Steps, FSize Bytes, FBoolean bClockwise = True)
-	{
-		FSize Index, End, _Index;
-
-		if (!Pointer) { exit(Failure); }
-		auto _Pointer = (FRaw *)Pointer;
-		if (!(Steps % Bytes)) { return _Pointer; }
-		End = Bytes;
-		for (Index = 0; Index < End; ++Index)
-		{
-			_Index = bClockwise ? (Index + Steps) % End : End - ((End - Index + Steps) % End) - 1;
-			Swap(_Pointer[Index], _Pointer[_Index]);
-		}
-		return _Pointer;
 	}
 
 	static void * _Resize(void *Pointer, FSize Bytes)
@@ -159,13 +149,43 @@ namespace NDev
 		return _Pointer;
 	}
 
+	static void * _Shift(void *Pointer, FSize Steps, FSize Bytes, FBoolean bRight = True)
+	{
+		FSize Index, End, Remainder, From, To;
+
+		if (!Pointer) { exit(Failure); }
+		auto _Pointer = (FRaw *)Pointer;
+		if (Steps >= Bytes) { return _Pointer; }
+		Remainder = Bytes % Steps;
+		End = Bytes / Steps;
+		if (bRight)
+		{
+			for (Index = 1; Index < End; ++Index)
+			{
+				From = (End - Index - 1) * Steps + Remainder;
+				To = (End - Index) * Steps + Remainder;
+				_Copy(&_Pointer[From], &_Pointer[To], Steps);
+			}
+			if (Remainder) { _Copy(&_Pointer[0], &_Pointer[Steps], Remainder); }
+		}
+		else
+		{
+			for (Index = 0; Index + 1 < End; ++Index)
+			{
+				_Copy(&_Pointer[(Index + 1) * Steps], &_Pointer[Index * Steps], Steps);
+			}
+			if (Remainder) { _Copy(&_Pointer[End * Steps], &_Pointer[(End - 1) * Steps], Remainder); }
+		}
+		return _Pointer;
+	}
+
 	static void * _Text(const void *String)
 	{
 		FSize Size;
 
 		if (!String) { exit(Failure); }
 		auto _String = (FCharacter *)String;
-		for (Size = 0; _String[Size]; ++Size) {}
+		for (Size = 0; _String[Size]; ++Size) { }
 		return _Copy(_String, NullPtr, Size);
 	}
 
@@ -187,12 +207,6 @@ namespace NDev
 	Type * Swap2(Type *From, Type *To, FSize Size = 1)
 	{
 		return (Type *)_Swap2(From, To, Size * sizeof(Type));
-	}
-
-	template<typename Type>
-	Type * Rotate(Type *Pointer, FSize Steps, FSize Size = 1, FBoolean bClockwise = True)
-	{
-		return (Type *)_Rotate(Pointer, Steps * sizeof(Type), Size * sizeof(Type), bClockwise);
 	}
 
 	template<typename Type>
@@ -229,6 +243,12 @@ namespace NDev
 	Type * Set(Type *Pointer, const Type Value, FSize Size = 1)
 	{
 		return (Type *) _Set(Pointer, &Value, sizeof(Type) * Size, sizeof(Type));
+	}
+
+	template<typename Type>
+	Type * Shift(Type *Pointer, FSize Steps, FSize Size = 1, FBoolean bRight = True)
+	{
+		return (Type *)_Shift(Pointer, Steps * sizeof(Type), Size * sizeof(Type), bRight);
 	}
 
 	static FString Text(const char *String, char End = '\0', FSize *PtrSize = NullPtr)

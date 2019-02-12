@@ -1022,6 +1022,82 @@ namespace NDev
 			Into[Index] = Lhs[Index] * Rhs[Index];
 		}
 	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> Clamp(const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Lower, const TPoint<Size, Type> &Upper)
+	{
+		FSize Index, End;
+		TPoint<Size, Type> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result[Index] = Clamp(Lhs[Index], Lower[Index], Upper[Index]);
+		}
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
+	FVoid ClampInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lower, const TPoint<Size, Type> &Upper)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = Clamp(Into[Index], Lower[Index], Upper[Index]);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	FVoid ClampInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Lower, const TPoint<Size, Type> &Upper)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = Clamp(Lhs[Index], Lower[Index], Upper[Index]);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> Clamp(const TPoint<Size, Type> &Lhs, const Type &Lower, const Type &Upper)
+	{
+		FSize Index, End;
+		TPoint<Size, Type> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result[Index] = Clamp(Lhs[Index], Lower, Upper);
+		}
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
+	FVoid ClampInto(TPoint<Size, Type> &Into, const Type &Lower, const Type &Upper)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = Clamp(Into[Index], Lower, Upper);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	FVoid ClampInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lhs, const Type &Lower, const Type &Upper)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = Clamp(Lhs[Index], Lower, Upper);
+		}
+	}
 	
 	/*
 	template<FSize Size, typename Type>

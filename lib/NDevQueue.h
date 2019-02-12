@@ -16,11 +16,13 @@ namespace NDev
 		FOnPriority OnPriority;
 
 		FSize _LastIndex, _FirstIndex;
+		FBoolean _bNoEqualPriority;
 
 		TQueue() : TSequence<TypeValue>()
 		{
 			OnPriority = NullPtr;
 			_LastIndex = _FirstIndex = 0;
+			_bNoEqualPriority = False;
 		}
 
 		TQueue(FSize ReserveSize, FBoolean bSetSizeToReserveSize = False) : TQueue()
@@ -38,22 +40,13 @@ namespace NDev
 			this->_Size = this->_RecentIndex = _LastIndex = _FirstIndex = 0;
 		}
 
-		FBoolean _Queue(TypeValue Rhs)
-		{
-			if (this->_Size >= this->_BufferSize) { return False; }
-			_LastIndex = (_LastIndex == 0 ? this->_BufferSize : _LastIndex) - 1;
-			if (!this->_Size) { _FirstIndex = _LastIndex; }
-			this->_Data[_LastIndex] = Rhs;
-			++this->_Size;
-			return True;
-		}
-
 		FBoolean Queue(TypeValue Rhs)
 		{
 			FSize Index, Cursor;
-			FBoolean bQueued, bPriority;
+			FBoolean bQueued, bPriority, bRejected;
 
-			_FindPosition(Rhs, Cursor, bPriority);
+			_FindPosition(Rhs, Cursor, bPriority, bRejected);
+			if (bRejected) { return False; }
 			_InsertPosition(Rhs, Cursor, bPriority, bQueued);
 
 			return bQueued;
@@ -65,11 +58,13 @@ namespace NDev
 
 			if (!this->_Size) { exit(Failure); }
 			--this->_Size;
-			if (_FirstIndex != _LastIndex)
-			{
-				_FirstIndex = (_FirstIndex == this->_BufferSize ? 0 : _FirstIndex) + 1;
-			}
+			if (_FirstIndex != _LastIndex) { _FirstIndex = (_FirstIndex + 1) % this->_BufferSize; }
 			return this->_Data[Index];
+		}
+
+		FVoid NoEqualPriority(FBoolean bTrue = True)
+		{
+			_bNoEqualPriority = bTrue;
 		}
 
 		TypeValue & Last()
@@ -92,27 +87,25 @@ namespace NDev
 			return this->_Data[_FirstIndex];
 		}
 
-		FVoid _ResizeQueue(FSize &Cursor)
+		FVoid _ResizeQueue(FSize &Cursor, FBoolean &bFull)
 		{
+			FSize End, SergmentSize;
+
+			End = this->_BufferSize;
 			this->Reserve(this->_BufferSize + this->_IncrementSize);
-			
 			if (_LastIndex < _FirstIndex)
 			{
-				Copy(&this->_Data[_FirstIndex], &this->_Data[_FirstIndex + _IncrementSize], _IncrementSize);
-				_FirstIndex += _IncrementSize;
-				if (Cursor >= _FirstIndex) { Cursor += _IncrementSize; }
+				Shift(&this->_Data[_FirstIndex], this->_IncrementSize, this->_BufferSize - _FirstIndex);
+				if (Cursor >= _FirstIndex) { Cursor += this->_IncrementSize; }
+				_FirstIndex += this->_IncrementSize;
 			}
-			else
-			{
-				Copy(&this->_Data[_LastIndex], &this->_Data[_LastIndex + _IncrementSize], _IncrementSize);
-				_LastIndex += _IncrementSize;
-				if (Cursor >= _LastIndex) { Cursor += _IncrementSize; }
-				if (_LastIndex == _FirstIndex) { _FirstIndex = _LastIndex; }
-			}
+			bFull = False;
 		}
 
-		FVoid _FindPosition(const TypeValue &Value, FSize &Cursor, FBoolean &bPriority)
+		FVoid _FindPosition(const TypeValue &Value, FSize &Cursor, FBoolean &bPriority, FBoolean &bRejected) const
 		{
+			bRejected = False;
+
 			if (!this->_Size)
 			{
 				bPriority = False;
@@ -123,7 +116,7 @@ namespace NDev
 			if (!OnPriority)
 			{
 				bPriority = False;
-				Cursor = _LastIndex + 1;
+				Cursor = _LastIndex;
 				return;
 			}
 
@@ -132,22 +125,27 @@ namespace NDev
 			{
 				if (OnPriority(Value, this->_Data[Cursor]))
 				{
+					if (_bNoEqualPriority) { bRejected = OnPriority(this->_Data[Cursor], Value); }
 					bPriority = True;
 					return;
 				}
 				Cursor = (Cursor + 1) % this->_BufferSize;
 			}
 			bPriority = OnPriority(Value, this->_Data[Cursor]);
-			if (!bPriority) { ++Cursor; }
+			if (_bNoEqualPriority && bPriority) { bRejected = OnPriority(this->_Data[Cursor], Value); }
 		}
 
 		FVoid _InsertPosition(TypeValue &Value, FSize Cursor, FBoolean bPriority, FBoolean &bQueued)
 		{
-			FBoolean bFull = this->_Size + 1 >= this->_BufferSize;
-			FBoolean bResize = !this->_bFixedSize && bFull;
-			
+			FBoolean bFull = this->_Size >= this->_BufferSize;
+			FBoolean bResize = bFull && !this->_bFixedSize;
+		
 			bQueued = False;
-			//Q =(a0 A aN ...)|(... a0 A aN ...)|(AN aN ... a0 A0) |(...), a0 > ai > aN, j = ?
+
+			if (!this->_Size) { _FirstIndex = _LastIndex = 0; }
+
+			if (bResize) { _ResizeQueue(Cursor, bFull); }
+
 			if (bPriority)
 			{
 				while (Cursor != _LastIndex)
@@ -159,14 +157,13 @@ namespace NDev
 				bQueued = True;
 			}
 
-			if (bResize)
+			if (!bFull)
 			{
-				_ResizeQueue(Cursor);
-				this->_Data[Cursor] = Value;
+				if (this->_Size) { _LastIndex = (_LastIndex + 1) % this->_BufferSize; }
+				this->_Data[_LastIndex] = Value;
+				++this->_Size;
 				bQueued = True;
 			}
-
-			if (!bFull || bResize) { ++this->_Size; }
 		}
 
 

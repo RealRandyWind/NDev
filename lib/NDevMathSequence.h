@@ -9,26 +9,26 @@ namespace NDev
 
 
 	template<typename Type>
-	TSequence<Type> Conv(const TSequence<Type> &Lhs, const TSequence<Type> &Rhs, FBoolean bCircular = False)
+	TSequence<Type> Conv(const TSequence<Type> &Lhs, const TSequence<Type> &Rhs, FBoolean bCircular = False, FBoolean bPadding = False)
 	{
 		TSequence<Type> Result;
 		return Result;
 	}
 
 	template<typename Type>
-	FVoid ConvInto(TSequence<Type> &Into, const TSequence<Type> &Rhs, FBoolean bCircular = False)
+	FVoid ConvInto(TSequence<Type> &Into, const TSequence<Type> &Rhs, FBoolean bCircular = False, FBoolean bPadding = False)
 	{
 
 	}
 
 	template<typename Type>
-	FVoid ConvInto(TSequence<Type> &Into, const TSequence<Type> &Lhs, const TSequence<Type> &Rhs, FBoolean bCircular = False)
+	FVoid ConvInto(TSequence<Type> &Into, const TSequence<Type> &Lhs, const TSequence<Type> &Rhs, FBoolean bCircular = False, FBoolean bPadding = False)
 	{
 
 	}
 
 	template<typename Type>
-	TSequence<Type> Corr(const TSequence<Type> &Lhs, const TSequence<Type> &Rhs, FBoolean bCircular = False)
+	TSequence<Type> Corr(const TSequence<Type> &Lhs, const TSequence<Type> &Rhs, FBoolean bCircular = False, FBoolean bPadding = False)
 	{
 		TSequence<Type> Result;
 
@@ -36,13 +36,13 @@ namespace NDev
 	}
 
 	template<typename Type>
-	FVoid CorrInto(TSequence<Type> &Into, const TSequence<Type> &Rhs, FBoolean bCircular = False)
+	FVoid CorrInto(TSequence<Type> &Into, const TSequence<Type> &Rhs, FBoolean bCircular = False, FBoolean bPadding = False)
 	{
 
 	}
 
 	template<typename Type>
-	FVoid CorrInto(TSequence<Type> &Into, const TSequence<Type> &Lhs, const TSequence<Type> &Rhs, FBoolean bCircular = False)
+	FVoid CorrInto(TSequence<Type> &Into, const TSequence<Type> &Lhs, const TSequence<Type> &Rhs, FBoolean bCircular = False, FBoolean bPadding = False)
 	{
 
 	}
@@ -106,7 +106,6 @@ namespace NDev
 	{
 
 	}
-
 
 	template<typename Type>
 	TSequence<Type> & Difference(const TSequence<Type> &Lhs, const TSequence<Type> &Rhs)
