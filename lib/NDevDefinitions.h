@@ -45,6 +45,12 @@ namespace NDev
 	}
 
 	template<typename Type>
+	Type ZeroEps(const Type &Lhs, const Type &Eps, const Type Zero = 0)
+	{
+		return Lhs <= Eps ? Zero : Lhs;
+	}
+
+	template<typename Type>
 	Type &Swap(Type &Lhs, Type &Rhs)
 	{
 		Type Temp;
@@ -59,6 +65,12 @@ namespace NDev
 	Type Clamp(const Type &Lhs, const Type &Lower, const Type &Upper)
 	{
 		return Lhs > Upper ? Upper : (Lhs < Lower ? Lower : Lhs);
+	}
+
+	template<typename Type>
+	FBoolean Between(const Type &Lhs, const Type &Lower, const Type &Upper, FBoolean bStrict = True)
+	{
+		return bStrict ? (Lhs < Upper && Lhs > Lower) : (Lhs <= Upper && Lhs >= Lower);
 	}
 
 	/* Pure Memory Functions */

@@ -89,9 +89,7 @@ namespace NDev
 
 		FVoid _ResizeQueue(FSize &Cursor, FBoolean &bFull)
 		{
-			FSize End, SergmentSize;
-
-			End = this->_BufferSize;
+			FSize Index, End;
 			this->Reserve(this->_BufferSize + this->_IncrementSize);
 			if (_LastIndex < _FirstIndex)
 			{
