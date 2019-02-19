@@ -224,6 +224,7 @@ namespace NDev
 		{
 			FPointer Pointer;
 			FBoolean bFaildResize;
+			FSize Index, End;
 
 			Pointer = realloc(_Data, ReserveSize * sizeof(TypeValue));
 			bFaildResize = _Data && !Pointer && ReserveSize;
@@ -233,7 +234,7 @@ namespace NDev
 				_bHeap = True;
 				_bClearDataOnDestroy = True;
 			}
-			_Data = (TypeValue *) Pointer;
+			_Data = (TypeValue *)Pointer;
 			if (bSetSizeToReserveSize) { _Size = ReserveSize; }
 			_BufferSize = ReserveSize;
 			if (ReserveSize < _Size) { _Size = ReserveSize; }
@@ -265,6 +266,11 @@ namespace NDev
 		{
 			TSequence<TypeValue> Result;
 			return Result;
+		}
+
+		static TypeValue Element()
+		{
+			return TypeValue();
 		}
 	};
 

@@ -277,6 +277,20 @@ namespace NDevTest
 			SK.IterateAll(False);
 			for (auto &Value : SK) { Assert::Fail(NullPtr, LINE_INFO()); }
 
+			/* recursive collection test */
+			TSequence<TSequence<TSequence<FReal>>> Rec3;
+			Rec3.Reserve(HSM, True);
+			for (auto &Rec2 : Rec3)
+			{
+				Rec2 = Rec3.Element();
+				Rec2.Reserve(HSM, True);
+				for (auto &Rec1 : Rec2)
+				{
+					Rec1 = Rec2.Element();
+					Rec1.Reserve(HSM, True);
+					for (auto &Index : Rec1) { Rec1 = Two; }
+				}
+			}
 		}
 
 		TEST_METHOD(TestList)
@@ -358,6 +372,8 @@ namespace NDevTest
 				Number = Index;
 				Assert::AreEqual(Number, SN[Index], NullPtr, LINE_INFO());
 			}
+
+
 		}
 
 		TEST_METHOD(TestBuffer)
