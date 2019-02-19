@@ -202,7 +202,7 @@ namespace NDevTest
 
 		TEST_METHOD(TestMake)
 		{
-
+			
 		}
 
 		TEST_METHOD(TestResize)
