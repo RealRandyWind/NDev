@@ -966,7 +966,7 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	FVoid AbsInto(TPoint<Size, Type> &Into, const Type &Eps, const Type Zero = 0)
+	FVoid ZeroEpsInto(TPoint<Size, Type> &Into, const Type &Eps, const Type Zero = 0)
 	{
 		FSize Index, End;
 
@@ -978,7 +978,7 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	FVoid AbsInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Rhs, const Type &Eps, const Type Zero = 0)
+	FVoid ZeroEpsInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Rhs, const Type &Eps, const Type Zero = 0)
 	{
 		FSize Index, End;
 
@@ -986,6 +986,196 @@ namespace NDev
 		for (Index = 0; Index < End; ++Index)
 		{
 			Into[Index] = ZeroEps(Rhs[Index], Eps, Zero);;
+		}
+	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> ZeroEps(const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Eps, const Type Zero = 0)
+	{
+		FSize Index, End;
+		TPoint<Size, Type> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result[Index] = ZeroEps(Lhs[Index], Eps[Index], Zero);
+		}
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
+	FVoid ZeroEpsInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Eps, const Type Zero = 0)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = ZeroEps(Into[Index], Eps[Index], Zero);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	FVoid ZeroEpsInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Rhs, const TPoint<Size, Type> &Eps, const Type Zero = 0)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = ZeroEps(Rhs[Index], Eps[Index], Zero);;
+		}
+	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> EqualEps(const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs, const Type &Eps)
+	{
+		FSize Index, End;
+		TPoint<Size, Type> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result[Index] = EqualEps(Lhs[Index], Rhs[Index], Eps);
+		}
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
+	FVoid EqualEpsInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Rhs, const Type &Eps)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = EqualEps(Into[Index], Rhs[Index], Eps);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	FVoid EqualEpsInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs, const Type &Eps)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = EqualEps(Lhs[Index], Rhs[Index], Eps);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> EqualEps(const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs, const TPoint<Size, Type> &Eps)
+	{
+		FSize Index, End;
+		TPoint<Size, Type> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result[Index] = EqualEps(Lhs[Index], Rhs[Index], Eps[Index]);
+		}
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
+	FVoid EqualEpsInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Rhs, const TPoint<Size, Type> &Eps)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = EqualEps(Into[Index], Rhs[Index], Eps[Index]);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	FVoid EqualEpsInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs, const TPoint<Size, Type> &Eps)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = EqualEps(Lhs[Index], Rhs[Index], Eps[Index]);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> EqualEps(const TPoint<Size, Type> &Lhs, const Type &Rhs, const Type &Eps)
+	{
+		FSize Index, End;
+		TPoint<Size, Type> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result[Index] = EqualEps(Lhs[Index], Rhs, Eps);
+		}
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
+	FVoid EqualEpsInto(TPoint<Size, Type> &Into, const Type &Rhs, const Type &Eps)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = EqualEps(Into[Index], Rhs, Eps);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	FVoid EqualEpsInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lhs, const Type &Rhs, const Type &Eps)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = EqualEps(Lhs[Index], Rhs, Eps);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> EqualEps(const TPoint<Size, Type> &Lhs, const Type &Rhs, const TPoint<Size, Type> &Eps)
+	{
+		FSize Index, End;
+		TPoint<Size, Type> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result[Index] = EqualEps(Lhs[Index], Rhs, Eps[Index]);
+		}
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
+	FVoid EqualEpsInto(TPoint<Size, Type> &Into, const Type &Rhs, const TPoint<Size, Type> &Eps)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = EqualEps(Into[Index], Rhs, Eps[Index]);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	FVoid EqualEpsInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lhs, const Type &Rhs, const TPoint<Size, Type> &Eps)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = EqualEps(Lhs[Index], Rhs, Eps[Index]);
 		}
 	}
 
@@ -1214,10 +1404,10 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	TPoint<Size, Type> Between(const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Lower, const TPoint<Size, Type> &Upper, FBoolean bStrict = True)
+	TPoint<Size, FBoolean> Between(const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Lower, const TPoint<Size, Type> &Upper, FBoolean bStrict = True)
 	{
 		FSize Index, End;
-		TPoint<Size, Type> Result;
+		TPoint<Size, FBoolean> Result;
 
 		End = Size;
 		for (Index = 0; Index < End; ++Index)
@@ -1228,7 +1418,7 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	FVoid BetweenInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lower, const TPoint<Size, Type> &Upper, FBoolean bStrict = True)
+	FVoid BetweenInto(TPoint<Size, FBoolean> &Into, const TPoint<Size, Type> &Lower, const TPoint<Size, Type> &Upper, FBoolean bStrict = True)
 	{
 		FSize Index, End;
 
@@ -1240,7 +1430,7 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	FVoid BetweenInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Lower, const TPoint<Size, Type> &Upper, FBoolean bStrict = True)
+	FVoid BetweenInto(TPoint<Size, FBoolean> &Into, const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Lower, const TPoint<Size, Type> &Upper, FBoolean bStrict = True)
 	{
 		FSize Index, End;
 
@@ -1252,10 +1442,10 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	TPoint<Size, Type> Between(const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> (&Range)[2], FBoolean bStrict = True)
+	TPoint<Size, FBoolean> Between(const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> (&Range)[2], FBoolean bStrict = True)
 	{
 		FSize Index, End;
-		TPoint<Size, Type> Result;
+		TPoint<Size, FBoolean> Result;
 
 		End = Size;
 		for (Index = 0; Index < End; ++Index)
@@ -1266,7 +1456,7 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	FVoid BetweenInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> (&Range)[2], FBoolean bStrict = True)
+	FVoid BetweenInto(TPoint<Size, FBoolean> &Into, const TPoint<Size, Type> (&Range)[2], FBoolean bStrict = True)
 	{
 		FSize Index, End;
 
@@ -1278,7 +1468,7 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	FVoid BetweenInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> (&Range)[2], FBoolean bStrict = True)
+	FVoid BetweenInto(TPoint<Size, FBoolean> &Into, const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> (&Range)[2], FBoolean bStrict = True)
 	{
 		FSize Index, End;
 
@@ -1290,10 +1480,10 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	TPoint<Size, Type> Between(const TPoint<Size, Type> &Lhs, const Type &Lower, const Type &Upper, FBoolean bStrict = True)
+	TPoint<Size, FBoolean> Between(const TPoint<Size, Type> &Lhs, const Type &Lower, const Type &Upper, FBoolean bStrict = True)
 	{
 		FSize Index, End;
-		TPoint<Size, Type> Result;
+		TPoint<Size, FBoolean> Result;
 
 		End = Size;
 		for (Index = 0; Index < End; ++Index)
@@ -1304,7 +1494,7 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	FVoid BetweenInto(TPoint<Size, Type> &Into, const Type &Lower, const Type &Upper, FBoolean bStrict = True)
+	FVoid BetweenInto(TPoint<Size, FBoolean> &Into, const Type &Lower, const Type &Upper, FBoolean bStrict = True)
 	{
 		FSize Index, End;
 
@@ -1316,7 +1506,7 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	FVoid BetweenInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lhs, const Type &Lower, const Type &Upper, FBoolean bStrict = True)
+	FVoid BetweenInto(TPoint<Size, FBoolean> &Into, const TPoint<Size, Type> &Lhs, const Type &Lower, const Type &Upper, FBoolean bStrict = True)
 	{
 		FSize Index, End;
 
@@ -1328,10 +1518,10 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	TPoint<Size, Type> Between(const TPoint<Size, Type> &Lhs, const Type (&Range)[2], FBoolean bStrict = True)
+	TPoint<Size, FBoolean> Between(const TPoint<Size, Type> &Lhs, const Type (&Range)[2], FBoolean bStrict = True)
 	{
 		FSize Index, End;
-		TPoint<Size, Type> Result;
+		TPoint<Size, FBoolean> Result;
 
 		End = Size;
 		for (Index = 0; Index < End; ++Index)
@@ -1342,7 +1532,7 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	FVoid BetweenInto(TPoint<Size, Type> &Into, const Type (&Range)[2], FBoolean bStrict = True)
+	FVoid BetweenInto(TPoint<Size, FBoolean> &Into, const Type (&Range)[2], FBoolean bStrict = True)
 	{
 		FSize Index, End;
 
@@ -1354,7 +1544,7 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	FVoid BetweenInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lhs, const Type (&Range)[2], FBoolean bStrict = True)
+	FVoid BetweenInto(TPoint<Size, FBoolean> &Into, const TPoint<Size, Type> &Lhs, const Type (&Range)[2], FBoolean bStrict = True)
 	{
 		FSize Index, End;
 
@@ -1362,6 +1552,114 @@ namespace NDev
 		for (Index = 0; Index < End; ++Index)
 		{
 			Into[Index] = Between(Lhs[Index], Range[0], Range[1], bStrict);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, FBoolean> IsZeroEps(const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs, const Type &Eps, const Type Zero = 0)
+	{
+		FSize Index, End;
+		TPoint<Size, FBoolean> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result[Index] = IsZeroEps(Lhs[Index], Rhs[Index], Eps, Zero);
+		}
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
+	FVoid IsZeroEpsInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs, const Type &Eps, const Type Zero = 0)
+	{
+		FSize Index, End;
+		TPoint<Size, FBoolean> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = IsZeroEps(Lhs[Index], Rhs[Index], Eps, Zero);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, FBoolean> IsZeroEps(const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs, const TPoint<Size, Type> &Eps, const Type Zero = 0)
+	{
+		FSize Index, End;
+		TPoint<Size, FBoolean> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result[Index] = IsZeroEps(Lhs[Index], Rhs[Index], Eps[Index], Zero);
+		}
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
+	FVoid IsZeroEpsInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs, const TPoint<Size, Type> &Eps, const Type Zero = 0)
+	{
+		FSize Index, End;
+		TPoint<Size, FBoolean> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = IsZeroEps(Lhs[Index], Rhs[Index], Eps[Index], Zero);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, FBoolean> IsZeroEps(const TPoint<Size, Type> &Lhs, const Type &Rhs, const Type &Eps, const Type Zero = 0)
+	{
+		FSize Index, End;
+		TPoint<Size, FBoolean> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result[Index] = IsZeroEps(Lhs[Index], Rhs, Eps, Zero);
+		}
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
+	FVoid IsZeroEpsInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lhs, const Type &Rhs, const Type &Eps, const Type Zero = 0)
+	{
+		FSize Index, End;
+		TPoint<Size, FBoolean> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = IsZeroEps(Lhs[Index], Rhs, Eps, Zero);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, FBoolean> IsZeroEps(const TPoint<Size, Type> &Lhs, const Type &Rhs, const TPoint<Size, Type> &Eps, const Type Zero = 0)
+	{
+		FSize Index, End;
+		TPoint<Size, FBoolean> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result[Index] = IsZeroEps(Lhs[Index], Rhs, Eps[Index], Zero);
+		}
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
+	FVoid IsZeroEpsInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lhs, const Type &Rhs, const TPoint<Size, Type> &Eps, const Type Zero = 0)
+	{
+		FSize Index, End;
+		TPoint<Size, FBoolean> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = IsZeroEps(Lhs[Index], Rhs, Eps[Index], Zero);
 		}
 	}
 
@@ -1427,6 +1725,25 @@ namespace NDev
 			if (!bInBound) { return False; }
 		}
 		return bInBound;
+	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> Spike(Type Value, FSize Index = 0, const Type Zero = 0)
+	{
+		TPoint<Size, Type> Result;
+
+		if (Index >= Size) { exit(Failure); }
+		Result = Zero;
+		Result[Index] = Value;
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
+	FVoid SpikeInto(TPoint<Size, Type> &Into, Type Value, FSize Index = 0, const Type Zero = 0)
+	{
+		if (Index >= Size) { exit(Failure); }
+		Into = Zero;
+		Into[Index] = Value;
 	}
 
 	/*

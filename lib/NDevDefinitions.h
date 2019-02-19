@@ -47,7 +47,13 @@ namespace NDev
 	template<typename Type>
 	Type ZeroEps(const Type &Lhs, const Type &Eps, const Type Zero = 0)
 	{
-		return Lhs <= Eps ? Zero : Lhs;
+		return IsZeroEps(Lhs, Eps, Zero) ? Zero : Lhs;
+	}
+
+	template<typename Type>
+	Type EqualEps(const Type &Lhs, const Type &Rhs, const Type &Eps)
+	{
+		return IsEqualEps(Lhs, Rhs, Eps) ? Lhs : Rhs;
 	}
 
 	template<typename Type>
@@ -71,6 +77,18 @@ namespace NDev
 	FBoolean Between(const Type &Lhs, const Type &Lower, const Type &Upper, FBoolean bStrict = True)
 	{
 		return bStrict ? (Lhs < Upper && Lhs > Lower) : (Lhs <= Upper && Lhs >= Lower);
+	}
+
+	template<typename Type>
+	FBoolean IsZeroEps(const Type &Lhs, const Type &Eps, const Type Zero = 0)
+	{
+		return (Zero > Lhs ? Zero - Lhs : Lhs - Zero) >= Eps;
+	}
+
+	template<typename Type>
+	FBoolean IsEqualEps(const Type &Lhs, const Type &Rhs, const Type &Eps)
+	{
+		return (Rhs > Lhs ? Rhs - Lhs : Lhs - Rhs) >= Eps;
 	}
 
 	/* Pure Memory Functions */

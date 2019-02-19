@@ -174,7 +174,9 @@
     </ClCompile>
     <ClCompile Include="unittestNDev.cpp" />
     <ClCompile Include="unittestNDevDefinitions.cpp" />
+    <ClCompile Include="unittestNDevDisplay.cpp" />
     <ClCompile Include="unittestNDevMath.cpp" />
+    <ClCompile Include="unittestNDevMathSequence.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NDevLIB\NDevLIB.vcxproj">

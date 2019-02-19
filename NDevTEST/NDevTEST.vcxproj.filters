@@ -41,5 +41,11 @@
     <ClCompile Include="unittestNDevDefinitions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="unittestNDevMathSequence.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="unittestNDevDisplay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -30,6 +30,31 @@ namespace NDev
 
 		}
 
+		FSize Make()
+		{
+			FSize Index;
+			_New(Index);
+			return Index;
+		}
+
+		FSize Make(TypeValue Rhs)
+		{
+			FSize Index;
+
+			_New(Index) = Rhs;
+			return Index;
+		}
+
+		TypeValue &New()
+		{
+			return _New();
+		}
+
+		TypeValue &New(TypeValue Rhs)
+		{
+			return (_New() = Rhs);
+		}
+
 		FVoid Add(TypeValue Rhs)
 		{
 			FBoolean bResize = !this->_bFixedSize && this->_Size >= this->_BufferSize;
@@ -99,6 +124,24 @@ namespace NDev
 				_TargetFindPosition(Value, Cursor, Pivot, Targets);
 				_TargetInsertPosition(Value, Cursor, Pivot, Targets);
 			}
+		}
+
+		TypeValue &_New()
+		{
+			FSize Index;
+			
+			return _New(Index);
+		}
+
+		TypeValue &_New(FSize &Index)
+		{
+			FBoolean bResize = !this->_bFixedSize && this->_Size >= this->_BufferSize;
+
+			if (bResize) { this->Reserve(this->_Size + this->_IncrementSize); }
+			Index = this->_Size;
+			auto &Result = this->_Data[Index];
+			++this->_Size;
+			return Result;
 		}
 
 		FVoid _FindPosition(const TypeValue &Value, FSize &Cursor, FSize Pivot) const

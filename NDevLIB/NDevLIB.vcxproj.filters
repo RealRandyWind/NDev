@@ -72,9 +72,6 @@
     <ClInclude Include="..\lib\NDevBytes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\lib\NDevWindow.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\lib\NDevKDTree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
