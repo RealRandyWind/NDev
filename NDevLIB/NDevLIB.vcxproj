@@ -103,13 +103,15 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(IntDir)$(SolutionName).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(SolutionName).lib $(SolutionDir)lib\$(Platform)\ -Force</Command>
+      <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(SolutionName).lib $(SolutionDir)lib\$(Platform)\ -Force
+PowerShell.exe -Command Copy-Item $(OutDir)$(SolutionName).pdb $(SolutionDir)lib\$(Platform)\ -Force</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copies project lib to librairy directory</Message>
@@ -127,13 +129,15 @@
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(IntDir)$(SolutionName).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(SolutionName).lib $(SolutionDir)lib\$(Platform)\ -Force</Command>
+      <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(SolutionName).lib $(SolutionDir)lib\$(Platform)\ -Force
+PowerShell.exe -Command Copy-Item $(OutDir)$(SolutionName).pdb $(SolutionDir)lib\$(Platform)\ -Force</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copies project lib to librairy directory</Message>
@@ -153,6 +157,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(IntDir)$(SolutionName).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -161,7 +166,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(SolutionName).lib $(SolutionDir)lib\$(Platform)\ -Force</Command>
+      <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(SolutionName).lib $(SolutionDir)lib\$(Platform)\ -Force
+PowerShell.exe -Command Copy-Item $(OutDir)$(SolutionName).pdb $(SolutionDir)lib\$(Platform)\ -Force</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copies project lib to librairy directory</Message>
@@ -181,6 +187,7 @@
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(IntDir)$(SolutionName).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -189,7 +196,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(SolutionName).lib $(SolutionDir)lib\$(Platform)\ -Force</Command>
+      <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(SolutionName).lib $(SolutionDir)lib\$(Platform)\ -Force
+PowerShell.exe -Command Copy-Item $(OutDir)$(SolutionName).pdb $(SolutionDir)lib\$(Platform)\ -Force</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copies project lib to librairy directory</Message>

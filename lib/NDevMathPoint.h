@@ -1794,21 +1794,6 @@ namespace NDev
 		Into[Index] = Value;
 	}
 
-	/*
-	template<FSize Size, typename Type>
-	TPoint<Size, Type> &IntoPoint(TPoint<Size, Type> &Lhs, const TQuinsor<Size, Type> &Rhs)
-	{
-		FSize Index, End;
-		Type Scale, Theta;
 
-	}
-
-	template<FSize Size, typename Type>
-	TQuinsor<Size, Type> &IntoQuinsor(TQuinsor<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs)
-	{
-		FSize Index, End;
-		Type Scale, Theta;
-	}
-	*/
 
 }
