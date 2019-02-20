@@ -4,6 +4,9 @@ namespace NDev
 {
 	namespace Display
 	{
+		struct FContext
+		{
 
+		};
 	}
 }

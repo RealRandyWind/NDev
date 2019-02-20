@@ -4,6 +4,7 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 #include "NDev.h"
+#include "NDevDisplay/NDevDisplay.h"
 
 namespace NDevTest
 {

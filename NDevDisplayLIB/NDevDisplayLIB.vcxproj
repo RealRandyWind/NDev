@@ -20,33 +20,33 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{10B15700-72BB-4AA0-A4A6-13187621201E}</ProjectGuid>
+    <ProjectGuid>{39390FBC-0BE8-40B2-B5FB-BD04911DB8BA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>NDevDLL</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <RootNamespace>NDevDisplayLIB</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -70,68 +70,76 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(ProjectDir)bin\$(Platform)\</OutDir>
-    <IntDir>bin\$(Platform)\</IntDir>
-    <TargetName>NDev</TargetName>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)bin\$(Platform)\</OutDir>
     <IntDir>bin\$(Platform)\</IntDir>
-    <TargetName>NDev</TargetName>
+    <TargetName>NDevDisplay</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ProjectDir)bin\$(Platform)\</OutDir>
+    <IntDir>bin\$(Platform)\</IntDir>
+    <TargetName>NDevDisplay</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)bin\$(Platform)\</OutDir>
     <IntDir>bin\$(Platform)\</IntDir>
-    <TargetName>NDev</TargetName>
+    <TargetName>NDevDisplay</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)bin\$(Platform)\</OutDir>
     <IntDir>bin\$(Platform)\</IntDir>
-    <TargetName>NDev</TargetName>
+    <TargetName>NDevDisplay</TargetName>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;NDEVDLL_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;%(AdditionalLibraryDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Link>
-    <PostBuildEvent>
-      <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).dll $(SolutionDir)lib\$(Platform)\ -Force</Command>
-      <Message>Copies project dll to librairy directory</Message>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;NDEVDLL_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;%(AdditionalLibraryDirectories)</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalLibraryDirectories>
+    </Lib>
     <PostBuildEvent>
-      <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).dll $(SolutionDir)lib\$(Platform)\ -Force</Command>
-      <Message>Copies project dll to librairy directory</Message>
+      <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).lib $(SolutionDir)lib\$(Platform)\ -Force
+PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).pdb $(SolutionDir)lib\$(Platform)\ -Force</Command>
+      <Message>Copies project lib to librairy directory</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalLibraryDirectories>
+    </Lib>
+    <PostBuildEvent>
+      <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).lib $(SolutionDir)lib\$(Platform)\ -Force
+PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).pdb $(SolutionDir)lib\$(Platform)\ -Force</Command>
+      <Message>Copies project lib to librairy directory</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -142,20 +150,24 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;NDEVDLL_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;%(AdditionalLibraryDirectories)</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalLibraryDirectories>
+    </Lib>
     <PostBuildEvent>
-      <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).dll $(SolutionDir)lib\$(Platform)\ -Force</Command>
-      <Message>Copies project dll to librairy directory</Message>
+      <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).lib $(SolutionDir)lib\$(Platform)\ -Force
+PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).pdb $(SolutionDir)lib\$(Platform)\ -Force</Command>
+      <Message>Copies project lib to librairy directory</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -166,41 +178,43 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;NDEVDLL_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;%(AdditionalLibraryDirectories)</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalLibraryDirectories>
+    </Lib>
     <PostBuildEvent>
-      <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).dll $(SolutionDir)lib\$(Platform)\ -Force</Command>
-      <Message>Copies project dll to librairy directory</Message>
+      <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).lib $(SolutionDir)lib\$(Platform)\ -Force
+PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).pdb $(SolutionDir)lib\$(Platform)\ -Force</Command>
+      <Message>Copies project lib to librairy directory</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="NDevDLL.h" />
+    <ClInclude Include="..\lib\NDevDisplay\NDevContext.h" />
+    <ClInclude Include="..\lib\NDevDisplay\NDevController.h" />
+    <ClInclude Include="..\lib\NDevDisplay\NDevDisplay.h" />
+    <ClInclude Include="..\lib\NDevDisplay\NDevOpenGL.h" />
+    <ClInclude Include="..\lib\NDevDisplay\NDevShader.h" />
+    <ClInclude Include="..\lib\NDevDisplay\NDevWindow.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="NDevDLL.cpp" />
     <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\NDevLIB\NDevLIB.vcxproj">
-      <Project>{a17cae16-5986-457b-a421-7066383ea452}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

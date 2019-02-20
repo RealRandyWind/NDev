@@ -1,9 +1,7 @@
 #pragma once
 
-namespace NDev
-{
-	namespace Display
-	{
-
-	}
-}
+#include "NDevContext.h"
+#include "NDevOpenGL.h"
+#include "NDevWindow.h"
+#include "NDevShader.h"
+#include "NDevController.h"
