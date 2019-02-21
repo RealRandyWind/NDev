@@ -18,7 +18,7 @@ namespace NDev
 			using Size = TReferences<SizeData, _TypeValue>;
 
 			template<FSize _SizeData>
-			using Type = TReferences<_SizeData, typename TypeValue>;
+			using Type = TReferences<_SizeData, TypeValue>;
 		};
 	
 		FPointer _Data[SizeData];

@@ -26,6 +26,7 @@ namespace NDev
 			_bInitialized = False;
 			_bContinue = False;
 			_NSteps = 0;
+			OnStep = NullPtr;
 			UseDefaultParameters();
 		}
 

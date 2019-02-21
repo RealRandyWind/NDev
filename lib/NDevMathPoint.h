@@ -651,7 +651,8 @@ namespace NDev
 	{
 		FSize Index, End;
 
-		auto Result = TAssume<Type>::One();
+		const auto One = TAssume<Type>::One();
+		auto Result = One;
 		End = Size;
 		for (Index = 0; Index < End; ++Index)
 		{
@@ -1187,9 +1188,9 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	FBoolean All(const TPoint<Size, Type> &Rhs)
+	FBoolean All(const TPoint<Size, Type> &Rhs, FSize &Index)
 	{
-		FSize Index, End;
+		FSize End;
 
 		End = Size;
 		for (Index = 0; Index < End; ++Index)
@@ -1200,9 +1201,17 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
-	FBoolean Any(const TPoint<Size, Type> &Rhs)
+	FBoolean All(const TPoint<Size, Type> &Rhs)
 	{
-		FSize Index, End;
+		FSize Index;
+
+		return All(Rhs, Index);
+	}
+
+	template<FSize Size, typename Type>
+	FBoolean Any(const TPoint<Size, Type> &Rhs, FSize &Index)
+	{
+		FSize End;
 
 		End = Size;
 		for (Index = 0; Index < End; ++Index)
@@ -1210,6 +1219,14 @@ namespace NDev
 			if (Rhs[Index]) { return True;  }
 		}
 		return False;
+	}
+
+	template<FSize Size, typename Type>
+	FBoolean Any(const TPoint<Size, Type> &Rhs)
+	{
+		FSize Index;
+
+		return Any(Rhs, Index);
 	}
 
 	template<FSize Size, typename Type>

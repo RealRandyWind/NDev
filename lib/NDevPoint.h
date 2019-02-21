@@ -18,7 +18,7 @@ namespace NDev
 			using Size = TPoint<SizeData, _TypeValue>;
 
 			template<FSize _SizeData>
-			using Type = TPoint<_SizeData, typename TypeValue>;
+			using Type = TPoint<_SizeData, TypeValue>;
 		};
 
 		TypeValue _Data[SizeData];
