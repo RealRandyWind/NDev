@@ -288,6 +288,22 @@ namespace NDevTest
 
 		}
 
+		TEST_METHOD(TestEqual)
+		{
+			struct FStruct
+			{
+				FReal A, B, C;
+			};
+
+			FStruct Lhs, Rhs, Same;
+			Same = Lhs = { 1.0, 2.0, 3.0 };
+			Rhs = { 3.0, 2.0, 1.0 };
+
+			Assert::IsTrue(Equal(Lhs, Lhs));
+			Assert::IsTrue(Equal(Lhs, Same));
+			Assert::IsFalse(Equal(Lhs, Rhs));
+		}
+
 		TEST_METHOD(TestText)
 		{
 			const char *CString = "C String";

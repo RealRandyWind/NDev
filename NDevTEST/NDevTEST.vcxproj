@@ -179,6 +179,9 @@
     <ClCompile Include="unittestNDevMathSequence.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NDevDisplayLIB\NDevDisplayLIB.vcxproj">
+      <Project>{39390fbc-0be8-40b2-b5fb-bd04911db8ba}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\NDevLIB\NDevLIB.vcxproj">
       <Project>{a17cae16-5986-457b-a421-7066383ea452}</Project>
     </ProjectReference>

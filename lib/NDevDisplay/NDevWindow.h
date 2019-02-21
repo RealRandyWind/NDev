@@ -2,7 +2,6 @@
 
 #include "NDevTypes.h"
 #include "NDevMathAliases.h"
-#include "NDevDefinitions.h"
 
 namespace NDev
 {
@@ -13,11 +12,22 @@ namespace NDev
 		struct FWindow
 		{
 			FReal LookSpeed, MoveSpeed, FieldOfView, AspectRatio, Near, Far;
-			FSize Width, Height, X, Y;
+			FSize Width, Height, X, Y, Id;
 			FBoolean bFullScreen, bBorderless, bWait, bPerspective, bHold, bUpdate;
 			FString Title, Style, Simulation;
 			NDev::TColor<FReal> Color;
 			NDev::TPoint3D<FReal> LookAt, Position, Up;
+
+			FWindow()
+			{
+				UseDefault();
+			}
+
+			~FWindow()
+			{
+				if (Style) { Remove(Style); }
+				if (Title) { Remove(Title); }
+			}
 
 			virtual FVoid UseDefault()
 			{
@@ -46,10 +56,16 @@ namespace NDev
 				Style = NullPtr;
 				Title = NullPtr;
 				Simulation = NullPtr;
+				Id = 0;
 			}
+
+
 		};
 	
 
 
 	}
+
+
+
 }

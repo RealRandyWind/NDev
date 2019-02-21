@@ -1,7 +1,8 @@
 #pragma once
 
 #include "NDevTypes.h"
-#include "NDevContext.h"
+#include "NDevSequence.h"
+#include "NDevShader.h"
 
 namespace NDev
 {
@@ -9,9 +10,13 @@ namespace NDev
 	{
 		using namespace Types;
 
-		struct FOpenGL : FContext
+		struct FStyle
 		{
-
+			TSequence<FShader> Pipeline;
 		};
+
 	}
+
+
+
 }

@@ -39,6 +39,9 @@
     <ClInclude Include="..\lib\NDevDisplay\NDevWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\lib\NDevDisplay\NDevStyle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

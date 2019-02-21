@@ -167,6 +167,10 @@ namespace NDev
 			TPoint<SizeData, TypeRhs> Result;
 			return Result;
 		}
+
+
 	};
+
+
 
 }

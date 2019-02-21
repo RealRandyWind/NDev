@@ -209,15 +209,38 @@ namespace NDev
 		return _Pointer;
 	}
 
+	static FBoolean _Equal(const void* Lhs, const void* Rhs, FSize Bytes, FSize &Index)
+	{
+		FSize End;
+
+		if (!Lhs || !Rhs) { exit(Failure); }
+		auto _Lhs = (const FRaw *)Lhs;
+		auto _Rhs = (const FRaw *)Rhs;
+		End = Bytes;
+		for (Index = 0; Index < End; ++Index)
+		{
+			if (_Lhs[Index] != _Rhs[Index]) { return False; }
+		}
+		return True;
+	}
+
+	static FBoolean _Equal(const void* Lhs, const void* Rhs, FSize Bytes)
+	{
+		FSize Index;
+
+		return _Equal(Lhs, Rhs, Bytes, Index);
+	}
+
 	static void * _Text(const void *String)
 	{
 		FSize Size;
 
 		if (!String) { exit(Failure); }
 		auto _String = (FCharacter *)String;
-		for (Size = 0; _String[Size]; ++Size) { }
+		for (Size = 0; _String[Size]; ++Size) {}
 		return _Copy(_String, NullPtr, Size);
 	}
+
 
 	/* Template Memory Functions */
 
@@ -228,9 +251,15 @@ namespace NDev
 	}
 
 	template<typename Type>
-	Type DefaultValue(Type Value, Type Default)
+	Type DefaultValue(Type Value, const Type Default)
 	{
-		return Value ? Type : Default;
+		return Value ? Value : Default;
+	}
+
+	template<typename Type>
+	Type DefaultValue(Type *Value, const Type Default)
+	{
+		return Value ? *Value : Default;
 	}
 
 	template<typename Type>
@@ -281,24 +310,54 @@ namespace NDev
 		return (Type *)_Shift(Pointer, Steps * sizeof(Type), Size * sizeof(Type), bRight);
 	}
 
-	static FString Text(const char *String, char End = '\0', FSize *PtrSize = NullPtr)
+	template<typename Type>
+	FBoolean Equal(const Type *Lhs, const Type *Rhs, FSize Size, FSize &Index)
 	{
-		FSize Size;
+		FBoolean bEqual;
 
-		if (!String) { return NullPtr; }
-		for (Size = 0; String[Size] != End; ++Size) { };
-		if (PtrSize) { *PtrSize = Size; }
-		return (FString) _Copy(String, NullPtr, Size + 1);
+		bEqual = _Equal(Lhs, Rhs, Size * sizeof(Type), Index);
+		Index /= sizeof(Type);
+		return bEqual;
 	}
 
-	static FString Text(const FString String, FCharacter End = NullChr, FSize *PtrSize = NullPtr)
+	template<typename Type>
+	FBoolean Equal(const Type *Lhs, const Type *Rhs, FSize Size = 1)
+	{
+		return _Equal(Lhs, Rhs, Size * sizeof(Type));
+	}
+
+	template<typename Type>
+	FBoolean Equal(const Type &Lhs, const Type &Rhs)
+	{
+		return _Equal(&Lhs, &Rhs, sizeof(Type));
+	}
+
+	static FString Text(const char *String, FSize &Size, char End = '\0')
+	{
+		if (!String) { return NullPtr; }
+		for (Size = 0; String[Size] != End; ++Size) {};
+		return (FString)_Copy(String, NullPtr, Size + 1);
+	}
+
+	static FString Text(const char *String, char End = '\0')
 	{
 		FSize Size;
 
+		return Text(String, Size, End);
+	}
+
+	static FString Text(const FString String, FSize &Size, const FCharacter End = NullChr)
+	{
 		if (!String) { return NullPtr; }
 		for (Size = 0; String[Size] != End; ++Size) {};
-		if (PtrSize) { *PtrSize = Size; }
-		return (FString) _Copy(String, NullPtr, Size + 1);
+		return (FString)_Copy(String, NullPtr, Size + 1);
+	}
+
+	static FString Text(const FString String, const FCharacter End = NullChr)
+	{
+		FSize Size;
+		
+		return Text(String, Size, End);
 	}
 
 
