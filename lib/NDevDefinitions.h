@@ -21,6 +21,8 @@ namespace NDev
 	template<typename Type>
 	struct TAssume
 	{
+		static Type Null() { return Null; }
+
 		static Type Zero() { return 0.0L; }
 
 		static Type Third() { return (1.0L / 3.0L); }

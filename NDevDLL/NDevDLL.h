@@ -10,7 +10,7 @@
 
 namespace NDev
 {
-		class NDEVDLL_EXPORTS CResource;
+		struct NDEVDLL_EXPORTS FResource;
 
 		template struct NDEVDLL_EXPORTS TSequence<_FResource>;
 }
