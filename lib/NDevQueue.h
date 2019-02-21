@@ -42,7 +42,7 @@ namespace NDev
 
 		FBoolean Queue(TypeValue Rhs)
 		{
-			FSize Index, Cursor;
+			FSize Cursor;
 			FBoolean bQueued, bPriority, bRejected;
 
 			_FindPosition(Rhs, Cursor, bPriority, bRejected);
@@ -89,7 +89,6 @@ namespace NDev
 
 		FVoid _ResizeQueue(FSize &Cursor, FBoolean &bFull)
 		{
-			FSize Index, End;
 			this->Reserve(this->_BufferSize + this->_IncrementSize);
 			if (_LastIndex < _FirstIndex)
 			{

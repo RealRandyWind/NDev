@@ -220,7 +220,6 @@ namespace NDevTest
 			const FSize NL1 = 1, NL2 = 2, NL3 = 3, NLN = 2048, K = 7;
 			FSize Index, End;
 			FReal *L, *Q, *NullL = NullPtr;
-			FReal Number;
 
 			End = NL1;
 			L = (FReal *)malloc(End * sizeof(FReal));
@@ -308,8 +307,6 @@ namespace NDevTest
 		{
 			const char *CString = "C String";
 			const FString NDevString = "NDev String";
-			
-			FSize Index;
 
 			FString String;
 			String = Text(CString);

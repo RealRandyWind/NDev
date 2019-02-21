@@ -40,7 +40,7 @@ namespace NDev
 		{
 			FBoolean bFree = _bHeap && _bClearDataOnDestroy && _Data;
 
-			if (bFree) { _Remove(_Data); }
+			if (bFree) { Remove(_Data); }
 			_Data = NullPtr;
 		}
 
@@ -222,19 +222,12 @@ namespace NDev
 
 		FVoid Reserve(FSize ReserveSize, FBoolean bSetSizeToReserveSize = False)
 		{
-			FPointer Pointer;
-			FBoolean bFaildResize;
-			FSize Index, End;
-
-			Pointer = realloc(_Data, ReserveSize * sizeof(TypeValue));
-			bFaildResize = _Data && !Pointer && ReserveSize;
-			if (bFaildResize) { exit(Failure); }
+			_Data = ResizeNull(_Data, ReserveSize);
 			if (!_bHeap)
 			{
 				_bHeap = True;
 				_bClearDataOnDestroy = True;
 			}
-			_Data = (TypeValue *)Pointer;
 			if (bSetSizeToReserveSize) { _Size = ReserveSize; }
 			_BufferSize = ReserveSize;
 			if (ReserveSize < _Size) { _Size = ReserveSize; }

@@ -234,15 +234,12 @@ namespace NDev
 			FPointer Pointer;
 			FBoolean bFaildResize;
 
-			Pointer = realloc(_Data, ReserveSize * sizeof(TypeValue));
-			bFaildResize = _Data && !Pointer && ReserveSize;
-			if (bFaildResize) { exit(Failure); }
-			if (_bHeap)
+			_Data = ResizeNull(_Data, ReserveSize);
+			if (!_bHeap)
 			{
 				_bHeap = True;
 				_bClearDataOnDestroy = True;
 			}
-			_Data = (TypeValue *) Pointer;
 			if (bSetSizeToReserveSize) { _Size = ReserveSize; }
 			_BufferSize = ReserveSize;
 			if (ReserveSize < _Size) { _Size = ReserveSize; }

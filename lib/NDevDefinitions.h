@@ -18,6 +18,42 @@ namespace NDev
 		};
 	};
 
+	template<typename Type>
+	struct TAssume
+	{
+		static Type Zero()
+		{
+			return 0.0L;
+		}
+
+		static Type Third()
+		{
+			return (1.0L / 3.0L);
+		}
+
+		static Type Half()
+		{
+			return 0.5L;
+		}
+
+		static Type One()
+		{
+			return 1.0L;
+		}
+
+		static Type Two()
+		{
+			return 2.0L;
+		}
+
+		static Type Three()
+		{
+			return 3.0L;
+		}
+
+
+	};
+
 	/* Helper Functions */
 
 	template<typename Type>
@@ -35,18 +71,31 @@ namespace NDev
 	template<typename Type>
 	Type Sign(const Type &Lhs, const Type Zero = 0, const Type One = 1)
 	{
+		/*
+		const auto Zero = TAssume<Type>::Zero();
+		const auto One = TAssume<Type>::One();
+		return Lhs < Zero ? -One : One;
+		*/
 		return Lhs < Zero ? -One : One;
 	}
 
 	template<typename Type>
 	Type Abs(const Type &Lhs, const Type Zero = 0)
 	{
+		/*
+		const auto Zero = TAssume<Type>::Zero();
+		return Lhs < Zero ? -Lhs : Lhs;
+		*/
 		return Lhs < Zero ? -Lhs : Lhs;
 	}
 
 	template<typename Type>
 	Type ZeroEps(const Type &Lhs, const Type &Eps, const Type Zero = 0)
 	{
+		/*
+		const auto Zero = TAssume<Type>::Zero();
+		return IsZeroEps(Lhs, Eps) ? Zero : Lhs;
+		*/
 		return IsZeroEps(Lhs, Eps, Zero) ? Zero : Lhs;
 	}
 
@@ -82,7 +131,11 @@ namespace NDev
 	template<typename Type>
 	FBoolean IsZeroEps(const Type &Lhs, const Type &Eps, const Type Zero = 0)
 	{
+		/*
+		const auto Zero = TAssume<Type>::Zero();
 		return (Zero > Lhs ? Zero - Lhs : Lhs - Zero) >= Eps;
+		*/
+		return (Zero > Lhs ? Zero - Lhs : Lhs) >= Eps;
 	}
 
 	template<typename Type>
@@ -111,6 +164,16 @@ namespace NDev
 		End = Bytes;
 		for (Index = 0; Index < End; ++Index) { Swap(_From[Index], _To[Index]); }
 		return _To;
+	}
+
+	static void * _ResizeNull(void *Pointer, FSize Bytes)
+	{
+		
+		FPointer _Pointer = realloc(Pointer, Bytes);
+		FBoolean bFaildResize = Pointer && !_Pointer && Bytes;
+		if (bFaildResize) { exit(Failure); }
+		Pointer = _Pointer;
+		return Pointer;
 	}
 
 	static void * _Resize(void *Pointer, FSize Bytes)
@@ -224,13 +287,6 @@ namespace NDev
 		return True;
 	}
 
-	static FBoolean _Equal(const void* Lhs, const void* Rhs, FSize Bytes)
-	{
-		FSize Index;
-
-		return _Equal(Lhs, Rhs, Bytes, Index);
-	}
-
 	static void * _Text(const void *String)
 	{
 		FSize Size;
@@ -272,6 +328,12 @@ namespace NDev
 	Type * Make(FSize Size = 1)
 	{
 		return (Type *) _Make(Size * sizeof(Type));
+	}
+
+	template<typename Type>
+	Type * ResizeNull(Type *Pointer, FSize Size = 1)
+	{
+		return (Type *)_ResizeNull(Pointer, Size * sizeof(Type));
 	}
 
 	template<typename Type>
@@ -323,13 +385,17 @@ namespace NDev
 	template<typename Type>
 	FBoolean Equal(const Type *Lhs, const Type *Rhs, FSize Size = 1)
 	{
-		return _Equal(Lhs, Rhs, Size * sizeof(Type));
+		FSize Index;
+
+		return _Equal(Lhs, Rhs, Size * sizeof(Type), Index);
 	}
 
 	template<typename Type>
 	FBoolean Equal(const Type &Lhs, const Type &Rhs)
 	{
-		return _Equal(&Lhs, &Rhs, sizeof(Type));
+		FSize Index;
+
+		return _Equal(&Lhs, &Rhs, sizeof(Type), Index);
 	}
 
 	static FString Text(const char *String, FSize &Size, char End = '\0')
