@@ -40,6 +40,40 @@ namespace NDev
 
 	}
 
+	template<typename Type>
+	struct TConstant
+	{
+		static Type Pi() { return Constants::Pi; }
+
+		static Type Pi2() { return Constants::Pi2; }
+
+		static Type Pi3() { return Constants::Pi3; }
+
+		static Type ByPi() { return Constants::ByPi; }
+
+		static Type PiBy2() { return Constants::PiBy2; }
+
+		static Type PiBy3() { return Constants::PiBy3; }
+
+		static Type Phi() { return Constants::PhiBy2; }
+
+		static Type ByPhi() { return Constants::ByPhi; }
+
+		static Type E() { return Constants::E; }
+
+		static Type ByE() { return Constants::ByE; }
+
+		static Type Sqrt2() { return Constants::Sqrt2; }
+
+		static Type BySqrt2() { return Constants::BySqrt2; }
+
+		static Type Sqrt3() { return Constants::Sqrt3; }
+
+		static Type BySqrt3() { return Constants::BySqrt3; }
+
+
+	};
+
 
 
 }
