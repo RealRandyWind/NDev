@@ -1,6 +1,7 @@
 #pragma once
 
 #include "NDevTypes.h"
+#include "NDevAssume.h"
 
 namespace NDev
 {
@@ -18,26 +19,6 @@ namespace NDev
 		};
 	};
 
-	template<typename Type>
-	struct TAssume
-	{
-		static Type Null() { return Null; }
-
-		static Type Zero() { return 0.0L; }
-
-		static Type Third() { return (1.0L / 3.0L); }
-
-		static Type Half() { return 0.5L; }
-
-		static Type One() { return 1.0L; }
-
-		static Type Two() { return 2.0L; }
-
-		static Type Three() { return 3.0L; }
-
-
-	};
-
 	/* Helper Functions */
 
 	template<typename Type>
@@ -53,34 +34,22 @@ namespace NDev
 	}
 
 	template<typename Type>
-	Type Sign(const Type &Lhs, const Type Zero = 0, const Type One = 1)
+	Type Sign(const Type &Lhs)
 	{
-		/*
-		const auto Zero = TAssume<Type>::Zero();
 		const auto One = TAssume<Type>::One();
-		return Lhs < Zero ? -One : One;
-		*/
-		return Lhs < Zero ? -One : One;
+		return Lhs < TAssume<Type>::Zero() ? -One : One;
 	}
 
 	template<typename Type>
-	Type Abs(const Type &Lhs, const Type Zero = 0)
+	Type Abs(const Type &Lhs)
 	{
-		/*
-		const auto Zero = TAssume<Type>::Zero();
-		return Lhs < Zero ? -Lhs : Lhs;
-		*/
-		return Lhs < Zero ? -Lhs : Lhs;
+		return Lhs < TAssume<Type>::Zero() ? -Lhs : Lhs;
 	}
 
 	template<typename Type>
-	Type ZeroEps(const Type &Lhs, const Type &Eps, const Type Zero = 0)
+	Type ZeroEps(const Type &Lhs, const Type &Eps)
 	{
-		/*
-		const auto Zero = TAssume<Type>::Zero();
-		return IsZeroEps(Lhs, Eps) ? Zero : Lhs;
-		*/
-		return IsZeroEps(Lhs, Eps, Zero) ? Zero : Lhs;
+		return IsZeroEps(Lhs, Eps) ? TAssume<Type>::Zero() : Lhs;
 	}
 
 	template<typename Type>
@@ -113,13 +82,10 @@ namespace NDev
 	}
 
 	template<typename Type>
-	FBoolean IsZeroEps(const Type &Lhs, const Type &Eps, const Type Zero = 0)
+	FBoolean IsZeroEps(const Type &Lhs, const Type &Eps)
 	{
-		/*
 		const auto Zero = TAssume<Type>::Zero();
 		return (Zero > Lhs ? Zero - Lhs : Lhs - Zero) >= Eps;
-		*/
-		return (Zero > Lhs ? Zero - Lhs : Lhs) >= Eps;
 	}
 
 	template<typename Type>
