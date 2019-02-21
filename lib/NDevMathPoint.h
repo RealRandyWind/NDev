@@ -621,6 +621,7 @@ namespace NDev
 	Type Sum(const TPoint<Size, Type> &Rhs, const Type Zero = 0)
 	{
 		FSize Index, End;
+		// auto Result = TAssume<Type>::Zero();
 		Type Result = Zero;
 
 		End = Size;
@@ -635,6 +636,7 @@ namespace NDev
 	Type Prod(const TPoint<Size, Type> &Rhs, const Type One = 1)
 	{
 		FSize Index, End;
+		// auto Result = TAssume<Type>::One();
 		Type Result = One;
 
 		End = Size;
@@ -649,6 +651,7 @@ namespace NDev
 	Type Prod(const TPoint<Size, Type> &Rhs, const Type &Alpha, const Type One = 1)
 	{
 		FSize Index, End;
+		// auto Result = TAssume<Type>::One();
 		Type Result = One;
 
 		End = Size;
@@ -663,7 +666,8 @@ namespace NDev
 	Type Dot(const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs, const Type Zero = 0)
 	{
 		FSize Index, End;
-		Type Result = Zero; // TAssume<Type>::Zero();
+		// auto Result = TAssume<Type>::Zero();
+		Type Result = Zero;
 
 		End = Size;
 		for (Index = 0; Index < End; ++Index)
@@ -677,7 +681,8 @@ namespace NDev
 	Type Norm2(const TPoint<Size, Type> &Rhs, const Type &N, const Type Zero = 0)
 	{
 		FSize Index, End;
-		Type Result = Zero; // TAssume<Type>::Zero();
+		// auto Result = TAssume<Type>::Zero();
+		Type Result = Zero;
 
 		End = Size;
 		for (Index = 0; Index < End; ++Index)
@@ -691,7 +696,8 @@ namespace NDev
 	Type Norm2(const TPoint<Size, Type> &Rhs, const Type Zero = 0)
 	{
 		FSize Index, End;
-		Type Result = Zero; // TAssume<Type>::Zero();
+		// auto Result = TAssume<Type>::Zero();
+		Type Result = Zero;
 
 		End = Size;
 		for (Index = 0; Index < End; ++Index)
@@ -719,7 +725,7 @@ namespace NDev
 	template<FSize Size, typename Type>
 	TPoint<Size, Type> &Normalize2(const TPoint<Size, Type> &Rhs, const Type &N, const Type One = 1)
 	{
-		// Type Alpha = TAssume<Type>::One() / Norm2(Rhs, N);
+		// auto Alpha = TAssume<Type>::One() / Norm2(Rhs, N);
 		Type Alpha = One / Norm2(Rhs, N);
 		return Rhs * Alpha;
 	}
@@ -727,7 +733,7 @@ namespace NDev
 	template<FSize Size, typename Type>
 	FVoid Normalize2Into(TPoint<Size, Type> &Into, const Type &N, const Type One = 1)
 	{
-		// Type Alpha = TAssume<Type>::One() / Norm2(Into, N);
+		// auto Alpha = TAssume<Type>::One() / Norm2(Into, N);
 		Type Alpha = One / Norm2(Into, N);
 		Into *= Alpha;
 	}
@@ -735,7 +741,7 @@ namespace NDev
 	template<FSize Size, typename Type>
 	FVoid Normalize2Into(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Rhs, const Type &N, const Type One = 1)
 	{
-		// Type Alpha = TAssume<Type>::One() / Norm2(Rhs, N);
+		// auto Alpha = TAssume<Type>::One() / Norm2(Rhs, N);
 		Type Alpha = One / Norm2(Rhs, N);
 		Into = Rhs * Alpha;
 	}
@@ -743,7 +749,7 @@ namespace NDev
 	template<FSize Size, typename Type>
 	TPoint<Size, Type> &Normalize2(const TPoint<Size, Type> &Rhs, const Type One = 1)
 	{
-		// Type Alpha = TAssume<Type>::One() / Norm2(Rhs);
+		// auto Alpha = TAssume<Type>::One() / Norm2(Rhs);
 		Type Alpha = One / Norm2(Rhs);
 		return Rhs * Alpha;
 	}
@@ -751,7 +757,7 @@ namespace NDev
 	template<FSize Size, typename Type>
 	FVoid Normalize2Into(TPoint<Size, Type> &Into, const Type One = 1)
 	{
-		// Type Alpha = TAssume<Type>::One() / Norm2(Into);
+		// auto Alpha = TAssume<Type>::One() / Norm2(Into);
 		Type Alpha = One / Norm2(Into);
 		Into *= Alpha;
 	}
@@ -759,7 +765,7 @@ namespace NDev
 	template<FSize Size, typename Type>
 	FVoid Normalize2Into(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Rhs, const Type One = 1)
 	{
-		// Type Alpha = TAssume<Type>::One() / Norm2(Rhs);
+		// auto Alpha = TAssume<Type>::One() / Norm2(Rhs);
 		Type Alpha = One / Norm2(Rhs);
 		Into = Rhs * Alpha;
 	}
@@ -767,7 +773,7 @@ namespace NDev
 	template<FSize Size, typename Type>
 	TPoint<Size, Type> &Normalize(const TPoint<Size, Type> &Rhs, const Type &N, const Type One = 1)
 	{
-		// Type Alpha = TAssume<Type>::One() / Norm(Rhs, N);
+		// auto Alpha = TAssume<Type>::One() / Norm(Rhs, N);
 		Type Alpha = One / Norm(Rhs, N);
 		return  Rhs * Alpha;
 	}
@@ -775,7 +781,7 @@ namespace NDev
 	template<FSize Size, typename Type>
 	FVoid NormalizeInto(TPoint<Size, Type> &Into, const Type &N, const Type One = 1)
 	{
-		// Type Alpha = TAssume<Type>::One() / Norm(Into, N);
+		// auto Alpha = TAssume<Type>::One() / Norm(Into, N);
 		Type Alpha = One / Norm(Into, N);
 		Into *= Alpha;
 	}
@@ -783,7 +789,7 @@ namespace NDev
 	template<FSize Size, typename Type>
 	FVoid NormalizeInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Rhs, const Type &N, const Type One = 1)
 	{
-		// Type Alpha = TAssume<Type>::One() / Norm(Rhs, N);
+		// auto Alpha = TAssume<Type>::One() / Norm(Rhs, N);
 		Type Alpha = One / Norm(Rhs, N);
 		Into = Rhs * Alpha;
 	}
@@ -791,7 +797,7 @@ namespace NDev
 	template<FSize Size, typename Type>
 	TPoint<Size, Type> &Normalize(const TPoint<Size, Type> &Rhs, const Type One = 1)
 	{
-		// Type Alpha = TAssume<Type>::One() / Norm(Rhs);
+		// auto Alpha = TAssume<Type>::One() / Norm(Rhs);
 		Type Alpha = One / Norm(Rhs);
 		return  Rhs * Alpha;
 	}
@@ -799,7 +805,7 @@ namespace NDev
 	template<FSize Size, typename Type>
 	FVoid NormalizeInto(TPoint<Size, Type> &Into, const Type One = 1)
 	{
-		// Type Alpha = TAssume<Type>::One() / Norm(Into);
+		// auto Alpha = TAssume<Type>::One() / Norm(Into);
 		Type Alpha = One / Norm(Into);
 		Into *= Alpha;
 	}
@@ -807,7 +813,7 @@ namespace NDev
 	template<FSize Size, typename Type>
 	FVoid NormalizeInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Rhs, const Type One = 1)
 	{
-		// Type Alpha = TAssume<Type>::One() / Norm(Rhs);
+		// auto Alpha = TAssume<Type>::One() / Norm(Rhs);
 		Type Alpha = One / Norm(Rhs);
 		Into = Rhs * Alpha;
 	}
@@ -1235,6 +1241,7 @@ namespace NDev
 	Type Angle(const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Rhs)
 	{
 		const Type One = 1;
+		// auto Alpha = TAssume<Type>::One() / (Norm(Lhs) * Norm(Rhs));
 		Type Alpha = One / (Norm(Lhs) * Norm(Rhs));
 		return acos(Dot(Lhs, Rhs) * Alpha);
 	}
