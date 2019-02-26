@@ -20,9 +20,9 @@ namespace NDev
 			OnPriority = NullPtr;
 		}
 
-		TList(FSize ReserveSize, FBoolean bSetSizeToReserveSize = False) : TList()
+		TList(FSize ReserveSize, FBoolean bSetSizeToReserveSize = False, FBoolean bFill = False) : TList()
 		{
-			this->Reserve(ReserveSize, bSetSizeToReserveSize);
+			this->Reserve(ReserveSize, bSetSizeToReserveSize, bFill);
 		}
 
 		~TList()

@@ -25,9 +25,9 @@ namespace NDev
 			_bNoEqualPriority = False;
 		}
 
-		TQueue(FSize ReserveSize, FBoolean bSetSizeToReserveSize = False) : TQueue()
+		TQueue(FSize ReserveSize, FBoolean bSetSizeToReserveSize = False, FBoolean bFill = False) : TQueue()
 		{
-			this->Reserve(ReserveSize, bSetSizeToReserveSize);
+			this->Reserve(ReserveSize, bSetSizeToReserveSize, bFill);
 		}
 
 		~TQueue()

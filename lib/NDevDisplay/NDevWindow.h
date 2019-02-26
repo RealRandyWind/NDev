@@ -2,6 +2,7 @@
 
 #include "NDevTypes.h"
 #include "NDevMathAliases.h"
+#include "NDevList.h"
 
 namespace NDev
 {
@@ -11,7 +12,7 @@ namespace NDev
 	
 		struct FWindow
 		{
-			FReal LookSpeed, MoveSpeed, FieldOfView, AspectRatio, Near, Far;
+			FReal FieldOfView, AspectRatio, Near, Far;
 			FSize Width, Height, X, Y, Id;
 			FBoolean bFullScreen, bBorderless, bWait, bPerspective, bHold, bUpdate;
 			FString Title, Style, Simulation;
@@ -44,8 +45,6 @@ namespace NDev
 				Far = 0.1;
 				Near = 1000;
 				FieldOfView = 35;
-				LookSpeed = 180;
-				MoveSpeed = 50;
 				Color.R = Color.G = Color.B = 0.0;
 				Color.A = 1.0;
 				LookAt.X = LookAt.Y = LookAt.Z = 0.0;
@@ -59,7 +58,15 @@ namespace NDev
 				Id = 0;
 			}
 
+		};
 
+		struct _FWindow
+		{
+			static TList<_FWindow> _List;
+			static FSize _NextId;
+			static FSize _Count;
+
+			
 		};
 	
 

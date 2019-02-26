@@ -84,8 +84,7 @@ namespace NDev
 	template<typename Type>
 	FBoolean IsZeroEps(const Type &Lhs, const Type &Eps)
 	{
-		const auto Zero = TAssume<Type>::Zero();
-		return (Zero > Lhs ? Zero - Lhs : Lhs - Zero) >= Eps;
+		return (TAssume<Type>::Zero() > Lhs ? -Lhs : Lhs) >= Eps;
 	}
 
 	template<typename Type>

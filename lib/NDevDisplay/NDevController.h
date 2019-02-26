@@ -10,7 +10,6 @@ namespace NDev
 
 		struct FControler
 		{
-
 			virtual FVoid UseDefault()
 			{
 

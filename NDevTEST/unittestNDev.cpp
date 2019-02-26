@@ -279,14 +279,12 @@ namespace NDevTest
 
 			/* recursive collection test */
 			TSequence<TSequence<TSequence<FReal>>> Rec3;
-			Rec3.Reserve(HSM, True);
+			Rec3.Reserve(HSM, True, True);
 			for (auto &Rec2 : Rec3)
 			{
-				Rec2 = Rec3.Element();
-				Rec2.Reserve(HSM, True);
+				Rec2.Reserve(HSM, True, True);
 				for (auto &Rec1 : Rec2)
 				{
-					Rec1 = Rec2.Element();
 					Rec1.Reserve(HSM, True);
 					for (auto &Index : Rec1) { Rec1 = Two; }
 				}

@@ -31,9 +31,9 @@ namespace NDev
 			_Data = NullPtr;
 		}
 
-		TSequence(FSize ReserveSize, FBoolean bSetSizeToReserveSize = False) : TSequence()
+		TSequence(FSize ReserveSize, FBoolean bSetSizeToReserveSize = False, FBoolean bFill = False) : TSequence()
 		{
-			Reserve(ReserveSize, bSetSizeToReserveSize);
+			Reserve(ReserveSize, bSetSizeToReserveSize, bFill);
 		}
 
 		~TSequence()
@@ -220,7 +220,7 @@ namespace NDev
 			return _Data[Index];
 		}
 
-		FVoid Reserve(FSize ReserveSize, FBoolean bSetSizeToReserveSize = False)
+		FVoid Reserve(FSize ReserveSize, FBoolean bSetSizeToReserveSize = False, FBoolean bFill = False)
 		{
 			_Data = ResizeNull(_Data, ReserveSize);
 			if (!_bHeap)
@@ -231,6 +231,15 @@ namespace NDev
 			if (bSetSizeToReserveSize) { _Size = ReserveSize; }
 			_BufferSize = ReserveSize;
 			if (ReserveSize < _Size) { _Size = ReserveSize; }
+			if (bFill) { Fill(); }
+		}
+
+		FVoid Fill(const TypeValue Value = TypeValue(), FBoolean bFillAll = True)
+		{
+			FSize Index, End;
+
+			End = bFillAll ? _BufferSize : _Size;
+			for (Index = 0; Index < End; ++Index) { _Data[Index] = Value; }
 		}
 
 		TypeValue * begin()

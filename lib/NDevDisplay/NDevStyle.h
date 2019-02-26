@@ -12,8 +12,42 @@ namespace NDev
 
 		struct FStyle
 		{
-			TSequence<FShader> Pipeline;
+			FBoolean _bInitialized;
+			TSequence<FShader> Shaders;
+
+			FStyle()
+			{
+				UseDefaultParameters();
+			}
+
+			~FStyle() { }
+
+			FBoolean Initialized()
+			{
+				return _bInitialized;
+			}
+
+			const FBoolean Initialized() const
+			{
+				return _bInitialized;
+			}
+
+			FVoid Initialize()
+			{
+				_bInitialized = False;
+				_Initialize();
+				_bInitialized = True;
+			}
+
+			virtual FVoid UseDefaultParameters() { };
+
+		protected:
+			virtual FVoid _Initialize() { };
+
+
 		};
+
+
 
 	}
 

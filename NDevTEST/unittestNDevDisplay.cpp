@@ -17,6 +17,11 @@ namespace NDevTest
 	{
 	public:
 
+		TEST_METHOD(TestDisplay)
+		{
+			
+		}
+
 		TEST_METHOD(TestShader)
 		{
 
@@ -31,10 +36,10 @@ namespace NDevTest
 		{
 			FWindow Window;
 			Window.UseDefault();
-
 			auto Other = FWindow();
-
 			Assert::IsTrue(Equal(Window, Other), NullPtr, LINE_INFO());
+			Window.Title = Text("Nameless");
+			Assert::IsFalse(Equal(Window, Other), NullPtr, LINE_INFO());
 		}
 
 		TEST_METHOD(TestContext)

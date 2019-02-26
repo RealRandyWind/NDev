@@ -18,9 +18,9 @@ namespace NDev
 			_ActiveIndex = 0;
 		}
 
-		TBuffer(FSize ReserveSize, FBoolean bSetSizeToReserveSize = False) : TBuffer()
+		TBuffer(FSize ReserveSize, FBoolean bSetSizeToReserveSize = False, FBoolean bFill = False) : TBuffer()
 		{
-			this->Reserve(ReserveSize, bSetSizeToReserveSize);
+			this->Reserve(ReserveSize, bSetSizeToReserveSize, bFill);
 		}
 
 		~TBuffer()

@@ -11,7 +11,7 @@ namespace NDev
 
 		struct FShader
 		{
-			enum class EType
+			enum class EType : FEnum
 			{
 				_Unknown = Unknown,
 				Vertex,

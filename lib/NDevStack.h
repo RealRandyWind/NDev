@@ -17,9 +17,9 @@ namespace NDev
 
 		}
 
-		TStack(FSize ReserveSize, FBoolean bSetSizeToReserveSize = False) : TStack()
+		TStack(FSize ReserveSize, FBoolean bSetSizeToReserveSize = False, FBoolean bFill = False) : TStack()
 		{
-			this->Reserve(ReserveSize, bSetSizeToReserveSize);
+			this->Reserve(ReserveSize, bSetSizeToReserveSize, bFill);
 		}
 
 		~TStack()

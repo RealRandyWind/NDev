@@ -37,6 +37,11 @@ namespace NDev
 			return _bInitialized;
 		}
 
+		const FBoolean Initialized() const
+		{
+			return _bInitialized;
+		}
+
 		FSize PointSize()
 		{
 			return SizePoint;
@@ -91,7 +96,7 @@ namespace NDev
 		virtual FVoid UseDefaultParameters() { }
 
 	protected:
-		virtual FVoid _Initialize() = 0;
+		virtual FVoid _Initialize() { };
 
 		virtual FVoid _Step(TData<FPoint> &) = 0;
 

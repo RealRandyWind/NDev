@@ -68,22 +68,22 @@ namespace NDev
 			return _bInitialized;
 		}
 
-		const FSize FeatureSize() const
-		{
-			return SizeFeature;
-		}
-
-		const FSize LabelSize() const
-		{
-			return SizeLabel;
-		}
-
 		FSize FeatureSize()
 		{
 			return SizeFeature;
 		}
 
+		const FSize FeatureSize() const
+		{
+			return SizeFeature;
+		}
+
 		FSize LabelSize()
+		{
+			return SizeLabel;
+		}
+
+		const FSize LabelSize() const
 		{
 			return SizeLabel;
 		}
