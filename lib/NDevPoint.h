@@ -157,6 +157,11 @@ namespace NDev
 			return *this;
 		}
 
+		static TPoint<SizeData, TypeValue> Like()
+		{
+			TPoint<SizeData, TypeValue> Result;
+			return Result;
+		}
 
 	};
 

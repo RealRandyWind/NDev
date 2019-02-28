@@ -176,17 +176,9 @@ namespace NDev
 			return *this;
 		}
 
-		template<FSize SizeRhs>
-		static TReferences<SizeRhs, TypeValue> Like()
+		static TReferences<SizeData, TypeValue> Like()
 		{
-			TReferences<SizeRhs, TypeValue> Result;
-			return Result;
-		}
-
-		template<typename TypeRhs>
-		static TReferences<SizeData, TypeRhs> Like()
-		{
-			TReferences<SizeData, TypeRhs> Result;
+			TReferences<SizeData, TypeValue> Result;
 			return Result;
 		}
 

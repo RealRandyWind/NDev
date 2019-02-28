@@ -1,8 +1,6 @@
 #pragma once
 
 #include "NDevTypes.h"
-#include "NDevPoint.h"
-#include "NDevSequence.h"
 #include "NDevData.h"
 #include "NDevResource.h"
 

@@ -7,14 +7,14 @@ namespace NDev
 {
 	using namespace Types;
 	
-    template<FSize SizeBytes>
-    struct TBytes
+    template<FSize SizeBits>
+    struct TBits
 	{
-		FByte _Data[SizeBytes];
+		FByte _Data[SizeBits];
 
-		static TBytes<SizeBytes> Like()
+		static TBits<SizeBits> Like()
 		{
-			TBytes<SizeBytes> Result;
+			TBits<SizeBits> Result;
 			return Result;
 		}
     };

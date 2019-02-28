@@ -213,6 +213,12 @@ namespace NDev
 			return *this;
 		}
 
+		static TBases<SizePoint, SizeBases, TypeValue> Like()
+		{
+			TBases<SizePoint, SizeBases, TypeValue> Result;
+			return Result;
+		}
+
 	};
 
 

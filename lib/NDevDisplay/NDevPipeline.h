@@ -3,6 +3,7 @@
 #include "NDevTypes.h"
 #include "NDevSequence.h"
 #include "NDevIterator.h"
+#include "NDevAlgorithm.h"
 #include "NDevShader.h"
 
 namespace NDev
@@ -11,53 +12,28 @@ namespace NDev
 	{
 		using namespace Types;
 
-		struct FPipeline
+		struct _FPipeline
 		{
-			FBoolean _bInitialized;
-			TSequence<FShader> Shaders;
+			TSequence<FShader> _Shaders;
 
-			FPipeline()
-			{
-				_bInitialized = False;
-				UseDefaultParameters();
-			}
 
-			~FPipeline() { }
+		};
 
-			FBoolean Initialized()
-			{
-				return _bInitialized;
-			}
-
-			const FBoolean Initialized() const
-			{
-				return _bInitialized;
-			}
-
-			FVoid Initialize()
-			{
-				_bInitialized = False;
-				_Initialize();
-				_bInitialized = True;
-			}
-
-			virtual FVoid UseDefaultParameters() { };
-
-		protected:
-			virtual FVoid _Initialize() { };
-
+		template<typename TypeInput, typename TypeOutput>
+		struct TPipeline : public TAlgorithm<TypeInput, TypeOutput>, public _FPipeline
+		{
 
 		};
 
 		struct _FContext
 		{
-			FVoid Render(const FPipeline &Pipeline, FBoolean bClear = True)
+			FVoid Render(const _FPipeline &Pipeline, FBoolean bClear = True)
 			{
 				_Render(Pipeline, bClear);
 			}
 
 		protected:
-			virtual FVoid _Render(const FPipeline &, FBoolean) = 0;
+			virtual FVoid _Render(const _FPipeline &, FBoolean) = 0;
 
 
 		};
