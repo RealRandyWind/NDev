@@ -11,6 +11,7 @@ namespace NDevTest
 
 	using namespace NDev;
 	using namespace NDev::Types;
+	using namespace NDev::Aliases;
 
 	TEST_CLASS(UnitTestNDevMath)
 	{

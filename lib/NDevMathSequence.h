@@ -7,11 +7,11 @@ namespace NDev
 {
 	using namespace Types;
 
-
 	template<typename Type>
 	TSequence<Type> Conv(const TSequence<Type> &Lhs, const TSequence<Type> &Rhs, FBoolean bCircular = False, FBoolean bPadding = False)
 	{
 		TSequence<Type> Result;
+
 		return Result;
 	}
 
@@ -126,4 +126,7 @@ namespace NDev
 	{
 
 	}
+
+
+
 }

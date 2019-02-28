@@ -5,7 +5,6 @@
 #include <chrono>
 #include <iostream>
 #include <functional>
-#include <initializer_list>
 
 namespace NDev
 {

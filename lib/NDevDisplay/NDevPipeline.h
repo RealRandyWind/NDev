@@ -27,13 +27,13 @@ namespace NDev
 
 		struct _FContext
 		{
-			FVoid Render(const _FPipeline &Pipeline, FBoolean bClear = True)
+			FVoid Render(const _FPipeline &Pipeline, FBoolean bClear = True, FBoolean bQueue = False)
 			{
-				_Render(Pipeline, bClear);
+				_Render(Pipeline, bClear, bQueue);
 			}
 
 		protected:
-			virtual FVoid _Render(const _FPipeline &, FBoolean) = 0;
+			virtual FVoid _Render(const _FPipeline &, FBoolean, FBoolean) = 0;
 
 
 		};

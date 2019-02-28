@@ -9,6 +9,7 @@ namespace NDev
 	namespace Display
 	{
 		using namespace Types;
+		using namespace Aliases;
 	
 		struct FWindow
 		{
@@ -16,8 +17,8 @@ namespace NDev
 			FSize Width, Height, X, Y, Id;
 			FBoolean bFullScreen, bBorderless, bWait, bPerspective, bHold, bUpdate;
 			FString Title, Style, Simulation;
-			NDev::TColor<FReal> Color;
-			NDev::TPoint3D<FReal> LookAt, Position, Up;
+			TColor<FReal> Color;
+			TPoint3D<FReal> LookAt, Position, Up;
 
 			FWindow()
 			{

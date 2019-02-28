@@ -6,7 +6,7 @@
 namespace NDev
 {
 	using namespace Types;
-	
+
     template<FSize SizeBits>
     struct TBits
 	{

@@ -226,6 +226,7 @@ PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).pdb $(SolutionDir)lib\$
     <ClInclude Include="..\lib\NDevMap.h" />
     <ClInclude Include="..\lib\NDevMath.h" />
     <ClInclude Include="..\lib\NDevMathAliases.h" />
+    <ClInclude Include="..\lib\NDevMathBases.h" />
     <ClInclude Include="..\lib\NDevMathConstants.h" />
     <ClInclude Include="..\lib\NDevMathDistributions.h" />
     <ClInclude Include="..\lib\NDevMathExtend.h" />

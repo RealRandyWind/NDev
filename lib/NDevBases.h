@@ -89,24 +89,24 @@ namespace NDev
 			return (FByte *) &_Data[0];
 		}
 
-		TypeValue * Data()
-		{
-			return &_Data[0];
-		}
-
-		const TypeValue * Data() const
-		{
-			return &_Data[0];
-		}
-
-		FPoint * Bases()
+		FPoint * Data()
 		{
 			return &_Bases[0];
 		}
 
-		const FPoint * Bases() const
+		const FPoint * Data() const
 		{
 			return &_Bases[0];
+		}
+
+		TypeValue * Values()
+		{
+			return &_Data[0];
+		}
+
+		const TypeValue * Values() const
+		{
+			return &_Data[0];
 		}
 
 		const FDescriptor Descriptor() const
