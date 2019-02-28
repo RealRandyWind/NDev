@@ -158,15 +158,15 @@ namespace NDev
 		template<FSize SizePointLhs, FSize SizeBasesLhs, typename TypeLhs>
 		operator TBases<SizePointLhs, SizeBasesLhs, TypeLhs>()
 		{
-			TBases<SizeLhs, TypeLhs> Lhs;
+			TBases<SizePointLhs, SizeBasesLhs, TypeLhs> Lhs;
 			FSize Index, End;
 
-			End = Min(SizePoint * SizeBases, SizeLhs);
+			End = Min(SizePoint * SizeBases, SizePointLhs * SizeBasesLhs);
 			for (Index = 0; Index < End; ++Index)
 			{
 				Lhs._Data[Index] = static_cast<TypeLhs>(_Data[Index]);
 			}
-			End = SizeLhs;
+			End = SizePointLhs * SizeBasesLhs;
 			for (; Index < End; ++Index)
 			{
 				Lhs._Data[Index] = TypeLhs();

@@ -7,8 +7,8 @@ namespace NDev
 {
 	using namespace Types;
 
-    template<FSize SizeBits>
-    struct TBits
+	template<FSize SizeBits>
+	struct TBits
 	{
 		FByte _Data[SizeBits];
 
@@ -17,6 +17,6 @@ namespace NDev
 			TBits<SizeBits> Result;
 			return Result;
 		}
-    };
+	};
 	
 }

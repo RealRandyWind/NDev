@@ -12,6 +12,22 @@ namespace NDev
 {
 	using namespace Types;
 
+	/* @ Vector */
+
+	template<FSize Size, typename Type>
+	TPoint<Size, FBoolean> operator!(const TPoint<Size, Type> &Lhs)
+	{
+		FSize Index, End;
+		TPoint<Size, FBoolean> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result[Index] = !Lhs[Index];
+		}
+		return Result;
+	}
+
 	/* Vector @ Vector */
 
 	template<FSize Size, typename Type>

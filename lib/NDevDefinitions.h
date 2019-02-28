@@ -47,18 +47,6 @@ namespace NDev
 	}
 
 	template<typename Type>
-	Type ZeroEps(const Type &Lhs, const Type &Eps)
-	{
-		return IsZeroEps(Lhs, Eps) ? TAssume<Type>::Zero() : Lhs;
-	}
-
-	template<typename Type>
-	Type EqualEps(const Type &Lhs, const Type &Rhs, const Type &Eps)
-	{
-		return IsEqualEps(Lhs, Rhs, Eps) ? Lhs : Rhs;
-	}
-
-	template<typename Type>
 	Type &Swap(Type &Lhs, Type &Rhs)
 	{
 		Type Temp;
@@ -84,13 +72,25 @@ namespace NDev
 	template<typename Type>
 	FBoolean IsZeroEps(const Type &Lhs, const Type &Eps)
 	{
-		return (TAssume<Type>::Zero() > Lhs ? -Lhs : Lhs) >= Eps;
+		return (TAssume<Type>::Zero() > Lhs ? -Lhs : Lhs) <= Eps;
 	}
 
 	template<typename Type>
 	FBoolean IsEqualEps(const Type &Lhs, const Type &Rhs, const Type &Eps)
 	{
-		return (Rhs > Lhs ? Rhs - Lhs : Lhs - Rhs) >= Eps;
+		return (Rhs > Lhs ? Rhs - Lhs : Lhs - Rhs) <= Eps;
+	}
+
+	template<typename Type>
+	Type ZeroEps(const Type &Lhs, const Type &Eps)
+	{
+		return IsZeroEps(Lhs, Eps) ? TAssume<Type>::Zero() : Lhs;
+	}
+
+	template<typename Type>
+	Type EqualEps(const Type &Lhs, const Type &Rhs, const Type &Eps)
+	{
+		return IsEqualEps(Lhs, Rhs, Eps) ? Rhs : Lhs;
 	}
 
 	/* Pure Memory Functions */

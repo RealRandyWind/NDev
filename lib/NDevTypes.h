@@ -53,6 +53,7 @@ namespace NDev
 
 		using FIn = std::istream;
 
+		static const size_t BlockSize = 64;
 		static const size_t ByteSize = 8;
 		static const decltype("") NullStr = "";
 		static const decltype('\0') NullChr = '\0';
