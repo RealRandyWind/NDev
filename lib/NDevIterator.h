@@ -57,26 +57,6 @@ namespace NDev
 
 		}
 
-		FSize Offset()
-		{
-			return _Offset;
-		}
-
-		const FSize Offset() const
-		{
-			return _Offset;
-		}
-
-		FSize Stride()
-		{
-			return _Stride;
-		}
-
-		const FSize Stride() const
-		{
-			return _Stride;
-		}
-
 		FSize Size()
 		{
 			return _Size;
@@ -207,7 +187,6 @@ namespace NDev
 
         
     };
-
 
 
 }

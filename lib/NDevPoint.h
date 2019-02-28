@@ -15,6 +15,9 @@ namespace NDev
 		struct FSame
 		{
 			template<typename _TypeValue>
+			using Shape = TPoint<SizeData, _TypeValue>;
+
+			template<typename _TypeValue>
 			using Size = TPoint<SizeData, _TypeValue>;
 
 			template<FSize _SizeData>
@@ -55,12 +58,12 @@ namespace NDev
 
 		TypeValue * Data()
 		{
-			return &_Data[SizeData];
+			return &_Data[0];
 		}
 
 		const TypeValue * Data() const
 		{
-			return &_Data[SizeData];
+			return &_Data[0];
 		}
 
 		const FDescriptor Descriptor() const
@@ -152,20 +155,6 @@ namespace NDev
 				_Data[Index] = static_cast<TypeValue>(Rhs._Data[Index]);
 			}
 			return *this;
-		}
-
-		template<FSize SizeRhs>
-		static TPoint<SizeRhs, TypeValue> Like()
-		{
-			TPoint<SizeRhs, TypeValue> Result;
-			return Result;
-		}
-
-		template<typename TypeRhs>
-		static TPoint<SizeData, TypeRhs> Like()
-		{
-			TPoint<SizeData, TypeRhs> Result;
-			return Result;
 		}
 
 

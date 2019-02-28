@@ -208,6 +208,7 @@ PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).pdb $(SolutionDir)lib\$
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\NDev.h" />
+    <ClInclude Include="..\lib\NDevAlgorithm.h" />
     <ClInclude Include="..\lib\NDevArray.h" />
     <ClInclude Include="..\lib\NDevAssume.h" />
     <ClInclude Include="..\lib\NDevBases.h" />
@@ -221,6 +222,7 @@ PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).pdb $(SolutionDir)lib\$
     <ClInclude Include="..\lib\NDevKDTree.h" />
     <ClInclude Include="..\lib\NDevKTree.h" />
     <ClInclude Include="..\lib\NDevList.h" />
+    <ClInclude Include="..\lib\NDevManager.h" />
     <ClInclude Include="..\lib\NDevMap.h" />
     <ClInclude Include="..\lib\NDevMath.h" />
     <ClInclude Include="..\lib\NDevMathAliases.h" />
@@ -246,6 +248,7 @@ PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).pdb $(SolutionDir)lib\$
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="NDevPointer.cpp" />
     <ClCompile Include="NDevResource.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

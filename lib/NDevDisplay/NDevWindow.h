@@ -62,17 +62,11 @@ namespace NDev
 
 		struct _FWindow
 		{
-			static TList<_FWindow> _List;
-			static FSize _NextId;
-			static FSize _Count;
-
 			
 		};
-	
 
 
 	}
-
 
 
 }

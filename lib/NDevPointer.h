@@ -8,59 +8,46 @@ namespace NDev
 {
 	using namespace Types;
 
-	struct _FPointer
+	enum class EPointer : FEnum
 	{
-		FSize Id;
-		FPointer *Value;
+		_Unknown = Unknown,
+		Weak,
+		Shared,
+		Unique,
+		_Size
 	};
 
-	template<typename TypeValue>
-	struct TPointer
+	struct _FPointer
+	{
+		struct FEntry
+		{
+			union
+			{
+				_FPointer *Pointer;
+				FEntry *_Next;
+			};
+			FSize _Count, Count;
+		};
+
+		FEntry *_Entry;
+
+		static TList<FEntry> _List;
+		static FEntry *_Next;
+
+		_FPointer();
+
+		~_FPointer();
+
+
+	};
+
+	template<typename TypeValue, EPointer EnumType = EPointer::Shared>
+	struct TPointer : public _FPointer, public TypeValue
 	{
 		using FValue = TypeValue;
 
-		enum class EType : FEnum
-		{
-			_Unknown = Unknown,
-			Weak,
-			Strong,
-			Unique,
-			_Size
-		};
-
-		EType _Type;
-		FSize _Id;
-
-		TPointer()
-		{
-
-		}
-
-		TPointer(TypeValue &Value)
-		{
-			
-		}
-
-		~TPointer()
-		{
-
-		}
-
-		FSize Id() const
-		{
-			return _Id;
-		}
-
-		EType Type() const
-		{
-			return _Type;
-		}
-
-		EType Type(EType NewType)
-		{
-			return (_Type = NewType);
-		}
 
 	};
+
 
 }

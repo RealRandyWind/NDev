@@ -204,11 +204,166 @@ namespace NDevTest
 				Assert::AreEqual(PNDC._Data[Index], One, NullPtr, LINE_INFO());
 			}
 
-			/* like tests */
-			auto SameSize = PNDT.Like<FReal>();
-			Assert::AreEqual(PNDT.Size(), SameSize.Size());
-			auto SameType = PNDT.Like<HND / 2>();
+		}
 
+		TEST_METHOD(TestBases)
+		{
+			const FReal Zero = 0, One = 1, Two = 2, Three = 3, Four = 4;
+			const FSize H1D = 1, H2D = 2, H3D = 3, HND = 2048, K = 128;
+			TPoint<K, FReal> PZero;
+			FSize Index, Center, End;
+
+			PZero = Zero;
+
+			/* 1D Bases test */
+			TBases<K, H1D, FReal> B1D;
+			End = H1D;
+			Assert::AreEqual(B1D.Size(), End, NullPtr, LINE_INFO());
+			B1D = Zero;
+			for (const auto &Point : B1D)
+			{
+				for (const auto &Value : Point) { Assert::AreEqual(Value, Zero, NullPtr, LINE_INFO()); }
+			}
+			B1D = One;
+			for (const auto &Point : B1D)
+			{
+				for (const auto &Value : Point) { Assert::AreEqual(Value, One, NullPtr, LINE_INFO()); }
+			}
+			B1D = PZero;
+			for (const auto &Point : B1D)
+			{
+				for (const auto &Value : Point) { Assert::AreEqual(Value, Zero, NullPtr, LINE_INFO()); }
+			}
+			B1D = One;
+			Center = End / 2;
+			B1D[Center] = Two;
+			for (Index = 0; Index < End; ++Index)
+			{
+				auto &Point = B1D._Bases[Index];
+				if (Index == Center)
+				{
+					for (const auto &Value : Point) { Assert::AreEqual(Value, Two, NullPtr, LINE_INFO()); }
+				}
+				else
+				{
+					for (const auto &Value : Point) { Assert::AreEqual(Value, One, NullPtr, LINE_INFO()); }
+				}
+			}
+			const auto ConstValue1D = B1D[Center];
+			for (const auto &Value : ConstValue1D) { Assert::AreEqual(Value, Two, NullPtr, LINE_INFO()); }
+
+			/* 2D Bases test */
+			TBases<K, H2D, FReal> B2D;
+			End = H2D;
+			Assert::AreEqual(B2D.Size(), End, NullPtr, LINE_INFO());
+			B2D = Zero;
+			for (const auto &Point : B2D)
+			{
+				for (const auto &Value : Point) { Assert::AreEqual(Value, Zero, NullPtr, LINE_INFO()); }
+			}
+			B2D = One;
+			for (const auto &Point : B2D)
+			{
+				for (const auto &Value : Point) { Assert::AreEqual(Value, One, NullPtr, LINE_INFO()); }
+			}
+			B2D = PZero;
+			for (const auto &Point : B2D)
+			{
+				for (const auto &Value : Point) { Assert::AreEqual(Value, Zero, NullPtr, LINE_INFO()); }
+			}
+			B2D = One;
+			Center = End / 2;
+			B2D[Center] = Two;
+			for (Index = 0; Index < End; ++Index)
+			{
+				auto &Point = B2D._Bases[Index];
+				if (Index == Center)
+				{
+					for (const auto &Value : Point) { Assert::AreEqual(Value, Two, NullPtr, LINE_INFO()); }
+				}
+				else
+				{
+					for (const auto &Value : Point) { Assert::AreEqual(Value, One, NullPtr, LINE_INFO()); }
+				}
+			}
+			const auto ConstValue2D = B2D[Center];
+			for (const auto &Value : ConstValue2D) { Assert::AreEqual(Value, Two, NullPtr, LINE_INFO()); }
+
+			/* 3D Bases test */
+			TBases<K, H3D, FReal> B3D;
+			End = H3D;
+			Assert::AreEqual(B3D.Size(), End, NullPtr, LINE_INFO());
+			B3D = Zero;
+			for (const auto &Point : B3D)
+			{
+				for (const auto &Value : Point) { Assert::AreEqual(Value, Zero, NullPtr, LINE_INFO()); }
+			}
+			B3D = One;
+			for (const auto &Point : B3D)
+			{
+				for (const auto &Value : Point) { Assert::AreEqual(Value, One, NullPtr, LINE_INFO()); }
+			}
+			B3D = PZero;
+			for (const auto &Point : B3D)
+			{
+				for (const auto &Value : Point) { Assert::AreEqual(Value, Zero, NullPtr, LINE_INFO()); }
+			}
+			B3D = One;
+			Center = End / 2;
+			B3D[Center] = Two;
+			for (Index = 0; Index < End; ++Index)
+			{
+				auto &Point = B3D._Bases[Index];
+				if (Index == Center)
+				{
+					for (const auto &Value : Point) { Assert::AreEqual(Value, Two, NullPtr, LINE_INFO()); }
+				}
+				else
+				{
+					for (const auto &Value : Point) { Assert::AreEqual(Value, One, NullPtr, LINE_INFO()); }
+				}
+			}
+			const auto ConstValue3D = B3D[Center];
+			for (const auto &Value : ConstValue3D) { Assert::AreEqual(Value, Two, NullPtr, LINE_INFO()); }
+
+			/* ND Bases test */
+			TBases<K, HND, FReal> BND;
+			End = HND;
+			Assert::AreEqual(BND.Size(), End, NullPtr, LINE_INFO());
+			BND = Zero;
+			for (const auto &Point : BND)
+			{
+				for (const auto &Value : Point) { Assert::AreEqual(Value, Zero, NullPtr, LINE_INFO()); }
+			}
+			BND = One;
+			for (const auto &Point : BND)
+			{
+				for (const auto &Value : Point) { Assert::AreEqual(Value, One, NullPtr, LINE_INFO()); }
+			}
+			BND = PZero;
+			for (const auto &Point : BND)
+			{
+				for (const auto &Value : Point) { Assert::AreEqual(Value, Zero, NullPtr, LINE_INFO()); }
+			}
+			BND = One;
+			Center = End / 2;
+			BND[Center] = Two;
+			for (Index = 0; Index < End; ++Index)
+			{
+				auto &Point = BND._Bases[Index];
+				if (Index == Center)
+				{
+					for (const auto &Value : Point) { Assert::AreEqual(Value, Two, NullPtr, LINE_INFO()); }
+				}
+				else
+				{
+					for (const auto &Value : Point) { Assert::AreEqual(Value, One, NullPtr, LINE_INFO()); }
+				}
+			}
+			const auto ConstValueND = BND[Center];
+			for (const auto &Value : ConstValueND) { Assert::AreEqual(Value, Two, NullPtr, LINE_INFO()); }
+
+			/* casting and assignmnet tests */
 		}
 
 		TEST_METHOD(TestSequence)
@@ -1040,6 +1195,11 @@ namespace NDevTest
 
 		}
 
+		TEST_METHOD(TestAlgorithm)
+		{
+
+		}
+
 		TEST_METHOD(TestIterator)
 		{
 			const FReal Zero = 0, One = 1, Two = 2, Three = 3, Four = 4, Five = 5;
@@ -1167,19 +1327,16 @@ namespace NDevTest
 
 		TEST_METHOD(TestRecord)
 		{
-			
 
 		}
 
 		TEST_METHOD(TestPointer)
 		{
 
-
 		}
 
 		TEST_METHOD(TestKDTree)
 		{
-
 
 		}
 
@@ -1233,6 +1390,11 @@ namespace NDevTest
 			{
 				Assert::AreSame(OtherNumber, *Pointer, NullPtr, LINE_INFO());
 			}
+		}
+
+		TEST_METHOD(TestManager)
+		{
+			
 		}
 
 	};

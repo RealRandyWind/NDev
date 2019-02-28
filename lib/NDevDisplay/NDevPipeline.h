@@ -2,6 +2,7 @@
 
 #include "NDevTypes.h"
 #include "NDevSequence.h"
+#include "NDevIterator.h"
 #include "NDevShader.h"
 
 namespace NDev
@@ -10,17 +11,18 @@ namespace NDev
 	{
 		using namespace Types;
 
-		struct FStyle
+		struct FPipeline
 		{
 			FBoolean _bInitialized;
 			TSequence<FShader> Shaders;
 
-			FStyle()
+			FPipeline()
 			{
+				_bInitialized = False;
 				UseDefaultParameters();
 			}
 
-			~FStyle() { }
+			~FPipeline() { }
 
 			FBoolean Initialized()
 			{
@@ -47,7 +49,18 @@ namespace NDev
 
 		};
 
+		struct _FContext
+		{
+			FVoid Render(const FPipeline &Pipeline, FBoolean bClear = True)
+			{
+				_Render(Pipeline, bClear);
+			}
 
+		protected:
+			virtual FVoid _Render(const FPipeline &, FBoolean) = 0;
+
+
+		};
 
 	}
 

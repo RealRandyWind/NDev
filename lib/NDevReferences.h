@@ -104,7 +104,7 @@ namespace NDev
 		{
 			TReferences<SizeLhs, TypeLhs> Lhs;
 			FSize Index, End;
-
+			
 			End = Min(SizeData, SizeLhs);
 			for (Index = 0; Index < End; ++Index)
 			{

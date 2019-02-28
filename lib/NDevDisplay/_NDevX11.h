@@ -1,7 +1,7 @@
 #pragma once
 
 #include "NDevTypes.h"
-#include "NDevContext.h"
+#include "NDevWindow.h"
 
 namespace NDev
 {
@@ -9,7 +9,7 @@ namespace NDev
 	{
 		using namespace Types;
 
-		struct FOpenGL : FContext
+		struct _FX11 : _FWindow
 		{
 
 		};

@@ -26,20 +26,19 @@ namespace NDev
 			struct FArgument
 			{
 				FSize Id;
-				FBoolean bConstant, bInput, bOutput;
+				FBoolean bConstant, bInput, bOutput, bStream;
 				FString Name;
 				FDescriptor Descriptor;
 			};
 
 			EType Type;
 			FSize Id, Priority, Layer;
-			FBoolean bBinary;
+			FBoolean bBinary, bPriority;
 			FString Name;
 			TSequence<FArgument> Arguments;
 
 
 		};
-
 
 
 
