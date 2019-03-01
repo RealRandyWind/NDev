@@ -16,14 +16,15 @@ namespace NDev
 
 		struct FPair
 		{
-			TypeKey &Key;
-			TypeValue &Value;
+			TypeKey Key;
+			TypeValue Value;
 		};
 
 		FSize _Size, _BufferSize, _RecentIndex, _IncrementSize;
-		FBoolean _bIterateAll, _bClearDataOnDestroy, _bClearDataOnReplace, _bFixedSize, _bResizeOnAccess, _bSizeOnAccess, _bHeap;
-		TypeKey *_Keys;
-		TypeValue *_Data;
+		FBoolean _bIterateAll, _bClearDataOnDestroy, _bClearDataOnReplace, _bFixedSize, _bResizeOnAccess, _bSizeOnAccess, _bHeap, _bPaired;
+		FKey *_Keys;
+		FValue *_Values;
+		FPair *_Data;
 
 		TMap()
 		{
@@ -37,7 +38,8 @@ namespace NDev
 			_bResizeOnAccess = True;
 			_bSizeOnAccess = False;
 			_bHeap = True;
-			_Data = NullPtr;
+			_bPaired = True;
+			_Data = _Keys = _Values = NullPtr;
 		}
 
 		TMap(FSize ReserveSize, FBoolean bSetSizeToReserveSize = False) : TMap()
@@ -108,12 +110,12 @@ namespace NDev
 			_Size = _RecentIndex = 0;
 		}
 
-		TypeValue & Recent()
+		FValue & Recent()
 		{
 			return _Data[_RecentIndex];
 		}
 
-		const TypeValue & Recent() const
+		const FValue & Recent() const
 		{
 			return _Data[_RecentIndex];
 		}
@@ -140,22 +142,22 @@ namespace NDev
 
 		FSize SizeOf()
 		{
-			return sizeof(TypeValue) * _Size;
+			return sizeof(FValue) * _Size;
 		}
 
 		const FSize SizeOf() const
 		{
-			return sizeof(TypeValue) * _Size;
+			return sizeof(FValue) * _Size;
 		}
 
 		FSize BufferSizeOf()
 		{
-			return sizeof(TypeValue) * _BufferSize;
+			return sizeof(FValue) * _BufferSize;
 		}
 
 		const FSize BufferSizeOf() const
 		{
-			return sizeof(TypeValue) * _BufferSize;
+			return sizeof(FValue) * _BufferSize;
 		}
 
 		FByte * Bytes()
@@ -168,22 +170,22 @@ namespace NDev
 			return (FByte *) _Data;
 		}
 
-		TypeValue * Data()
+		FValue * Data()
 		{
 			return _Data;
 		}
 
-		const TypeValue * Data() const
+		const FValue * Data() const
 		{
 			return _Data;
 		}
 
-		TypeValue *Data(const FDescriptor Descriptor, FBoolean bNoFree = True)
+		FValue *Data(const FDescriptor Descriptor, FBoolean bNoFree = True)
 		{
-			return Data((TypeValue *) Descriptor.Pointer, Descriptor.Size, Descriptor._Size, Descriptor.bHeap, bNoFree);
+			return Data((FValue *) Descriptor.Pointer, Descriptor.Size, Descriptor._Size, Descriptor.bHeap, bNoFree);
 		}
 
-		TypeValue *Data(TypeValue *Pointer, FSize SizeData, FSize SizeBuffer = 0, FBoolean bHeap = True, FBoolean bNoFree = True)
+		FValue *Data(FValue *Pointer, FSize SizeData, FSize SizeBuffer = 0, FBoolean bHeap = True, FBoolean bNoFree = True)
 		{
 			FBoolean bFree = _bHeap && _bClearDataOnReplace && _Data;
 
@@ -202,7 +204,7 @@ namespace NDev
 			FDescriptor _Descriptor;
 
 			_Descriptor.Type = None;
-			_Descriptor.SizeOf = sizeof(TypeValue);
+			_Descriptor.SizeOf = sizeof(FValue);
 			_Descriptor.Size = _Size;
 			_Descriptor._Size = _BufferSize;
 			_Descriptor.bHeap = _bHeap;
@@ -212,7 +214,7 @@ namespace NDev
 			return _Descriptor;
 		}
 
-		TypeValue & operator[](FSize Index)
+		FValue & operator[](FSize Index)
 		{
 			FBoolean bResize = !_bFixedSize && _bResizeOnAccess && _BufferSize <= Index;
 			FBoolean bSize = _bSizeOnAccess && Index >= _Size;
@@ -223,7 +225,7 @@ namespace NDev
 			return _Data[Index];
 		}
 
-		const TypeValue & operator[](FSize Index) const
+		const FValue & operator[](FSize Index) const
 		{
 			if (Index >= _Size) { exit(Failure); }
 			return _Data[Index];
@@ -245,23 +247,23 @@ namespace NDev
 			if (ReserveSize < _Size) { _Size = ReserveSize; }
 		}
 
-		TypeValue * begin()
+		FValue * begin()
 		{
 			return _Data;
 		}
 
-		const TypeValue * begin() const
+		const FValue * begin() const
 		{
 			return _Data;
 		}
 
-		TypeValue * end()
+		FValue * end()
 		{
 			if (!_Data) { return NullPtr;  }
 			return _Data + (_bIterateAll ? _BufferSize : _Size);
 		}
 
-		const TypeValue * end() const
+		const FValue * end() const
 		{
 			if (!_Data) { return NullPtr; }
 			return _Data + (_bIterateAll ? _BufferSize : _Size);

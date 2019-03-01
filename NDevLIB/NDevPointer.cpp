@@ -9,8 +9,8 @@ _FPointer::FEntry *_FPointer::_Next = NullPtr;
 
 _FPointer::_FPointer()
 {
+	_Entry = _Next ? _Next : &_List.New();
 	auto Entry = *_Entry;
-	Entry = _Next ? *_Next : _List.New();
 	_Next = Entry._Next;
 	Entry.Pointer = this;
 }

@@ -10,10 +10,12 @@ namespace NDev
 {
 	using namespace Types;
 
-	template<FSize SizePoint>
+	template<FSize SizePoint, typename TypeValue = FReal>
 	struct TSimulation : public FResource
 	{
-		using FPoint = TPoint<SizePoint, FReal>;
+		using FValue = TypeValue;
+
+		using FPoint = TPoint<SizePoint, FValue>;
 
         using FOnStep = TFunction<void(const TData<FPoint> &)>;
 		

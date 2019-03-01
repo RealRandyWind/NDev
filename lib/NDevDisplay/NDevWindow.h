@@ -14,7 +14,7 @@ namespace NDev
 		struct FWindow
 		{
 			FReal FieldOfView, AspectRatio, Near, Far;
-			FSize Width, Height, X, Y, Id;
+			FSize Width, Height, X, Y, _Id;
 			FBoolean bFullScreen, bBorderless, bWait, bPerspective, bHold, bUpdate;
 			FString Title, Style, Simulation;
 			TColor<FReal> Color;
@@ -56,14 +56,21 @@ namespace NDev
 				Style = NullPtr;
 				Title = NullPtr;
 				Simulation = NullPtr;
-				Id = 0;
+				_Id = 0;
 			}
 
 		};
 
 		struct _FWindow
 		{
-			
+			FVoid Update(const FWindow &Window)
+			{
+				_Update(Window);
+			}
+
+		protected:
+			virtual FVoid _Update(const FWindow &) = 0;
+
 		};
 
 

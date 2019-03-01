@@ -16,7 +16,6 @@ namespace NDev
 		{
 			TSequence<FShader> _Shaders;
 
-
 		};
 
 		template<typename TypeInput, typename TypeOutput>

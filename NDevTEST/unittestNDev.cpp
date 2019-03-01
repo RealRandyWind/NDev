@@ -1332,6 +1332,11 @@ namespace NDevTest
 
 		TEST_METHOD(TestPointer)
 		{
+			struct FStub { FSize Size; FReal Real; };
+			TPointer<FStub> Default;
+			TPointer<FStub, EPointer::Weak> Weak;
+			TPointer<FStub, EPointer::Shared> Shared;
+			TPointer<FStub, EPointer::Unique> Unique;
 
 		}
 

@@ -27,6 +27,14 @@ namespace NDev
 				FEntry *_Next;
 			};
 			FSize _Count, Count;
+
+			FEntry()
+			{
+				_Next = NullPtr;
+				_Count = Count = 0;
+			}
+			
+			~FEntry() { }
 		};
 
 		FEntry *_Entry;
@@ -42,10 +50,43 @@ namespace NDev
 	};
 
 	template<typename TypeValue, EPointer EnumType = EPointer::Shared>
-	struct TPointer : public _FPointer, public TypeValue
+	struct TPointer;
+
+	template<typename TypeValue>
+	struct TPointer<TypeValue, EPointer::Weak> : public _FPointer, public TypeValue
 	{
 		using FValue = TypeValue;
 
+		/* TODO */
+
+		/*
+		~TPointer() { };
+
+		TPointer<TypeValue, EPointer::Shared> & operator=(const TypeValue &Rhs);
+
+		operator TypeValue();
+
+		FVoid operator delete(FPointer Rhs);
+
+		FVoid operator delete[](FPointer Rhs);
+		*/
+	};
+
+	template<typename TypeValue>
+	struct TPointer<TypeValue, EPointer::Shared> : public _FPointer, public TypeValue
+	{
+		using FValue = TypeValue;
+
+		/* TODO */
+
+	};
+
+	template<typename TypeValue>
+	struct TPointer<TypeValue, EPointer::Unique> : public _FPointer, public TypeValue
+	{
+		using FValue = TypeValue;
+
+		/* TODO */
 
 	};
 

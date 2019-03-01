@@ -236,6 +236,7 @@ PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).pdb $(SolutionDir)lib\$
     <ClInclude Include="..\lib\NDevPoint.h" />
     <ClInclude Include="..\lib\NDevPointer.h" />
     <ClInclude Include="..\lib\NDevQueue.h" />
+    <ClInclude Include="..\lib\NDevRange.h" />
     <ClInclude Include="..\lib\NDevRecord.h" />
     <ClInclude Include="..\lib\NDevReferences.h" />
     <ClInclude Include="..\lib\NDevResource.h" />

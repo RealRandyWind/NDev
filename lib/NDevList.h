@@ -30,14 +30,7 @@ namespace NDev
 
 		}
 
-		FSize Make()
-		{
-			FSize Index;
-			_New(Index);
-			return Index;
-		}
-
-		FSize Make(TypeValue Rhs)
+		FSize Make(TypeValue Rhs = TypeValue())
 		{
 			FSize Index;
 
@@ -45,12 +38,7 @@ namespace NDev
 			return Index;
 		}
 
-		TypeValue &New()
-		{
-			return _New();
-		}
-
-		TypeValue &New(TypeValue Rhs)
+		TypeValue &New(TypeValue Rhs = TypeValue())
 		{
 			return (_New() = Rhs);
 		}

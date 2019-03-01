@@ -11,12 +11,14 @@ namespace NDev
 {
 	using namespace Types;
 
-	template<FSize SizeFeature, FSize SizeLabel>
+	template<FSize SizeFeature, FSize SizeLabel, typename TypeValue = FReal>
 	struct TModel : public FResource
 	{
-		using FFeature = TPoint<SizeFeature, FReal>;
+		using FValue = TypeValue;
 
-		using FLabel = TPoint<SizeLabel, FReal>;
+		using FFeature = TPoint<SizeFeature, FValue>;
+
+		using FLabel = TPoint<SizeLabel, FValue>;
 
 		struct FSample
 		{
@@ -27,7 +29,7 @@ namespace NDev
 		struct FError
 		{
 			FLabel Value, Label;
-			FReal Weight, Epsilon;
+			FValue Weight, Epsilon;
 			FSize WorkerID, Significance;
 			FDuration Time;
 		};
@@ -190,7 +192,7 @@ namespace NDev
 			Error.Value = Sample.Label - Error.Label;
 			Error.Weight = 1;
 			Error.WorkerID = 0; 
-			Error.Epsilon = TLimit<FReal>::Epsilon();
+			Error.Epsilon = TLimit<FValue>::Epsilon();
 			Error.Significance = TLimit<FSize>::Infinity();
 			if (OnValidate) { OnValidate(Sample, Error); }
 		}
