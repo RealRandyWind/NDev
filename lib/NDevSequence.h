@@ -270,7 +270,7 @@ namespace NDev
 			return Result;
 		}
 
-		static TypeValue Element()
+		static TypeValue Item()
 		{
 			return TypeValue();
 		}

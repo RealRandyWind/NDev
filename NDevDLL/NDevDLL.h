@@ -12,5 +12,11 @@ namespace NDev
 {
 		struct NDEVDLL_EXPORTS FResource;
 
+		struct NDEVDLL_EXPORTS _FPointer;
+
 		template struct NDEVDLL_EXPORTS TSequence<_FResource>;
+
+		template struct NDEVDLL_EXPORTS TList<_FPointer::FEntry>;
+
+
 }
