@@ -1436,6 +1436,158 @@ namespace NDev
 	}
 
 	template<FSize Size, typename Type>
+	TPoint<Size, Type> Pry(const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Lower, const TPoint<Size, Type> &Upper, FBoolean bUpper = False)
+	{
+		FSize Index, End;
+		TPoint<Size, Type> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result[Index] = Pry(Lhs[Index], Lower[Index], Upper[Index], bUpper);
+		}
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
+	FVoid PryInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lower, const TPoint<Size, Type> &Upper, FBoolean bUpper = False)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = Pry(Into[Index], Lower[Index], Upper[Index], bUpper);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	FVoid PryInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Lower, const TPoint<Size, Type> &Upper, FBoolean bUpper = False)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = Pry(Lhs[Index], Lower[Index], Upper[Index], bUpper);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> Pry(const TPoint<Size, Type> &Lhs, const TPoint<Size, Type>(&Range)[2], FBoolean bUpper = False)
+	{
+		FSize Index, End;
+		TPoint<Size, Type> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result[Index] = Pry(Lhs[Index], Range[0][Index], Range[1][Index], bUpper);
+		}
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
+	FVoid PryInto(TPoint<Size, Type> &Into, const TPoint<Size, Type>(&Range)[2], FBoolean bUpper = False)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = Pry(Into[Index], Range[0][Index], Range[1][Index], bUpper);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	FVoid PryInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lhs, const TPoint<Size, Type>(&Range)[2], FBoolean bUpper = False)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = Pry(Lhs[Index], Range[0][Index], Range[1][Index], bUpper);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> Pry(const TPoint<Size, Type> &Lhs, const Type &Lower, const Type &Upper, FBoolean bUpper = False)
+	{
+		FSize Index, End;
+		TPoint<Size, Type> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result[Index] = Pry(Lhs[Index], Lower, Upper, bUpper);
+		}
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
+	FVoid PryInto(TPoint<Size, Type> &Into, const Type &Lower, const Type &Upper, FBoolean bUpper = False)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = Pry(Into[Index], Lower, Upper, bUpper);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	FVoid PryInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lhs, const Type &Lower, const Type &Upper, FBoolean bUpper = False)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = Pry(Lhs[Index], Lower, Upper, bUpper);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	TPoint<Size, Type> Pry(const TPoint<Size, Type> &Lhs, const Type(&Range)[2], FBoolean bUpper = False)
+	{
+		FSize Index, End;
+		TPoint<Size, Type> Result;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Result[Index] = Pry(Lhs[Index], Range[0], Range[1], bUpper);
+		}
+		return Result;
+	}
+
+	template<FSize Size, typename Type>
+	FVoid PryInto(TPoint<Size, Type> &Into, const Type(&Range)[2], FBoolean bUpper = False)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = Pry(Into[Index], Range[0], Range[1], bUpper);
+		}
+	}
+
+	template<FSize Size, typename Type>
+	FVoid PryInto(TPoint<Size, Type> &Into, const TPoint<Size, Type> &Lhs, const Type(&Range)[2], FBoolean bUpper = False)
+	{
+		FSize Index, End;
+
+		End = Size;
+		for (Index = 0; Index < End; ++Index)
+		{
+			Into[Index] = Pry(Lhs[Index], Range[0], Range[1], bUpper);
+		}
+	}
+
+	template<FSize Size, typename Type>
 	TPoint<Size, FBoolean> Between(const TPoint<Size, Type> &Lhs, const TPoint<Size, Type> &Lower, const TPoint<Size, Type> &Upper, FBoolean bStrict = True)
 	{
 		FSize Index, End;
@@ -1805,6 +1957,48 @@ namespace NDev
 			if (!bInBound) { return False; }
 		}
 		return bInBound;
+	}
+
+	template<FSize Size, typename Type>
+	FVoid BoundInto(TPoint<Size, Type> &IntoLower, TPoint<Size, Type> &IntoUpper, const TPoint<Size, Type> &Rhs)
+	{
+		MinInto(IntoLower, Rhs);
+		MaxInto(IntoUpper, Rhs);
+	}
+
+	template<FSize Size, typename Type>
+	FVoid BoundInto(TPoint<Size, Type>(&Into)[2], const TPoint<Size, Type> &Rhs)
+	{
+		MinInto(Into[0], Rhs);
+		MaxInto(Into[1], Rhs);
+	}
+
+	template<FSize Size, typename Type>
+	FVoid BoundInto(TPoint<Size, Type> &IntoLower, TPoint<Size, Type> &IntoUpper, const TPoint<Size, Type> &Lower, const TPoint<Size, Type> &Upper, const TPoint<Size, Type> &Rhs)
+	{
+		MinInto(IntoLower, Lower, Rhs);
+		MaxInto(IntoUpper, Upper, Rhs);
+	}
+
+	template<FSize Size, typename Type>
+	FVoid BoundInto(TPoint<Size, Type> &IntoLower, TPoint<Size, Type> &IntoUpper, const TPoint<Size, Type> (&Range)[2], const TPoint<Size, Type> &Rhs)
+	{
+		MinInto(IntoLower, Range[0], Rhs);
+		MaxInto(IntoUpper, Range[1], Rhs);
+	}
+
+	template<FSize Size, typename Type>
+	FVoid BoundInto(TPoint<Size, Type>(&Into)[2], const TPoint<Size, Type>(&Range)[2], const TPoint<Size, Type> &Rhs)
+	{
+		MinInto(Into[0], Range[0], Rhs);
+		MaxInto(Into[1], Range[1], Rhs);
+	}
+
+	template<FSize Size, typename Type>
+	FVoid BoundInto(TPoint<Size, Type>(&Into)[2], const TPoint<Size, Type> &Lower, const TPoint<Size, Type> &Upper, const Type &Rhs)
+	{
+		MinInto(Into[0], Lower, Rhs);
+		MaxInto(Into[1], Upper, Rhs);
 	}
 
 	template<FSize Size, typename Type>

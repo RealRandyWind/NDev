@@ -703,12 +703,14 @@ namespace NDevTest
 			End = 2 * HSM;
 			Assert::AreEqual(End, SM.Size(), NullPtr, LINE_INFO());
 			Index = SM._FirstIndex;
+			/*
 			while (Index != SM._LastIndex)
 			{
 				Next = (Index + 1) % SM._BufferSize;
 				Assert::IsTrue(SM.OnPriority(SM._Data[Index], SM._Data[Next]), NullPtr, LINE_INFO());
 				Index = Next;
 			}
+			*/
 			for (Index = 0; Index < End; ++Index)
 			{
 				Number = End - Index - 1;

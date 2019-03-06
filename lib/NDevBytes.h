@@ -16,15 +16,24 @@ namespace NDev
 		_Size
 	};
 
-	template<FSize SizeBits, EBytes EnumFrom = EBytes::LittleEndian, FSize SizeBlock = BlockSize>
+	template<FSize SizeBytes, EBytes EnumFrom = EBytes::LittleEndian, EBytes EnumTo = EBytes::LittleEndian, FSize SizeBlockFrom = BlockSize, FSize SizeBlockTo = BlockSize>
     struct TBytes
 	{
+		using FType = TBytes<SizeBytes, EnumFrom, EnumTo, SizeBlockFrom, SizeBlockTo>;
+
 		FByte _Data[SizeBytes];
 
-		static TBytes<SizeBytes> Like()
+		template<typename TypeLhs>
+		operator TypeLhs()
 		{
-			TBytes<SizeBytes> Result;
-			return Result;
+			TypeLhs Lhs;
+
+			return Lhs;
+		}
+
+		static FType Like()
+		{
+			return FType();
 		}
     };
 	

@@ -3,17 +3,29 @@
 #include "NDevTypes.h"
 #include "NDevDefinitions.h"
 #include "NDevSequence.h"
-#include "NDevPoint.h"
+#include "NDevReferences.h"
 
 namespace NDev
 {
 	using namespace Types;
 
-	template<FSize SizeData, typename TypeValue>
+	template<typename TypeValue, FSize SizeNodes = 2>
 	struct TTree
 	{
-		TSequence<TPoint<SizeData, TypeValue>> _Points, _Data;
-		TSequence<FSize> _Nodes
+		using FValue = TypeValue;
+
+		struct _FNode
+		{
+			FSize Index;
+			_FNode *Parent;
+			union
+			{
+				TReferences<SizeNodes, _FNode> Children;
+			};
+		};
+
+		TSequence<TypeValue> _Data;
+		TSequence<_FNode> _Nodes
 
 		TTree()
 		{

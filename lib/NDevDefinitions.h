@@ -64,6 +64,13 @@ namespace NDev
 	}
 
 	template<typename Type>
+	Type Pry(const Type &Lhs, const Type &Lower, const Type &Upper, FBoolean bUpper = False)
+	{
+		if (Lhs >= Upper || Lhs <= Lower) { return Lhs; }
+		return (bUpper ? (Upper - Lhs) <= (Lhs - Lower) : (Upper - Lhs) < (Lhs - Lower)) ? Upper : Lower;
+	}
+
+	template<typename Type>
 	FBoolean Between(const Type &Lhs, const Type &Lower, const Type &Upper, FBoolean bStrict = True)
 	{
 		return bStrict ? (Lhs < Upper && Lhs > Lower) : (Lhs <= Upper && Lhs >= Lower);
@@ -212,7 +219,7 @@ namespace NDev
 		}
 		else
 		{
-			for (Index = 0; Index + 1 < End; ++Index)
+			for (Index = 0; Index < End - 1; ++Index)
 			{
 				_Copy(&_Pointer[(Index + 1) * Steps], &_Pointer[Index * Steps], Steps);
 			}

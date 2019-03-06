@@ -89,14 +89,19 @@ namespace NDev
 
 		FVoid _ResizeQueue(FSize &Cursor, FBoolean &bFull)
 		{
+			// Q=(QiQj) | Q=(QjQi), |Q|=N
 			this->Reserve(this->_BufferSize + this->_IncrementSize);
+			// Q=(QiQjUk) | Q=(QjQiUk), |Q|=N+K, |Uk|=K
 			if (_LastIndex < _FirstIndex)
 			{
+				// Q=(QjQiUk), |Q|=N+K, |Uk|=K
 				Shift(&this->_Data[_FirstIndex], this->_IncrementSize, this->_BufferSize - _FirstIndex);
+				// Q=(QjUkQi), |Q|=N+K, |Uk|=K
 				if (Cursor >= _FirstIndex) { Cursor += this->_IncrementSize; }
 				_FirstIndex += this->_IncrementSize;
 			}
 			bFull = False;
+			// Q=(QiQjUk) | Q=(QjUkQi), |Q|=N+K, |Uk|=K
 		}
 
 		FVoid _FindPosition(const TypeValue &Value, FSize &Cursor, FBoolean &bPriority, FBoolean &bRejected) const

@@ -242,6 +242,17 @@ namespace NDev
 			for (Index = 0; Index < End; ++Index) { _Data[Index] = Value; }
 		}
 
+		TSequence<FSize> Indices(FBoolean bAll = True) const
+		{
+			FSize Index, End;
+			TSequence<FSize> _Indices;
+			
+			End = bAll ? _BufferSize : _Size;
+			_Indices.Reserve(End, True);
+			for (Index = 0; Index < End; ++Index) { _Indices[Index] = Index; }
+			return _Indices;
+		}
+
 		TypeValue * begin()
 		{
 			return _Data;
