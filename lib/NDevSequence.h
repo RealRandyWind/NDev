@@ -64,6 +64,11 @@ namespace NDev
 			return (_Size >= _BufferSize) && _Data;
 		}
 
+		FVoid NoFree(FBoolean bTrue = True)
+		{
+			_bClearDataOnReplace = _bClearDataOnDestroy = !bTrue;
+		}
+
 		FVoid IterateAll(FBoolean bTrue = True)
 		{
 			_bIterateAll = bTrue;
@@ -242,15 +247,13 @@ namespace NDev
 			for (Index = 0; Index < End; ++Index) { _Data[Index] = Value; }
 		}
 
-		TSequence<FSize> Indices(FBoolean bAll = True) const
+		FVoid Indices(TSequence<FSize> &Indices, FBoolean bAll = True) const
 		{
 			FSize Index, End;
-			TSequence<FSize> _Indices;
 			
 			End = bAll ? _BufferSize : _Size;
-			_Indices.Reserve(End, True);
-			for (Index = 0; Index < End; ++Index) { _Indices[Index] = Index; }
-			return _Indices;
+			Indices.Reserve(End, True);
+			for (Index = 0; Index < End; ++Index) { Indices[Index] = Index; }
 		}
 
 		TypeValue * begin()
@@ -273,12 +276,6 @@ namespace NDev
 		{
 			if (!_Data) { return NullPtr; }
 			return _Data + (_bIterateAll ? _BufferSize : _Size);
-		}
-
-		static TSequence<TypeValue> Like()
-		{
-			TSequence<TypeValue> Result;
-			return Result;
 		}
 
 		static TypeValue Item()
