@@ -14,6 +14,7 @@ namespace NDev
 		Weak,
 		Shared,
 		Unique,
+		_Default = Shared,
 		_Size
 	};
 
@@ -49,7 +50,7 @@ namespace NDev
 
 	};
 
-	template<typename TypeValue, EPointer EnumType = EPointer::Shared>
+	template<typename TypeValue, EPointer EnumType = EPointer::_Default>
 	struct TPointer;
 
 	template<typename TypeValue>
@@ -62,7 +63,7 @@ namespace NDev
 		/*
 		~TPointer() { };
 
-		TPointer<TypeValue, EPointer::Shared> & operator=(const TypeValue &Rhs);
+		TPointer<TypeValue, EPointer::_Default> & operator=(const TypeValue &Rhs);
 
 		operator TypeValue();
 

@@ -33,13 +33,13 @@
     <ClInclude Include="..\lib\NDevDisplay\NDevWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\lib\NDevDisplay\_NDevHWND.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\NDevDisplay\_NDevOpenGL.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\lib\NDevDisplay\NDevPipeline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\NDevDisplay\_NDevGLFW.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\NDevDisplay\_NDevVulkan.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
