@@ -822,6 +822,11 @@ namespace NDevTest
 			for (auto &Value : SK) { Assert::Fail(NullPtr, LINE_INFO()); }
 		}
 
+		TEST_METHOD(TestSet)
+		{
+			
+		}
+
 		TEST_METHOD(TestModel)
 		{
 			/*(F|L|M)\d   ${1}2*/

@@ -135,10 +135,10 @@
     <ClInclude Include="..\lib\NDevMathBases.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\lib\NDevRange.h">
+    <ClInclude Include="..\lib\NDevVersor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\lib\NDevVersor.h">
+    <ClInclude Include="..\lib\NDevSet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
