@@ -10,27 +10,52 @@ namespace NDev
     template<typename ... TypeAttributes>
     struct TRecord
 	{
-		template<typename Type>
-		struct TExpand;
-
 		template<typename ... Types>
-		struct TExpand<Types>
+		struct _TInfo
 		{
-			static const FSize Size = TExpand<Types ...>::Size + sizeof(Types ...);
+			static const FSize Size = sizeof ... (TypeAttributes);
+			static const FSize SizeOf = (... + sizeof(Types));
 		};
 
-		using FExpand = TExpand<TypeAttributes ...>;
+		using _FInfo = _TInfo<TypeAttributes...>;
 
-		FByte *_Data[FExpand::Size];
+		FByte _Data[_FInfo::SizeOf];
+		
 
 		FSize Size()
 		{
-			return sizeof...(TypeAttributes);
+			return _FInfo::Size;
 		}
 
 		const FSize Size() const
 		{
-			return sizeof...(TypeAttributes);
+			return _FInfo::Size;
+		}
+
+		FSize SizeOf()
+		{
+			return _FInfo::SizeOf;
+		}
+
+		const FSize SizeOf() const
+		{
+			return _FInfo::SizeOf;
+		}
+
+		const FDescriptor Descriptor() const
+		{
+			FDescriptor _Descriptor;
+
+			_Descriptor.Type = None;
+			_Descriptor.SizeOf = _FInfo::SizeOf;
+			_Descriptor.Size = 1;
+			_Descriptor._Size = 1;
+			_Descriptor.N = 0;
+			_Descriptor.bHeap = False;
+			_Descriptor.Bytes = (FByte*)&_Data[0];
+			_Descriptor.Offset = 0;
+			_Descriptor.Stride = 0;
+			return _Descriptor;
 		}
 
     };

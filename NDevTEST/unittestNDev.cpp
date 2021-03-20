@@ -5,10 +5,11 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 #include <random>
 #include "NDev.h"
+#include "_NDev.h"
 #include "ModelStub.h"
 #include "SimulationStub.h"
 
-namespace NDevTest
+namespace NDev::Test
 {
 
 	using namespace NDev;
@@ -1383,7 +1384,28 @@ namespace NDevTest
 
 		TEST_METHOD(TestRecord)
 		{
+			const FSize SI0 = 1, SI1 = 2, SI2 = 4;
+			FSize SizeOf = 0;
 
+			TRecord<FSize> R0;
+			TRecord<FSize, FSize> R1;
+			TRecord<FSize, FString, FBlock, FInteger[3]> R2;
+			
+			
+			Assert::AreEqual(SI0, R0.Size(), NullPtr, LINE_INFO());
+			SizeOf = sizeof(FSize);
+			Assert::AreEqual(SizeOf, R0.SizeOf(), NullPtr, LINE_INFO());
+			Assert::AreEqual(SizeOf, sizeof(R0), NullPtr, LINE_INFO());
+			
+			Assert::AreEqual(SI1, R1.Size(), NullPtr, LINE_INFO());
+			SizeOf = sizeof(FSize) + sizeof(FSize);
+			Assert::AreEqual(SizeOf, R1.SizeOf(), NullPtr, LINE_INFO());
+			Assert::AreEqual(SizeOf, sizeof(R1), NullPtr, LINE_INFO());
+
+			Assert::AreEqual(SI2, R2.Size(), NullPtr, LINE_INFO());
+			SizeOf = sizeof(FSize) + sizeof(FString) + sizeof(FBlock) + sizeof(FInteger[3]);
+			Assert::AreEqual(SizeOf, R2.SizeOf(), NullPtr, LINE_INFO());
+			Assert::AreEqual(SizeOf, sizeof(R2), NullPtr, LINE_INFO());
 		}
 
 		TEST_METHOD(TestPointer)

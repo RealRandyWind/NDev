@@ -3,8 +3,6 @@
 
 using namespace NDev;
 
-
-
 FSize FResource::_NextId = 0;
 FSize FResource::_Count = 0;
 TList<_FResource> FResource::_List = TList<_FResource>();

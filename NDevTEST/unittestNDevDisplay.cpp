@@ -6,7 +6,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 #include "NDev.h"
 #include "NDevDisplay/NDevDisplay.h"
 
-namespace NDevTest
+namespace NDev::Test
 {
 
 	using namespace NDev;

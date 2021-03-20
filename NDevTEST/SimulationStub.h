@@ -2,7 +2,7 @@
 
 #include "NDev.h"
 
-namespace NDevTest
+namespace NDev::Test
 {
 	using namespace NDev;
 	using namespace NDev::Types;
