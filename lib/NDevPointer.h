@@ -2,7 +2,7 @@
 
 #include "NDevTypes.h"
 #include "NDevDefinitions.h"
-#include <NDevList.h>
+#include "NDevList.h"
 
 namespace NDev
 {

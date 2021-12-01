@@ -18,8 +18,6 @@ namespace NDev
 
 		struct NDEVDISPLAYDLL_EXPORTS FContext;
 
-		struct NDEVDISPLAYDLL_EXPORTS FOpenGL;
-
 		struct NDEVDISPLAYDLL_EXPORTS FControler;
 
 

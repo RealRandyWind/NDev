@@ -71,8 +71,6 @@ namespace NDev
 		static decltype(std::clog) &LogStream = std::clog;
 		static decltype(std::cerr) &ErrorStream = std::cerr;
 
-
-
 	}
 
 

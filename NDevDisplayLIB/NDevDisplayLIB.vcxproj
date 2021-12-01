@@ -103,15 +103,16 @@
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;$(ProjectDir)dep\;$(ProjectDir)$(Platform)\dep</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;$(ProjectDir)dep;$(ProjectDir)$(Platform)\dep</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
       <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).lib $(SolutionDir)lib\$(Platform)\ -Force
@@ -128,15 +129,16 @@ PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).pdb $(SolutionDir)lib\$
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;$(ProjectDir)dep\;$(ProjectDir)$(Platform)\dep</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;$(ProjectDir)dep;$(ProjectDir)$(Platform)\dep</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
       <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).lib $(SolutionDir)lib\$(Platform)\ -Force
@@ -155,8 +157,9 @@ PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).pdb $(SolutionDir)lib\$
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;$(ProjectDir)dep;$(ProjectDir)$(Platform)\dep;%(AdditionalLibraryDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -165,7 +168,7 @@ PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).pdb $(SolutionDir)lib\$
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;$(ProjectDir)dep;$(ProjectDir)$(Platform)\dep;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
       <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).lib $(SolutionDir)lib\$(Platform)\ -Force
@@ -184,8 +187,9 @@ PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).pdb $(SolutionDir)lib\$
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;$(ProjectDir)dep;$(ProjectDir)$(Platform)\dep;%(AdditionalLibraryDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -194,7 +198,7 @@ PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).pdb $(SolutionDir)lib\$
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib;$(SolutionDir)$(Platform)\lib;$(SolutionDir)dep;$(SolutionDir)$(Platform)\dep;$(ProjectDir)dep;$(ProjectDir)$(Platform)\dep;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
       <Command>PowerShell.exe -Command Copy-Item $(OutDir)$(TargetName).lib $(SolutionDir)lib\$(Platform)\ -Force

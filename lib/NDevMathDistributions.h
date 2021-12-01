@@ -149,6 +149,34 @@ namespace NDev
 		}
 	};
 
+	struct FRandom : TDistribution<FSize>
+	{
+		std::random_device Generator;
 
+		FSize Min, Max;
+
+		FRandom()
+		{
+			Min = Generator.min();
+			Max = Generator.max();
+		}
+
+		~FRandom() { }
+
+		FVoid Parameters(FSize Min, FSize Max)
+		{
+			this->Min = Min;
+			this->Max = Max;
+		}
+
+		virtual FVoid Seed(FSize SeedIn) override { }
+
+		virtual FSize Next() override
+		{
+			return (Generator() % Max - Min) + Min;
+		}
+
+		virtual FVoid Reset() override { }
+	};
 
 }

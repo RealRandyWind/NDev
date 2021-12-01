@@ -51,9 +51,7 @@ namespace NDev
 	{
 		Type Temp;
 
-		Temp = Lhs;
-		Lhs = Rhs;
-		Rhs = Temp;
+		Temp = Lhs; Lhs = Rhs; Rhs = Temp;
 		return Rhs;
 	}
 

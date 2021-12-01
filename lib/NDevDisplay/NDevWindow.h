@@ -14,11 +14,14 @@ namespace NDev
 		struct FWindow
 		{
 			FReal FieldOfView, AspectRatio, Near, Far;
-			FSize Width, Height, X, Y, _Id;
+			FSize _Id, _UpdateCount;
+			TSize2D<FSize> Size;
+			TPoint2D<FSize> Position;
 			FBoolean bFullScreen, bBorderless, bWait, bPerspective, bHold, bUpdate;
 			FString Title, Style, Simulation;
 			TColor<FReal> Color;
-			TPoint3D<FReal> LookAt, Position, Up;
+			TTransform3D<FReal> Transform;
+			FPointer _State;
 
 			FWindow()
 			{
@@ -29,14 +32,15 @@ namespace NDev
 			{
 				if (Style) { Remove(Style); }
 				if (Title) { Remove(Title); }
+				if (Simulation) { Remove(Simulation); }
 			}
 
 			virtual FVoid UseDefault()
 			{
-				Width = 1280;
-				Height = 720;
-				X = Y = 32;
-				AspectRatio = static_cast<FReal>(Width) * (1.0 / static_cast<FReal>(Height));
+				Size.W = 1280;
+				Size.H = 720;
+				Position.X = Position.Y = 32;
+				AspectRatio = static_cast<FReal>(Size.W) * (1.0 / static_cast<FReal>(Size.H));
 				bFullScreen = false;
 				bBorderless = false;
 				bWait = false;
@@ -48,11 +52,8 @@ namespace NDev
 				FieldOfView = 35;
 				Color.R = Color.G = Color.B = 0.0;
 				Color.A = 1.0;
-				LookAt.X = LookAt.Y = LookAt.Z = 0.0;
-				Position.X = Position.Y = 0.0;
-				Position.Z = 40.0;
-				Up.X = Up.Z = 0.0;
-				Up.Y = 1.0;
+				Transform.Bases = 0.0;
+				Transform.Left.X = Transform.Up.Y = Transform.Front.Z = Transform.Origin.W = 1.0;
 				Style = NullPtr;
 				Title = NullPtr;
 				Simulation = NullPtr;
@@ -63,13 +64,28 @@ namespace NDev
 
 		struct _FWindow
 		{
-			FVoid Update(const FWindow &Window)
+			FVoid Display(const FDescriptor &Buffer, FWindow &Window)
 			{
-				_Update(Window);
+				if (Window._State) { _Update(Window); }
+				else { _Make(Buffer, Window); }
+			}
+
+			FVoid Update(FWindow &Window)
+			{
+				if (Window._State) { _Update(Window); }
+			}
+
+			FVoid Wait()
+			{
+				_Wait();
 			}
 
 		protected:
-			virtual FVoid _Update(const FWindow &) = 0;
+			virtual FVoid _Update(FWindow &) = 0;
+
+			virtual FVoid _Make(const FDescriptor &, FWindow &) = 0;
+
+			virtual FVoid _Wait() = 0;
 
 		};
 

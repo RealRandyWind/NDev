@@ -306,7 +306,7 @@ namespace NDev::Test
 		TEST_METHOD(TestText)
 		{
 			const char *CString = "C String";
-			const FString NDevString = "NDev String";
+			const FString NDevString = (FString)"NDev String";
 
 			FString String;
 			String = Text(CString);
